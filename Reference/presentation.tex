@@ -1,0 +1,915 @@
+\documentclass{beamer}
+\mode<presentation>
+{
+  \setbeamertemplate{background canvas}[vertical shading][bottom=orange!10,top=blue!10]
+
+  \usetheme{JuanLesPins}
+  \usefonttheme[onlysmall]{structurebold}
+}
+\usepackage{multirow}
+\title{Bayesian Methods for Inference on the Causal Effects of Mediation}
+\author[]{Chanmin Kim}
+\date{Final Defense \\ June 26 2013}
+\institute{Department of Statistics \\ Univsesity of Florida}
+
+\begin{document}
+\begin{frame}
+ \titlepage
+\end{frame}
+\begin{frame}
+ \frametitle{Outline}\section{}
+
+\tableofcontents[currentsubsection]
+
+\end{frame}
+
+\section{Introduction}
+\begin{frame}
+\frametitle{What is the Causal Effect of Mediation?}
+\begin{itemize}
+\item Investigators interest in {\color{red} Causal Mechanism} as well as causal effects.
+\item Randomized experiments often only determine the effect of the
+  treatment on the outcome.
+\item Causal mediation analysis:
+\begin{equation*}
+\begin{array}{ccccc}
+  &          & \color{red} Mediator\, (M) & &\\
+  & \color{red} \nearrow & & \color{red}\searrow & \\
+Treatment\, (Z) & & \longrightarrow & & Outcome\, (Y) 
+\end{array}
+\end{equation*}
+\item Question : How can we learn about the causal mechanism from
+  observational or experimental studies?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Examples}
+\begin{itemize}
+\item Family and social support mediating the effect of care
+  managed-based interventions on depression.
+\item The effect of vaccines can be from stimulation of subject's
+  immune system or reducing risk of infection (herd effect) among
+  population.
+\item Motivation and self-efficacy mediating the effect of perceived
+  person-job fit on job performance. 
+\item Compliance level (measured by self-monitoring records) mediating
+  the effect of face-to-face counseling treatment on weight loss. 
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Potential Outcomes Framework}
+Also called `Rubin Causal Model' (RCM) (Holland, 1986)
+\begin{itemize}
+\item Binary treatment :   $Z$ ( Control=0 vs. Intervention=1).
+\item Mediator : $M$
+\item Outcome : $Y$
+\item Baseline covariates : $X$
+\item Potential mediators : $M_z$ where $M_{obs}=Z M_1 + (1-Z) M_0$ observed
+\item {\color{red} Potential outcomes
+} : $Y_{z,m}$ where $Y_{obs}=Z Y_{1,M_{1}} + (1-Z) Y_{0,M_0}$
+  observed
+\end{itemize}
+Only one of $\{Y_{1,M_1},Y_{0,M_0}\}$ can be observed for each
+$i$. And $\{Y_{1,M_0},Y_{0,M_1}\}$ are never observed!
+\end{frame}
+
+\begin{frame}
+\frametitle{Causal Mediation Effects}
+Then,
+\begin{itemize}
+\item Total Effect (TE) : \[Y_{1,M_1}-Y_{0,M_0}\]
+\item Indirect Effect (IE) ({\color{red} Mediation Effect}) :
+  \[Y_{1,M_1} - Y_{1,M_0}\]
+\item Causal effect of the change in $M$ on $Y$ while holding the
+  treatment constant.
+\item Represents the mechanism through $M$.
+\item Contains unobservable {\color{red} $Y_{1,M_0}$}! 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+\item Direct Effect (DE) :
+\begin{eqnarray*}
+\lefteqn{TE - IE }\\
+& = & Y_{1,M_1}-Y_{0,M_0}
+-\{Y_{1,M_1}-Y_{1,M_0}\}\\
+ & = & Y_{1,M_0}-Y_{0,M_0}
+\end{eqnarray*}
+\item Causal effect of treatment $z$ on outcome $Y$ while holding
+  mediator constant at its natural value under control.
+\medskip
+\item Represents causal mechanism around $M$.
+\medskip
+\item Also, contains unobservable  {\color{red} $Y_{1,M_0}$}! 
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Controlled Effect vs Natural Effect (Pearl, 2001)}
+{\bf Controlled Direct Effect}
+\begin{itemize}
+\item $Y_{1,m}-Y_{0,m}$ for a certain level $m \in M$.
+\item Causal effect if one can directly manipulate the mediator.
+\end{itemize} 
+{\bf Natural Direct Effect}
+\begin{itemize}
+\item $Y_{1,M_0}-Y_{0,M_0}$.
+\item Mediator is set to have its natural value.
+\end{itemize}
+{\bf Average Causal Effect of Intervention}
+\begin{itemize}
+\item Since we observe either $Y_{1,M_1}$ and $Y_{0,M_0}$ for
+  an individual, compute $E\{Y_{1,M_1}-Y_{0,M_0}\}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Assumptions for Identification}
+Several combinations of assumptions are typically required for inference on causal effects.
+\begin{itemize}
+\item Sequential ignorability 
+\[\{Y_{z',m},M_z\} \perp Z \,| \,X\]
+\[Y_{z',m} \perp M_z \,| \,Z, X\]
+\item No-interaction assumption (about controlled direct effect)  
+\[Y_{1,m}-Y_{0,m} = B\]
+\item Exclusion restriction
+\[Y_{z,m}=Y_{z',m} \hspace{2mm} \mbox{ for all } z, z' \mbox{ and for all } m\] states treatments affect potential outcomes
+only through mediators. So, no D.E.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Literature}
+\begin{enumerate}
+\item {\color{red} Structural Equation Models} (SEM) (Baron \& Kenny, 1986; MacKinnon
+  et al, 2002; Sobel, 1982; Preacher \& Hayes, 2008)
+
+: highly parametric. assume sequential igonorability and no interaction.
+\item {\color{red} Principal Stratification} (PS) (Frangakis \& Rubin,
+  2002, Gallop et al, 2009)
+
+: assume SUTVA. problems with drawing the population effects. (VanderWeele, 2011)
+\item {\color{red} Instrumental Variables} (IV) (Angrist et al., 1996;
+  Albert, 2008; Sobel, 2008)
+
+: assume exclusion restriction
+\item {\color{red} Structural Mean Models} (SMM) (Ten Have et al.,
+  2004)
+
+: assume no-interaction.
+\item {\color{red} Marginal Structural Models} (MSM) (Robins et al., 2000)
+
+: assume sequential ignorability. 
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Goals of the Dissertation}
+Present a Bayesian framework for inference on causal effects of
+mediation
+\bigskip
+\begin{enumerate}
+\item Use different and intuitive assumptions with sensitivity parameters.
+\bigskip
+\item Examine sensitivity to the assumptions.
+\bigskip
+\item Develop for several common scenarios (e.g.,single mediator,
+  longitudinal mediation, multiple mediators).
+\bigskip
+\end{enumerate}
+\end{frame}
+
+
+\section{Single Mediator Setting}
+\begin{frame}
+
+\center {\bf \large Single Mediator Case}
+ 
+\center{assume only one mediator on the causal pathway}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Review of Notation}
+From the potential outcome framework, define
+\medskip
+\begin{itemize}
+\item Binary Treatment : $Z$ ( Control=0 vs. Intervention=1).
+\medskip
+\item Potential Mediator : $M_z$ under treatment $z$. 
+\medskip
+\item Observed Mediator : $M_{obs} = Z M_1 + (1-Z) M_0$
+\medskip
+\item Potential Outcome : $Y_{z,M_{z'}}$ for $z,z' \in \{0,1\}$
+\medskip
+\item Observed Outcome : $Y_{obs} = Z Y_{1,M_1} + (1-Z) Y_{0,M_0}$
+\end{itemize}
+\medskip
+Note that $Y_{1,M_0}$ and $Y_{0,M_1}$ are not observable.
+\end{frame}
+
+\begin{frame}
+\frametitle{Assumptions}
+\begin{block}{Assumption 1 (Randomization)}
+\[\{Y_{z',m}, M_z \} \perp Z.\]
+\end{block}
+\begin{block}{Assumption 2a }
+Let $D=(M_1-M_0)$. For a fixed $\epsilon$,
+$$P(Y_{1,M_{0}} = 1 | M_{0}=m, |D| < \epsilon) = P(Y_{1,M_{1}} = 1 | M_1=m, |D| < \epsilon).$$
+\end{block}
+\begin{block}{Assumption 2b }
+For a fixed $\epsilon$, and $\chi$, 
+we assume 
+\begin{eqnarray*}
+ \lefteqn{P(Y_{1,M_{0}} = 1 | M_{0}=m, |D| \geq \epsilon) =}\\
+ && \chi^{\mbox{sgn}(d)}P(Y_{1,M_{1}} = 1 | M_1=m, |D| \geq \epsilon).
+\end{eqnarray*}
+\end{block}
+\end{frame}
+ 
+
+
+
+\begin{frame}
+\begin{block}{Assumption 3}
+$$f_{M_{z'}}(m_{z'} | m_{z}, Y_{z,M_z}) = 
+f_{M_{z'}}(m_{z'} | m_{z})$$
+\end{block}
+\begin{block}{Assumption 4 (Joint Distribution of Mediators)}
+ This follows a Gaussian copula model (Nelsen, 1999),
+\[
+F_{M_0, M_1}(m_0,
+m_1)=\Phi_2\left[\Phi_1^{-1}\{F_{M_0}(m_0)\},
+\Phi_1^{-1}\{F_{M_1}(m_1)\}\right]
+\]
+\noindent where $\Phi_1$ is the univariate standard normal CDF and $\Phi_2$
+is the bivariate normal CDF with mean $(0,0)^T$, variance $(1,1)^T$
+and correlation $\rho \in (-1,1)$.  
+\end{block}
+\begin{block}{Assumption 5 (Conditional Independence)}
+ $$f_{(1,M_1),(1,M_0),(0,M_0)}(y_{11}, y_{10}, y_{00}
+ |m_0, m_1) = \qquad\qquad$$
+ $$\qquad f_{1,M_1}(y_{11}| m_0, m_1)f_{1,M_0}(y_{10} | m_0, m_1)f_{0,M_0}(y_{00} | m_0, m_1).$$
+\end{block}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Identification}
+\begin{block}{Theorem}
+The joint posterior distribution of NIE and
+NDE is identified under Assumptions 1-5.
+\end{block}
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+\frametitle{TOURS : weight management trial (Perri et al., 2008)}
+\begin{itemize}
+\item Randomized trial to compare the effectiveness of
+extended care programs of weight management.
+\item After completing a standard
+six month lifestyle modification program, participants were randomly
+assigned to telephone counseling, face-to-face counseling or an
+education control group.
+\item {\color{red} Treatment} : Face to face (FTF) vs Education
+  control (EC).
+\item {\color{red} Mediator} : The number of days with self-monitoring
+  records for food intake (0-350) during 6 to 18 months.
+\item {\color{red} Binary outcome} : Among those that lost $\geq 5\%$ of weight by 6
+    months, indicator of whether they maintained the $\geq 5\%$ weight
+    loss from 6-18 months.
+\end{itemize}
+\end{frame}
+
+
+%\begin{frame}
+
+%\begin{table}[h]
+%\caption{Posterior means and credible intervals :
+%  $\rho$=0.3.}
+%\centering
+%\begin{tabular}{c c c c c}
+%\hline
+%$\epsilon$ & $\chi$ & NDE & NIE & TE \\ [0.5ex]
+%\hline
+%$50$ & 1 & 0.078  & 0.007 & 0.085 \\
+% & & (-0.073,0.25) & (-0.086,0.12) & (-0.070,0.25)\\
+%\hline
+%$50$ & 1.3 & 0.087  & -0.0023 & 0.085 \\
+% & & (-0.078,0.26) & (-0.10,0.10) & (-0.070,0.25)\\
+%\hline
+%\hline
+%$75$ & 1 & 0.077  & 0.007 & 0.085 \\
+% & & (-0.076,0.25) & (-0.095,0.12) & (-0.070,0.25)\\
+%\hline
+%$75$ & 1.3 & 0.086  & -0.001 & 0.085 \\
+% & & (-0.079,0.26) & (-0.10,0.10) & (-0.070,0.25)\\
+%\hline
+%\hline
+%$100$ & 1 & 0.078  & 0.006 & 0.085 \\
+% & & (-0.071,0.25) & (-0.095,0.12) & (-0.070,0.25)\\
+%\hline
+%$100$ & 1.3 & 0.085  & 0.0001 & 0.085 \\
+% & & (-0.079,0.26) & (-0.10,0.10) & (-0.070,0.25)\\
+%\hline
+%\end{tabular}
+%\end{table}
+%\end{frame}
+
+\begin{frame}
+
+\begin{table}[h]
+\caption{Posterior means and credible intervals :
+  $\rho$=0.7.}
+\centering
+\begin{tabular}{c c c c c}
+\hline
+$\epsilon$ & $\chi$ & NDE & NIE & TE \\ [0.5ex]
+\hline
+$50$ & 1 & 0.077  & 0.007 & 0.085 \\
+ & & (-0.073,0.25) & (-0.092,0.13) & (-0.070,0.25)\\
+\hline
+$50$ & 1.3 & 0.088  & -0.003 & 0.085 \\
+ & & (-0.085,0.26) & (-0.10,0.099) & (-0.070,0.25)\\
+\hline
+\hline
+$75$ & 1 & 0.077  & 0.007 & 0.085 \\
+ & & (-0.066,0.25) & (-0.088,0.12) & (-0.070,0.25)\\
+\hline
+$75$ & 1.3 & 0.086  & -0.001 & 0.085 \\
+ & & (-0.087,0.26) & (-0.097,0.10) & (-0.070,0.25)\\
+\hline
+\hline
+$100$ & 1 & 0.078  & 0.007 & 0.085 \\
+ & & (-0.069,0.25) & (-0.091,0.12) & (-0.070,0.25)\\
+\hline
+$100$ & 1.3 & 0.084  & 0.0006 & 0.085 \\
+ & & (-0.084,0.26) & (-0.10,0.10) & (-0.070,0.25)\\
+\hline
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Summary}
+\begin{itemize}
+\item Based on analysis, the number of self-monitoring food records
+  completed was not a mediator.
+\end{itemize}
+\end{frame}
+
+
+\section{Longitudinal Mediator}
+
+\begin{frame}
+
+\center {\bf \large Longitudinal Mediator}
+ 
+\center{assume single treatment and longitudinal outcomes and mediators }
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Approaches}
+{\bf In the time-varying treatment setting}
+\begin{itemize}
+\item {\color{red} Regression based approach}:  Maxwell et al. (2011). Structural models between $Z_t$, $M_t$ and $Y_t$ at each time and over all time periods.
+\item {\color{red} Marginal structural models}: van der Laan and Petersen (2004). Estimating the marginal mean of potential outcome $E(Y^{\bar{z},\bar{M}^{\bar{z'}}})$
+where $\bar{z}$ denotes treatment histories.
+\end{itemize}
+{\bf Others}
+\begin{itemize}
+\item {\color{red} Parallel-process model}: Cheong et al. (2003). Mediators and outcomes are modeled as different parallel processes with latent factors. Specify structural equation models of latent factors.
+\item {\color{red} Principal strata approach}: Lin et al. (2008). Use a mediator to form principal strata and draw principal strata direct and indirect effects. 
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Basic Framework}
+\begin{figure}[h]
+\centering
+\scalebox{0.26}
+{\includegraphics{figure4.png}}
+\caption{Mediation model with time $t=1,2,3$.}
+\begin{itemize}
+\item Outcome $Y_t$ is affected by the preceding mediator $M_{t-1}$ and both have their own causal pathways.
+\item Mediator $M_t$ is affected by the outcome $Y_t$.
+\item Outcomes and mediators have direct paths from the treatment $Z$.
+\end{itemize}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Longitudinal Mediation Analysis}
+\begin{itemize}
+\item Potential mediator : $M_t^z$
+as the value of the mediator at time $t = 1, \cdots, T$
+under treatment $Z=z$.
+\item Full histories of mediators : $M^1 = (M_1^1,\cdots, M_T^1)$ and $M^0 =
+(M_1^0,\cdots, M_T^0)$.
+\item Potential outcome : $Y_t^{z,M_{t-1}^z}$
+denotes the outcome that would be observed at time $t$ if $Z=z$.
+\item Then, causal effects at time $t$, 
+\begin{eqnarray*}
+NDE_t & = & 
+E(Y_t^{1,M^0_{t-1}}- Y_t^{0,M^0_{t-1}} )\\
+ NIE_t & = &
+E(Y_t^{1,M^1_{t-1}}- Y_t^{1,M^0_{t-1}} )\\
+TE_t & = & NDE_t+NIE_t = E(Y_t^{1,M^1_{t-1}}- Y_t^{0,M^0_{t-1}} ).
+\end{eqnarray*}
+\item We update these by a Bayesian dynamic model and the observed data.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bayesian Dynamic Models (West \& Harrison, 1989)}
+Define $V_t=(Y_t, M_{t-1})$ to be the
+response at time $t$ and mediator at time $t-1$ assume a model
+$p_t(V_t|\boldsymbol{\theta_t})$ parameterized by
+$\boldsymbol{\theta_t}$.
+\begin{block}{Modeling Assumption}
+Conditional on a vector of
+  state parameters, $\boldsymbol{\theta_t}$, $V_t=(Y_t,
+M_{t-1})$ is independent of $V_{s-1}$ and $\boldsymbol{\theta_s}$
+  for all values of $s<t$.
+\end{block}
+\begin{itemize}
+\item Observation Model : $ V_t \sim
+p_t(V_t | \boldsymbol{\theta_{t}}, V_{t-1})$.
+\item Evolution Model : $(\boldsymbol{\theta_t}|\boldsymbol{\theta_{t-1}}) \sim p_e(\boldsymbol{\theta_t}|\boldsymbol{ \theta_{t-1}})$
+
+for $t=1,\cdots, T.$
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Assumptions}
+Let $D_{t-1}=M_{t-1}^1-M_{t-1}^0$. And let $y_t^{zz'}$ denote $y_t^{z,M^{z'}_{t-1}}$ for notational simplicity.
+\begin{block}{Assumption 1a}
+For a fixed $\epsilon$ at each time $t$,
+\begin{eqnarray*}
+\lefteqn{f_{1,M_{t-1}^0}(y_t^{10}|M_{t-1}^0=m, |D_{t-1}|\leq \epsilon, \boldsymbol{\theta_t})=}\\
+& & \quad \quad \quad f_{1,M_{t-1}^1}(y_t^{11}|M_{t-1}^1=m, |D_{t-1}|\leq \epsilon, \boldsymbol{\theta_t}).
+\end{eqnarray*}
+\end{block}
+\begin{itemize}
+\item Among the subject for whom the treatment would have minimal
+  impact on the mediator (quantified by $\epsilon$), the distributions
+  of the outcomes are the same whether the mediator value induced by
+  $z=1$ or $z=0$ conditional on $\boldsymbol{\theta_t}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{block}{Assumption 1b}
+For a fixed $\epsilon$ and $\chi$,
+\begin{eqnarray*}
+\lefteqn{f_{1,M_{t-1}^0}(y_t^{10}|M_{t-1}^0=m, |D_{t-1}|\geq \epsilon, \boldsymbol{\theta_t})\propto}\\
+& & \text{exp}(\log(\chi^{sgn(D_{t-1})}) y_t^{11}) f_{1,M_{t-1}^1}(y_t^{11}|M_{t-1}^1=m, |D_{t-1}|\geq \epsilon, \boldsymbol{\theta_t}).
+\end{eqnarray*}
+\end{block}
+\begin{itemize}
+\item The second assumption is for the subgroup of subjects for whom the intervention has a greater than $\epsilon$ effect on $M_{t-1}$.
+\end{itemize}
+Thus, Assumption 1a and b stratify the population into those where the intervention has a large versus small effect on the mediator.
+\end{frame}
+
+\begin{frame}
+\begin{block}{Assumption 2}
+For a fixed $z$ at each time $t$,
+\[f_{z,M_{t-1}^z}(y_t^{zz} | m_{t-1}^z, m_{t-1}^{(1-z)}, \boldsymbol{\theta_t}) = f_{z,M_{t-1}^z}(y_t^{zz}|m_{t-1}^z, \boldsymbol{\theta_t}).\]
+\end{block}
+\begin{itemize}
+\item The potential outcomes $Y_t^{z,M_{t-1}^z}$ are independent of the mediator under the other treatment $M_{t-1}^{(1-z)}$ conditional on the mediator associated with the potential outcomes $M_{t-1}^z$ and the vector of state parameters $\boldsymbol{\theta_t}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{block}{Assumption 3 (Conditional Independence)}
+\begin{eqnarray*}
+\lefteqn{f_{(1,M_{t-1}^1),(1,M_{t-1}^0),(0,M_{t-1}^0)}(y_t^{11},y_t^{10},y_t^{00}|m_{t-1}^0, m_{t-1}^1,\boldsymbol{\theta_t})=}\\
+& & f_{1,M_{t-1}^1}(y_t^{11}|m_{t-1}^0, m_{t-1}^1,\boldsymbol{\theta_t}) \times
+f_{1,M_{t-1}^0}(y_t^{10}|m_{t-1}^0, m_{t-1}^1,\boldsymbol{\theta_t})\\
+& & \times
+f_{0,M_{t-1}^0}(y_t^{00}|m_{t-1}^0, m_{t-1}^1,\boldsymbol{\theta_t}).
+\end{eqnarray*}
+\end{block}
+\begin{itemize}
+\item Not necessary to estimate $E[NIE_t|data]$ and $E[NDE_t|data]$.
+\item Necessary to estimate other features of the posterior distribution of $NIE_t$ and $NDE_t$ such as an upper bound on the variance.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{block}{Assumption 4}
+For the joint distribution of mediators, we assume a Gaussian copula model
+\begin{eqnarray*}
+\lefteqn{F_{M_t^0,M_t^1}(m_t^0,m_t^1 | \boldsymbol{\theta_{t+1}}) =}\\ & &\Phi_2[\Phi_1^{-1}\{F_{M_t^0}(m_t^0|\boldsymbol{\theta_{t+1}})\}, \Phi_1^{-1}\{F_{M_t^1}(m_t^1|\boldsymbol{\theta_{t+1}})\}]
+\end{eqnarray*}
+\end{block}
+\begin{itemize}
+\item $\phi_1$ is the univariate standard normal CDF and $\phi_2$ is the bivariate normal CDF with mean $(0,0)^T$, variance $(1,1)^T$ and correlation $\rho$.
+\item $\rho$ is a sensitivity parameter since the two mediators are not observed at the same time.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Identification}
+\begin{block}{Theorem}
+The joint posterior distribution of $NIE_t$ and $NDE_t$ for each $t = 1, \cdots, T$ is identified under Assumptions 1-4 and the Bayesian dynamic model.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Specification of Models}
+{\bf Observation model}
+\begin{itemize}
+\item $(Y_t^{zz},Y_{t-1}^{zz}) \sim \text{Mult}(\pi_{1t}^z,\pi_{2t}^z,\pi_{3t}^z) \quad \text{for} t=2, \cdots, T.$
+\item For mediators, we need two conditional distributions,
+\[f_{M_{t-2}^z}(m_{t-2}^z|y_t^{zz}, y_{t-1}^{zz}) \text{ and } f_{M_{t-1}^z}(m_{t-1}^z|m_{t-2}^z,y_t^{zz}, y_{t-1}^{zz}).\]
+\item We specify conjugate normal-normal MDP models (MacEachern and M\"uller, 1998) for these.
+\end{itemize}
+{\bf Evolution model}
+\begin{itemize}
+\item $\boldsymbol{\pi_t}^z | \boldsymbol{\pi_{t-1}}^z \sim \text{Dir}(\delta_t^z \boldsymbol{\pi_{t-1}}^z),$
+where the hyperparameter $\delta_t$ is given a uniform shrinkage prior (Daniels, 1999).
+\item For the mediator, we update parameters of the base measures of the MDP models (Observation models).
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Application: CTQ II (Marcus et al., 2005)}
+\begin{itemize}
+\item A randomized clinical trial to study the effect of moderate-intensity exercise on smoking cessation over 8 weeks.
+\item Moderate intensity exercise intervention $(n_1=109)$ vs. equivalent staff contact time control $(n_0=108)$.
+\item Potential {\color{red} mediator} at week $t$ is the difference between baseline weight and weight measured at week $t$.
+\item {\color{red} Binary outcome} at week $t$ is quit status (quit=1).
+\item Since the target quit week was week 3, we assess the effects from week 4 to week 8.
+\item Assume missingness is ignorable.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sensitivity Parameters}
+\begin{itemize}
+\item The difference in the average weight changes between two groups at week 8 was 0.7. with S.D. of 1.65.
+\item Consider differences more than 0.7 as the case that Assumption
+  1a does not hold. 
+\item $\epsilon$ varies from 0.7 to 2.3 (average+ 1 S.D.).
+\item We assume the impact of treatment on the mediator being more than $1\sim 2$ pounds could reflect a negative impact up to the odds ratio of about 0.5.
+\item $\chi$ varies from 0.5 to 1.
+\item We assume the positive correlation between mediators. $\rho\in [0,1)$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[h]
+\centering
+\scalebox{0.44}
+{\includegraphics{5.pdf}}
+\caption{Cessation rates of the exercise intervention and the contact
+  control under ignorability}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}[h]
+\centering
+\scalebox{0.22}
+{\includegraphics{2.pdf}}
+\caption{NIE, NDE and TE for week 4,5,6,7,8 when $\rho=0.3$}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\begin{figure}[h]
+\centering
+\scalebox{0.22}
+{\includegraphics{3.pdf}}
+\caption{NIE, NDE and TE for week 4,5,6,7,8 when $\rho=0.5$}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}
+\begin{figure}[h]
+\centering
+\scalebox{0.22}
+{\includegraphics{4.pdf}}
+\caption{NIE, NDE and TE for week 4,5,6,7,8 when $\rho=0.7$}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Discussion}
+\begin{itemize}
+\item Based on analysis, the effect of moderate exercise intervention
+  vs. the staff contact control was marginally significant (in a
+  negative way).
+\item The longitudinal mediator, weight change, had a significant
+  positive impact
+\item For future work,
+\begin{itemize}
+\item Explore time-varying treatments instead of a single time treatment.
+\item Also, incorporate time-varying covariates to weaken some of assumptions.
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\section{Multiple Mediators}
+
+
+\begin{frame}
+
+\center {\bf \large Multiple Mediators}
+ 
+\center{assume multiple mediators on the causal pathway }
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Setting of Multiple Mediators}
+\begin{itemize}
+\item We can extend the previous method to the case of multiple
+  mediators.
+\begin{eqnarray*}
+\begin{array}{ccccc}
+Z & & \longrightarrow & & Y \\
+  & \searrow & \vdots & \nearrow & \\
+  &          & M^1, \cdots, M^n & &
+\end{array}     
+\end{eqnarray*} 
+\item We focus on the situation that mediators are measured at the
+  same time (not sequentially).
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Framework for Multiple Mediators}
+\begin{itemize}
+\item $M_z^k$: $k$-th potential mediator under treatment $Z=z$.
+\item $Y_{z,M_{z_1}^1M_{z_2}^2\cdots ,M_{z_K}^K}$: Potential outcome
+  under randomization to intervention level $z$ and realized mediator
+  values $M_{z_1}^1M_{z_2}^2\cdots ,M_{z_K}^K$ where $\{z, z_1,
+  \cdots, z_K\} \in \{0, 1\}^{\otimes (K+1)}$.
+\item Observed mediator: $M^k=ZM_1^k+(1-Z)M_0^k$.
+\item Observed outcome:
+  $Y=ZY_{1,M_1^1M_1^2\cdots M_1^K}+(1-Z)Y_{0,M_0^1M_0^2\cdots M_0^K}.$
+\item Let $\mathbf{M}_z = \{M_z^1,M_z^2,\cdots,M_z^K\}$ for notational
+  simplicity.
+\item The potential outcome $Y_{z,M_z^1M_z^2\cdots M_z^K}$ can be
+  re-written as $Y_{z,\mathbf{M}_z}$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Decomposition of the Total Effect}
+\begin{itemize}
+\item Total Effect (TE) : 
+\[TE  = E(Y_{1,\mathbf{M}_1}-Y_{0,\mathbf{M}_0}).\]
+\item Natural Direct Effect (NDE) : 
+\[ NDE = E(Y_{1,\mathbf{M}_0}-Y_{0,\mathbf{M}_0}).\]
+\item {\color{red} Joint Natural Indirect Effect (JNIE)} :
+\[JNIE= TE - NDE = E(Y_{1,\mathbf{M}_1}-Y_{1,\mathbf{M}_0})\]
+which is  the aggregate effect of all mediators.
+\end{itemize}
+Also, decompose $JNIE$ further to get mediator-specific indirect effects (e.g., $NIE_1, \cdots, NIE_K$).
+\end{frame}
+
+\begin{frame}
+\frametitle{Decomposition of JNIE}
+WLOG, assume 3 mediators on the causal pathway,
+\begin{figure}[h]
+\centering
+\scalebox{0.53}
+{\includegraphics{decomp.png}}
+\caption{Partitioning of the $JNIE$}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+
+{\bf Mediator-specific indirect effect ($NIE_k$) is}
+\begin{itemize}
+\item $NIE_1 = E(Y_{1,\mathbf{M}_1} - Y_{1,M_0^1M_1^2M_1^3}).$
+\end{itemize} 
+\smallskip
+
+{\bf Simultaneous indirect effect of two mediators ($SE_{jk}$) is}
+\begin{itemize}
+\item 
+$SNIE_{12}  =  E(Y_{1,\mathbf{M}_1} - Y_{1,M_0^1M_1^2M_1^3} - Y_{1,M_1^1M_0^2M_1^3} + Y_{1,M_0^1 M_0^2M_1^3}).$
+\end{itemize}
+\smallskip
+
+{\bf Simultaneous indirect effect of three mediators ($SE_{123}$) is}
+\begin{itemize}
+\item 
+$SNIE_{123}  =  E(Y_{1,\mathbf{M}_1}-Y_{1,M_0^1M_1^2M_1^3}-Y_{1,M_1^1M_0^2M_1^3}-Y_{1,M_1^1M_1^2M_0^3}+Y_{1,M_0^1 M_0^2M_1^3}+Y_{1,M_0^1M_1^2 M_0^3}+Y_{1,M_1^1M_0^2 M_0^3}-Y_{1,\mathbf{M}_0}).$
+
+\end{itemize}
+\bigskip
+
+Then, 
+\begin{eqnarray*}
+JNIE & = & \sum_k NIE_k -\sum_{j,k:j \neq k} SE_{jk} + SE_{123} 
+ =  E(Y_{1,\mathbf{M}_1}-Y_{1,\mathbf{M}_0})\\
+& = & {\color{red} TE -NDE}.
+\end{eqnarray*}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Assumptions}
+All assumptions are presented in the presence of $K=3$ mediators.
+\begin{block}{Assumption1}
+For a given mediators under intervention $z=1$, the conditional
+distributions of the outcome are the same whether those mediator values
+were induced by $z=1$ or $z=0$.
+\end{block}
+\begin{itemize}
+\item
+ \resizebox{0.9\hsize}{!}{ $f_{1,M_0^1M_0^2M_0^3}(y_{1,\mathbf{M}_0}|\mathbf{M}_0=\mathbf{m}_0,
+  \mathbf{M}_1)=f_{1,M_1^1M_1^2M_1^3}(y_{1,\mathbf{M}_1}|\mathbf{M}_0,
+  \mathbf{M}_1=\mathbf{m}_0).$}
+Other cases are in page \ref{app1}.
+\end{itemize}
+\begin{block}{Assumption 2}
+\[f_{z,M_z^1M_z^2M_z^3}(y_{z,\mathbf{M}_z} | \mathbf{m}_z,\mathbf{m}_{1-z}
+)=f_{z,M_z^1M_z^2M_z^3}(y_{z,\mathbf{M}_z} | \mathbf{m}_z
+).\]
+\end{block}
+\end{frame}
+
+\begin{frame}
+\begin{block}{Assumption 3 (Joint Distribution of Mediators)}
+\begin{eqnarray*}
+\lefteqn{F_{\mathbf{M}_0,\mathbf{M}_1}(\mathbf{m}_0,\mathbf{m}_0)=}\\
+& &\Phi_6 [\Phi_1^{-1}\{F_{M_0^1}(m_0^1)\},\Phi_1^{-1}\{F_{M_0^2}(m_0^2)\},\Phi_1^{-1}\{F_{M_0^3}(m_0^3)\},\\
+& & \qquad \Phi_1^{-1}\{F_{M_1^1}(m_1^1)\},\Phi_1^{-1}\{F_{M_1^2}(m_1^2)\},\Phi_1^{-1}\{F_{M_1^3}(m_1^3)].
+\end{eqnarray*}
+\end{block}
+\begin{block}{Assumption 4 (Conditional Independence)}
+All potential outcomes that define JNIE, $\text{NIE}_k$, $\text{SNIE}_{jk}$, etc. are conditionally independent given all potential mediators under $z=0,1$.
+\end{block}
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Identification}
+\begin{block}{Theorem}
+The joint posterior distribution of NDE, JNIE, $\text{NIE}_k$, $\text{SNIE}_{jk}$ and $\text{SNIE}_{123}$ is identified under Assumption 1-4. 
+\end{block}
+\end{frame}
+
+
+
+%\begin{frame}
+%\frametitle{Application: STRIDE trial (Marcus et al., 2007)}
+%\begin{itemize}
+%\item Evaluate the efficacy of interventions targeting physical activity adoption and maintenance.
+%\item Randomized to 3 treatment arms: telephone-based, print-based interventions and contact-contact group.
+%\item Combine two interventions into a single intervention ($n_1=161$ vs. $n_0=78$).
+%\item At baseline, 6 and 12 months, participants' physical activity logs were reported by mail.
+%\item {\color{red}Binary outcome} has 1 if more than 150 minutes per week of moderate intensity activity at month 12.
+%\item Three {\color{red}potential mediators} are self-efficacy ($M^1$), behavioral processes ($M^2$) and cognitive processes ($M^3$) which are measured by questionnaires.
+%\end{itemize}
+%\end{frame}
+
+
+%\begin{frame}
+%To make the covariance matrix positive definite in terms of the previous restriction and data, $\rho_1$ and $\rho_2$ are free to vary in the area,
+%\begin{figure}[h]
+%\centering
+%\scalebox{0.28}
+%{\includegraphics{corr.png}}
+%\caption{Possible ranges of $\rho_1$ and $\rho_2$.}
+%\end{figure}
+%Thus, we consider (1) a uniform prior on the region; (2) $\rho_1=0.3$ and $\rho_%2=0.15$; (3) $\rho_1=0.6$ and $\rho_2=0.45$.
+%\end{frame} 
+
+%\begin{frame}
+
+
+%\begin{table}[h]
+%\caption{Estimates and 95\% credible intervals (parentheses) of $TE$, $JNIE$ and %$NDE$ for  (1) a uniform prior on the region; (2) $\rho_1=0.3$ and $\rho_2=0.15$;% (3) $\rho_1=0.6$ and $\rho_2=0.45$}\label{out1}
+%\centering
+%\begin{tabular}{ c c c c }
+%\hline
+ % Case & $TE$ &  $JNIE$  & $NDE$ \\
+%\hline
+%\multirow{2}{*}{(1)} & 0.179 & 0.106 & 0.073 \\
+%& (0.06, 0.28) & (0.06, 0.15) & (-0.03, 0.17) \\ 
+%\hline
+%\multirow{2}{*}{(2)}  & 0.179 & 0.106 & 0.073 \\
+ % & (0.06, 0.28) & (0.06, 0.15) & (-0.03, 0.18) \\ 
+%\hline
+%\multirow{2}{*}{(3)}& 0.179 & 0.106 & 0.073 \\
+%& (0.06, 0.28) & (0.06, 0.15) & (-0.04, 0.18) \\ 
+%\hline\\
+%\end{tabular}
+%\end{table}
+%\end{frame}
+
+%\begin{frame}
+%\begin{table}[h]
+%\caption{Estimates and 95\% credible intervals (parentheses) of $NIE$'s for  (1) a u%niform prior on the region; (2) $\rho_1=0.3$ and $\rho_2=0.15$; (3) $\rho_1=0.6%$ and $\rho_2=0.45$}\label{out2}
+%\centering
+%\begin{tabular}{ c c c c }
+%\hline
+%  Case & $NIE_1$ &  $NIE_2$  & $NIE_3$ \\
+%\hline
+%\multirow{2}{*}{(1)} & 0.032 & 0.121 & -0.035 \\
+%& (0.01, 0.05) & (0.07, 0.16) & (-0.06, -0.01) \\ 
+%\hline
+%\multirow{2}{*}{(2)}  & 0.032 & 0.112 & -0.041 \\
+ % & (0.01, 0.05) & (0.07, 0.15) & (-0.07, -0.01) \\ 
+%\hline
+%\multirow{2}{*}{(3)}& 0.031 & 0.119 & -0.036 \\
+%& (0.01, 0.06) & (0.07, 0.16) & (-0.06, -0.01) \\ 
+%\hline\\
+%\end{tabular}
+%\end{table}
+%\end{frame}
+
+%\begin{frame}
+%\begin{table}[h]
+%\caption{Estimates and 95\% credible intervals (parentheses) of $SNIE$'s for  (1) a %uniform prior on the region; (2) $\rho_1=0.3$ and $\rho_2=0.15$; (3) $\rho_1=0.%6$ and $\rho_2=0.45$}\label{out3}
+%\centering
+%\begin{tabular}{ c c c c c}
+%\hline
+%  Case & $SNIE_{12}$ &  $SNIE_{13}$  & $SNIE_{23}$ & $SNIE_{123}$ \\
+%\hline
+%\multirow{2}{*}{(1)} & 0.016 & 0.012  & -0.005 & 0.011\\
+%& (-0.008, 0.05) & (-0.02, 0.03) & (-0.04, 0.01) & (-0.03, 0.04)\\ 
+%\hline
+%\multirow{2}{*}{(2)} & 0.018 & 0.010  & -0.019 & 0.011\\
+ % & (-0.004, 0.05) & (-0.01, 0.03) & (-0.05, 0.004) & (-0.02, 0.04)\\ 
+%\hline
+%\multirow{2}{*}{(3)} & 0.017 & 0.009  & -0.008 & 0.011\\
+%& (-0.007, 0.04) & (-0.01, 0.03) & (-0.04, 0.02) & (-0.02, 0.04)\\ 
+%\hline
+%\end{tabular}
+%\end{table}
+%\end{frame}
+
+%\begin{frame}
+%\frametitle{Discussion}
+
+%\end{frame}
+
+\begin{frame}
+
+\center{Thank You.}
+
+\end{frame}
+
+
+\begin{frame}\label{app1}
+\frametitle{Appendix}
+\begin{block}{Assumption1}
+For a given mediators under intervention $z=1$, the conditional
+distributions of the outcome are the same whether those mediator values
+were induced by $z=1$ or $z=0$.
+\end{block}
+\begin{itemize}
+\item
+  \resizebox{0.9\hsize}{!}{
+    $f_{1,M_0^1,M_1^2,M_0^3}(y_{1,M_0^1,M_1^2,M_0^3}|M_0^1=m^1,M_0^2,M_0^3,M_1^1,M_1^2=m^2,M_1^3=m^3)$}
+
+\resizebox{0.8\hsize}{!}{
+  $=f_{1,M_1^1,M_1^2,M_1^3}(y_{1,\mathbf{M}_1}|\mathbf{M}_0,M_1^1=m^1,M_1^2=m^2,M_1^3=m^3).$}
+\item   \resizebox{0.9\hsize}{!}{
+    $f_{1,M_1^1,M_1^2,M_0^3}(y_{1,M_1^1,M_1^2,M_0^3}|M_0^1,M_0^2,M_0^3=m^3,M_1^1=m^1,M_1^2=m^2,M_1^3)$}
+
+\resizebox{0.8\hsize}{!}{
+  $=f_{1,M_1^1,M_1^2,M_1^3}(y_{1,\mathbf{M}_1}|\mathbf{M}_0,M_1^1=m^1,M_1^2=m^2,M_1^3=m^3).$}
+\end{itemize}
+\end{frame}
+
+\end{document}
