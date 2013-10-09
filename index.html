@@ -66,6 +66,34 @@
 
       <slide class="" id="slide-2" style="background:;">
   <hgroup>
+    <h2>Why Quantile Regression</h2>
+  </hgroup>
+  <article>
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p><img src="assets/img/engel.png" alt="engel"></p>
+
+
+</div>
+<div style='float:right;width:48%;'>
+  <h3>Scatterplot, Quantile Regression Fit and Linear Regression Fit of the  Engel Food Expenditure Data:</h3>
+
+<ul>
+<li>Scatterplot of the Engel data on food expenditure vs household income for a sample of 235 19th century working class Belgian households.</li>
+<li>Fitted quantile lines for quantile (0.05; 0.1; 0.25; 0.75; 0.9;
+0.95).</li>
+<li>Fitted median regression line</li>
+<li>Dashed red line is the fitted value from linear regression model
+estimates.</li>
+</ul>
+
+</div>
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+      <slide class="" id="slide-3" style="background:;">
+  <hgroup>
     <h2>Introduction of Quantile Regression</h2>
   </hgroup>
   <article>
@@ -94,285 +122,211 @@ Q_{Y}(\tau|\mathbf x) = \mathbf x' \beta(\tau).
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-3" style="background:;">
+      <slide class="" id="slide-4" style="background:;">
   <hgroup>
-    <h2>Methods</h2>
+    <h2>Traditional Frequentist Methods</h2>
   </hgroup>
   <article>
     <ul>
-<li><p>Frequentist</p>
-
-<ul>
-<li>R package <code>quantreg</code></li>
+<li>R package <code>quantreg</code> (<a href="http://CRAN.R-project.org/package=quantreg">Koenker, 2012</a>)</li>
 <li>Using simplex for linear programming problems mentioned
 in <a href="http://www.jstor.org/stable/1913643">Koenker et al. (1978)</a></li>
+</ul>
+
+<p>\[
+\mathbf \beta(\tau) = \arg \min_b \sum_{i=1}^{n} \rho_{\tau}(y_{i} - \mathbf x_{i}' b)
+\]</p>
+
+<h2>Pros and Cons</h2>
+
+<ul>
+<li>No distributional assumptions</li>
+<li>Fast using linear programming</li>
+<li>Asymptotic inference may not be accurate for small sample sizes</li>
+<li>Easy to generalize:
+
+<ul>
+<li>Random effect</li>
+<li>\(L_1\) , \(L_2\) penalties</li>
 </ul></li>
-<li><p>Bayesian</p>
-
-<ul>
-<li><a href="">Yu &amp; Moyeed (2001)</a>: asymmetric Laplace distribution</li>
-<li>median regression(a special case of quantile regression),
-non-parametric modeling for the error distribution based on either PT
-or DP priors</li>
-<li><a href="">Kottas &amp; Krnjajic (2009)</a>: semi-parametric models using DP
-mixtures for the error distribution</li>
-<li>Kozumi and Kobayashi (2011) developed a simple and efficient Gibbs
-sampling algorithm for fitting quantile regression based on a
-location-scale mixture representation of ALD</li>
-<li>Sanchez et al (2013) proposed efficient and easy EM algorithm to obtain MLE for ALD settings from the hierarchical representation of ALD</li>
-</ul></li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-4" style="background:;">
-  <hgroup>
-    <h2>Traditional Frequentist Method</h2>
-  </hgroup>
-  <article>
-    
-<div style='float:left;width:48%;' class='centered'>
-  <p>Method: using linear programming</p>
-
-<ul>
-<li>cite Koenker 2005,</li>
-</ul>
-
-<p>\[
-\mathbf \beta(\tau) = \arg \min \sum_{i=1}^{n} \rho_{\tau}(y_{i} - \mathbf x_{i}' b)^2
-\]</p>
-
-<ul>
-<li>why</li>
-</ul>
-
-<p>The loss function:</p>
-
-<p>\[
-\rho_{\tau}(x) = x(\tau - I(x < 0))
-\]</p>
-
-<p>Optimization problem for the loss function with quantile:</p>
-
-<p>\[
-E \rho_{\tau} (X - \hat{x}) \implies F(\hat{x}) = \tau
-\]</p>
-
-
-</div>
-<div style='float:right;width:48%;'>
-  <p>If \(F\) is replaced by the empirical distribution function:</p>
-
-<p>\[
-F_n(x) = n^{-1} \sum_{i=1}^n I(X_i \leq x)
-\]</p>
-
-<p>Then (2) changes to minimizing</p>
-
-<p>\[
-\int \rho_\tau(X-\hat{x}) d \, F_n(x) = n^{-1} \sum_{i=1}^n \rho_\tau(X_i - \hat{x}
-\]</p>
-
-</div>
   </article>
   <!-- Presenter Notes -->
 </slide>
 
       <slide class="" id="slide-5" style="background:;">
   <hgroup>
-    <h2>Analog from mean regression</h2>
+    <h2>Bayesian Methods</h2>
   </hgroup>
   <article>
-    
-<div style='float:left;width:48%;' class='centered'>
-  <ul>
-<li>sample mean</li>
+    <ul>
+<li><a href="http://dx.doi.org/10.1111/j.0006-341X.1999.00477.x">Walker &amp; Mallick (1999)</a>: diffuse finite Polya Tree</li>
+<li><a href="">Yu &amp; Moyeed (2001)</a>: asymmetric Laplace distribution</li>
+<li><a href="">Hanson &amp; Johnson (2002)</a>: mixture of polya tree prior for median regression on survival time in AFT model</li>
+<li><a href="">Kottas &amp; Krnjajic (2009)</a>: semi-parametric models using DP
+mixtures for the error distribution</li>
+<li><a href="">Reich et al. (2010)</a>: an infinite mixture of Gaussian densities for error</li>
+<li><a href="http://dx.doi.org/10.1080/00949655.2010.496117">Kozumi &amp; Kobayashi (2011)</a>: developed a simple and efficient Gibbs
+  sampling algorithm for fitting quantile regression based on a
+  location-scale mixture representation of ALD</li>
+<li>Sanchez et al (2013) proposed efficient and easy EM algorithm to obtain MLE for ALD settings from the hierarchical representation of ALD</li>
 </ul>
 
-<p>\[ \min_{\mu \in \mathbb{R}} \sum_{i=1}^n (y_i - \mu)^2 \]</p>
+<!-- \[ -->
 
-<ul>
-<li>least square mean regression</li>
-</ul>
+<!-- \rho_{\tau}(x) = x(\tau - I(x < 0)) -->
 
-<p>\[ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n (y_i - \mathbf x_i^T \beta)^2 \]</p>
+<!-- \] -->
 
+<!-- Optimization problem for the loss function with quantile: -->
 
-</div>
-<div style='float:right;width:48%;'>
-  <ul>
-<li>\(\tau^{th}\) sample quantile</li>
-</ul>
+<!-- \[ -->
 
-<p>\[ \min_{\alpha \in \mathbb{R}} \sum_{i=1}^n \rho_\tau(y_i - \alpha) \]</p>
+<!-- E \rho_{\tau} (X - \hat{x}) \implies F(\hat{x}) = \tau -->
 
-<ul>
-<li>\(\tau^{th}\) quantile regression</li>
-</ul>
+<!-- \] -->
 
-<p>\[ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n \rho_\tau(y_i - \mathbf x_i^T \beta) \]</p>
+<!-- If $F$ is replaced by the empirical distribution function: -->
 
-</div>
+<!-- \[ -->
+
+<!-- F_n(x) = n^{-1} \sum_{i=1}^n I(X_i \leq x) -->
+
+<!-- \] -->
+
+<!-- Then (2) changes to minimizing -->
+
+<!-- \[ -->
+
+<!-- \int \rho_\tau(X-\hat{x}) d \, F_n(x) = n^{-1} \sum_{i=1}^n \rho_\tau(X_i - \hat{x} -->
+
+<!-- \] -->
+
+<!-- --- &twocol -->
+
+<!-- ## Analog from mean regression -->
+
+<!-- *** left -->
+
+<!-- * sample mean -->
+
+<!-- \[ \min_{\mu \in \mathbb{R}} \sum_{i=1}^n (y_i - \mu)^2 \] -->
+
+<!-- * least square mean regression -->
+
+<!-- \[ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n (y_i - \mathbf x_i^T \beta)^2 \] -->
+
+<!-- *** right -->
+
+<!-- * $\tau^{th}$ sample quantile -->
+
+<!-- \[ \min_{\alpha \in \mathbb{R}} \sum_{i=1}^n \rho_\tau(y_i - \alpha) \] -->
+
+<!-- * $\tau^{th}$ quantile regression -->
+
+<!-- \[ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n \rho_\tau(y_i - \mathbf x_i^T \beta) \] -->
+
+<!-- --- -->
+
+<!-- ## Bayesian Approach: Asymmetric Laplace Distribution -->
+
+<!-- \[f_{\epsilon}(x) \sim ALD -->
+
+<!-- \] -->
+
   </article>
   <!-- Presenter Notes -->
 </slide>
 
       <slide class="" id="slide-6" style="background:;">
   <hgroup>
-    <h2>Pros and Cons of Frequentist Way</h2>
+    
   </hgroup>
   <article>
-    <ul>
-<li>No distributional assumptions</li>
-<li>Fast using linear programming</li>
-<li>asymptotic inference may not be accurate for small sample sizes</li>
-<li>easy to derivatives:
+    <!-- ## ALD (Yu & Moyeed (2001)) -->
+
+<!-- <div class="alert alert-info"> -->
+
+<!-- <p> Definition: -->
+
+<!-- A random variable $Y$ is distributed as an Asymmetric Laplace Distribution with -->
+
+<!-- location parameter $\mu$, scale parameter $\sigma > 0$ and skewness parameter -->
+
+<!-- $\tau \in (0, 1)$ if its pdf is given by -->
+
+<!-- \[ -->
+
+<!-- f(y|\mu, \sigma, \tau) = \frac{\tau (1 - \tau)}{\sigma} \exp \left\{ - \rho_{\tau} -->
+
+<!-- \left( \frac{y  - \mu}{ \sigma} \right) \right\}. -->
+
+<!-- \] -->
+
+<!-- where $\rho_\tau (.)$ is the check (or loss) function -->
+
+<!-- </p> -->
+
+<!-- </div> -->
+
+<!-- Property of $ALD(\mu, \sigma, \tau)$: -->
+
+<!-- - mode at $\mu$ -->
+
+<!-- - $P_Y(Y \le \mu) = \tau$ -->
+
+<!-- --- -->
+
+<!-- ## Mixture representation of ALD for efficient Gibbs sampling -->
+
+<!-- --- -->
+
+<!-- ## DP, PT, mixture of DP and PT -->
+
+<!-- --- -->
+
+<h2>Common Issues</h2>
 
 <ul>
-<li>random effect</li>
-<li>l1 , l2 penalty</li>
-</ul></li>
+<li>Single quantile regression each time</li>
+<li>Densities have their restrictive mode at the quantile of interest,
+which is not appropriate when extreme quantiles are being investigated</li>
+<li>quantile lines monotonicity constraints and difficulty in making inference for quantile
+regression parameters for an interval</li>
+<li>Joint inference is poor in borrowing information through single quantile regressions</li>
+<li>Not coherent to pool from every individual quantile regression, because the sampling distribution of \(Y\) for \(\tau_1\)
+is usually different from that under quantile \(\tau_2\) since they are assuming different error distribution
+under two different quantile regressions (<a href="">Tokdar &amp; Kadane, 2011</a>)</li>
 </ul>
+
+<ul class = "build">
+<li>Goal of Chapter 1 of the thesis</li>
+</ul>
+
+<!-- --- -->
+
+<!-- ## Solution -->
+
+<!-- - Tokdar and Kadane 2011: simultaneous linear quantile regression -->
+
+<!-- - non-parametric model for the error term (density estimation) to avoid the monotonicity problem (Scaccia and Green 2003, -->
+
+<!--   Geweke and Keane 2007, Taddy and Kottas 2010) -->
+
+<!-- --- -->
+
+<!-- ## Background of Missing Data -->
+
+<!-- --- -->
+
+<!-- ## Goals of the Dissertation -->
 
   </article>
   <!-- Presenter Notes -->
 </slide>
 
       <slide class="" id="slide-7" style="background:;">
-  <hgroup>
-    <h2>Bayesian Approach: Asymmetric Laplace Distribution</h2>
-  </hgroup>
-  <article>
-    <p>\[f_{\epsilon}(x) \sim ALD
-\]</p>
-
-<ul>
-<li>Yu and Moyeed: ALD</li>
-<li>Walker and Mallick (1999) diffuse finite Polya Tree</li>
-<li>Kottas and Gelfand : two families of median zero distribution</li>
-<li>Hanson and Johnson (2002) mixture of polya tree prior for median regression on survival time in AFT model</li>
-<li>Reich (2010) uses an infinite mixture of Gaussian densities for error</li>
-<li>Others include quantile pyramid priors, mixture of Dirichlet process priors of multivariate
-distributions and infinite mixture of Gaussian densities which put quantile constraints on the
-residuals (Hjort and Petrone 2007, Hjort and Walker 2009, Kottas and Krnjajic 2009)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-8" style="background:;">
-  <hgroup>
-    <h2>ALD (Yu &amp; Moyeed (2001))</h2>
-  </hgroup>
-  <article>
-    <div class="alert alert-info">
-<p> Definition:
-
-A random variable $Y$ is distributed as an Asymmetric Laplace Distribution with
-location parameter $\mu$, scale parameter $\sigma > 0$ and skewness parameter
-$\tau \in (0, 1)$ if its pdf is given by
-
-\[
-f(y|\mu, \sigma, \tau) = \frac{\tau (1 - \tau)}{\sigma} \exp \left\{ - \rho_{\tau}
-\left( \frac{y  - \mu}{ \sigma} \right) \right\}.
-\]
-
-where $\rho_\tau (.)$ is the check (or loss) function
-</p>
-</div>
-
-<p>Property of \(ALD(\mu, \sigma, \tau)\):</p>
-
-<ul>
-<li>mode at \(\mu\)</li>
-<li>\(P_Y(Y \le \mu) = \tau\)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-9" style="background:;">
-  <hgroup>
-    <h2>Mixture representation of ALD for efficient Gibbs sampling</h2>
-  </hgroup>
-  <article>
-    
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-10" style="background:;">
-  <hgroup>
-    <h2>DP, PT, mixture of DP and PT</h2>
-  </hgroup>
-  <article>
-    
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-11" style="background:;">
-  <hgroup>
-    <h2>Common</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>mode at quantile</li>
-<li>single quantile regression</li>
-<li>densities have their restrictive mode at the quantile of interest,
-which is not appropriate when extreme quantiles are being investigated</li>
-<li>quantile lines monotonicity constraints and difficulty in making inference for quantile
-regression parameters for an interval</li>
-<li>Joint inference is poor in borrowing information through single quantile regressions</li>
-<li>not coherent to pool from every individual quantile regression, because the sampling distribution of \(Y\) for \(\tau_1\)
-is usually different from that under quantile \(\tau_2\) since they are assuming different error distribution
-under two different quantile regressions (Tokdar and Kadane, 2011)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-12" style="background:;">
-  <hgroup>
-    <h2>Solution</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>Tokdar and Kadane 2011: simultaneous linear quantile regression</li>
-<li>non-parametric model for the error term (density estimation) to avoid the monotonicity problem (Scaccia and Green 2003,
-Geweke and Keane 2007, Taddy and Kottas 2010)</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-13" style="background:;">
-  <hgroup>
-    <h2>Background of missing data</h2>
-  </hgroup>
-  <article>
-    
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-14" style="background:;">
-  <hgroup>
-    <h2>Goals of the Dissertation</h2>
-  </hgroup>
-  <article>
-    
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>Chapter 1: Bayesian Quantile Regression Using Polya Trees Priors</h2>
   </hgroup>
@@ -385,7 +339,7 @@ Geweke and Keane 2007, Taddy and Kottas 2010)</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-16" style="background:;">
+      <slide class="" id="slide-8" style="background:;">
   <hgroup>
     <h2>Intuition</h2>
   </hgroup>
@@ -410,7 +364,7 @@ Geweke and Keane 2007, Taddy and Kottas 2010)</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-17" style="background:;">
+      <slide class="" id="slide-9" style="background:;">
   <hgroup>
     <h2>Idea</h2>
   </hgroup>
@@ -431,7 +385,7 @@ Geweke and Keane 2007, Taddy and Kottas 2010)</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-18" style="background:;">
+      <slide class="" id="slide-10" style="background:;">
   <hgroup>
     <h2>Polya Tree Definition</h2>
   </hgroup>
@@ -453,7 +407,7 @@ to sample from Polya Trees</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-19" style="background:;">
+      <slide class="" id="slide-11" style="background:;">
   <hgroup>
     <h2>Basic</h2>
   </hgroup>
@@ -477,7 +431,7 @@ to sample from Polya Trees</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-20" style="background:;">
+      <slide class="" id="slide-12" style="background:;">
   <hgroup>
     <h2>Definition (continue)</h2>
   </hgroup>
@@ -509,7 +463,7 @@ Y_{\epsilon_1 \cdots \epsilon_j}\).</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-21" style="background:;">
+      <slide class="" id="slide-13" style="background:;">
   <hgroup>
     <h2>Polya Tree Parameters (\(\mathcal{A}\))</h2>
   </hgroup>
@@ -539,7 +493,7 @@ guarantees \(G\) to be absolutely continuous.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-22" style="background:;">
+      <slide class="" id="slide-14" style="background:;">
   <hgroup>
     <h2>Polya Tree Parameters (\(\Pi\))</h2>
   </hgroup>
@@ -564,7 +518,7 @@ guarantees \(G\) to be absolutely continuous.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-23" style="background:;">
+      <slide class="" id="slide-15" style="background:;">
   <hgroup>
     <h2>Properties of Polya Tree</h2>
   </hgroup>
@@ -592,7 +546,7 @@ measure and \(Y_1, Y_2, ...\) are random samples from \(G\).</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-24" style="background:;">
+      <slide class="" id="slide-16" style="background:;">
   <hgroup>
     <h2>Density Function</h2>
   </hgroup>
@@ -618,7 +572,7 @@ f(y) = g_0(y).
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-25" style="background:;">
+      <slide class="" id="slide-17" style="background:;">
   <hgroup>
     <h2>Conjugacy</h2>
   </hgroup>
@@ -637,7 +591,7 @@ samples of \(y_1, ..., y_n\) fall in \(B_{\epsilon}\).</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-26" style="background:;">
+      <slide class="" id="slide-18" style="background:;">
   <hgroup>
     <h2>Mixture of Polya Trees</h2>
   </hgroup>
@@ -652,7 +606,7 @@ parameters \((\Pi^{\theta}, \mathcal{A}^{\theta})\) such that</li>
 </ul>
 
 <p>\[
-$G_{\theta} | \theta=\theta \sim \pt (\Pi^{\theta}, \mathcal{A}^{\theta})$
+G_{\theta} | \theta=\theta \sim PT (\Pi^{\theta}, \mathcal{A}^{\theta})
 \]</p>
 
 <div class="alert alert-info">
@@ -675,7 +629,7 @@ Polya tree distribution.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-27" style="background:;">
+      <slide class="" id="slide-19" style="background:;">
   <hgroup>
     <h2>Predictive Error Density (1)</h2>
   </hgroup>
@@ -708,7 +662,7 @@ G|\Pi^{\theta}, \mathcal{A}^{c} & \sim PT (\Pi^{\theta},
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-28" style="background:;">
+      <slide class="" id="slide-20" style="background:;">
   <hgroup>
     <h2>Predictive Error Density (2)</h2>
   </hgroup>
@@ -736,7 +690,7 @@ the first level.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-29" style="background:;">
+      <slide class="" id="slide-21" style="background:;">
   <hgroup>
     <h2>Finite Polya Tree</h2>
   </hgroup>
@@ -762,7 +716,7 @@ is exact for \(M\) large enough.</p></li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-30" style="background:;">
+      <slide class="" id="slide-22" style="background:;">
   <hgroup>
     <h2>Predictive Cumulative Density Function</h2>
   </hgroup>
@@ -792,7 +746,7 @@ the number of observations \(y_1, \ldots, y_n\) in the \(\lceil
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-31" style="background:;">
+      <slide class="" id="slide-23" style="background:;">
   <hgroup>
     <h2>Predictive Error Quantiles</h2>
   </hgroup>
@@ -818,7 +772,7 @@ where \(N\) satisfies \(\sum_{i=1}^{N-1} P_i < \tau \le \sum_{i=1}^N P_i\).</p><
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-32" style="background:;">
+      <slide class="" id="slide-24" style="background:;">
   <hgroup>
     <h2>Method</h2>
   </hgroup>
@@ -848,7 +802,7 @@ similar reason, the first component of \(\mathbf{\gamma}\) is fixed at 1.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-33" style="background:;">
+      <slide class="" id="slide-25" style="background:;">
   <hgroup>
     <h2>Posterior Distribution of (\(\mathbf{\beta}, \mathbf \gamma, \sigma, c\))</h2>
   </hgroup>
@@ -878,7 +832,7 @@ where \(\epsilon_i = (y_i - \mathbf{x_i'\beta})/(\mathbf{x_i'\gamma})\)</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-34" style="background:;">
+      <slide class="" id="slide-26" style="background:;">
   <hgroup>
     <h2>Priors</h2>
   </hgroup>
@@ -908,7 +862,7 @@ where \(\epsilon_i = (y_i - \mathbf{x_i'\beta})/(\mathbf{x_i'\gamma})\)</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-35" style="background:;">
+      <slide class="" id="slide-27" style="background:;">
   <hgroup>
     <h2>Spike and Slab Priors</h2>
   </hgroup>
@@ -924,7 +878,7 @@ where \(\epsilon_i = (y_i - \mathbf{x_i'\beta})/(\mathbf{x_i'\gamma})\)</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-36" style="background:;">
+      <slide class="" id="slide-28" style="background:;">
   <hgroup>
     <h2>Spike and Slab Priors (Continued)</h2>
   </hgroup>
@@ -960,7 +914,7 @@ as non-significant and removed from the model</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-37" style="background:;">
+      <slide class="" id="slide-29" style="background:;">
   <hgroup>
     <h2>Choice of Diffuse Priors</h2>
   </hgroup>
@@ -991,7 +945,7 @@ where \(\hat{\sigma}^2 = \sum_i^n (y_i - \mathbf{x_i\beta}^p)^2/(n - p)\).</p></
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-38" style="background:;">
+      <slide class="" id="slide-30" style="background:;">
   <hgroup>
     <h2>Choice of \(\pi_\beta\), \(\pi_\gamma\)</h2>
   </hgroup>
@@ -1021,7 +975,7 @@ in this article, we assign priors for \(\pi_{\beta_j}\) and
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-39" style="background:;">
+      <slide class="" id="slide-31" style="background:;">
   <hgroup>
     <h2>Computation Details</h2>
   </hgroup>
@@ -1038,7 +992,7 @@ Y\))</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-40" style="background:;">
+      <slide class="" id="slide-32" style="background:;">
   <hgroup>
     <h2>Metropolis-Hasting Algorithm</h2>
   </hgroup>
@@ -1070,7 +1024,7 @@ acceptance rate for every 100 iterations during burn-in period, where
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-41" style="background:;">
+      <slide class="" id="slide-33" style="background:;">
   <hgroup>
     <h2>Thinning</h2>
   </hgroup>
@@ -1086,7 +1040,7 @@ to reduce the autocorrelation.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-42" style="background:;">
+      <slide class="" id="slide-34" style="background:;">
   <hgroup>
     <h2>Simulation</h2>
   </hgroup>
@@ -1105,7 +1059,7 @@ quantile regression (<a href="">Reich et al. 2010</a>)</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-43" style="background:;">
+      <slide class="" id="slide-35" style="background:;">
   <hgroup>
     <h2>Design</h2>
   </hgroup>
@@ -1135,7 +1089,7 @@ R_i = 0 \sim -2 - x_{i1} + \epsilon_{1i}\), \(\epsilon_{1i} \sim N(0, 1)\)</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-44" style="background:;">
+      <slide class="" id="slide-36" style="background:;">
   <hgroup>
     <h2>Explain</h2>
   </hgroup>
@@ -1157,7 +1111,7 @@ heterogeneous variance from covariates.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-45" style="background:;">
+      <slide class="" id="slide-37" style="background:;">
   <hgroup>
     <h2>PT Priors</h2>
   </hgroup>
@@ -1183,7 +1137,7 @@ estimator</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-46" style="background:;">
+      <slide class="" id="slide-38" style="background:;">
   <hgroup>
     <h2>PTSS Priors</h2>
   </hgroup>
@@ -1207,7 +1161,7 @@ estimator</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-47" style="background:;">
+      <slide class="" id="slide-39" style="background:;">
   <hgroup>
     <h2>MCMC Setup</h2>
   </hgroup>
@@ -1226,7 +1180,7 @@ platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit).</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-48" style="background:;">
+      <slide class="" id="slide-40" style="background:;">
   <hgroup>
     <h2>Evaluation Methods</h2>
   </hgroup>
@@ -1263,7 +1217,7 @@ mean as estimated parameters.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-49" style="background:;">
+      <slide class="" id="slide-41" style="background:;">
   <hgroup>
     <h2>Simulation Results</h2>
   </hgroup>
@@ -1361,7 +1315,7 @@ spike and slab priors.}</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-50" style="background:;">
+      <slide class="" id="slide-42" style="background:;">
   <hgroup>
     
   </hgroup>
@@ -1517,7 +1471,7 @@ spike and slab priors.}</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-51" style="background:;">
+      <slide class="" id="slide-43" style="background:;">
   <hgroup>
     
   </hgroup>
@@ -1675,7 +1629,7 @@ spike and slab priors.}</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-52" style="background:;">
+      <slide class="" id="slide-44" style="background:;">
   <hgroup>
     <h2>Simulation Summary</h2>
   </hgroup>
@@ -1707,7 +1661,7 @@ smaller bias in 50% quantile regression.</p></li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-53" style="background:;">
+      <slide class="" id="slide-45" style="background:;">
   <hgroup>
     <h2>Simulation Summary</h2>
   </hgroup>
@@ -1737,7 +1691,7 @@ model 3 (M3 and M3H) and model 5 (M5).</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-54" style="background:;">
+      <slide class="" id="slide-46" style="background:;">
   <hgroup>
     <h2>Real Data Analysis: Tours</h2>
   </hgroup>
@@ -1763,7 +1717,7 @@ credible intervals</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-55" style="background:;">
+      <slide class="" id="slide-47" style="background:;">
   <hgroup>
     
   </hgroup>
@@ -1774,7 +1728,7 @@ credible intervals</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-56" style="background:;">
+      <slide class="" id="slide-48" style="background:;">
   <hgroup>
     
   </hgroup>
@@ -1915,7 +1869,7 @@ credible intervals</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-57" style="background:;">
+      <slide class="" id="slide-49" style="background:;">
   <hgroup>
     <h2>Tours Summary</h2>
   </hgroup>
@@ -1947,7 +1901,7 @@ homogeneous on the AGE covariate.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-58" style="background:;">
+      <slide class="" id="slide-50" style="background:;">
   <hgroup>
     <h2>Comparison to <em>FBQR</em> and <em>RQ</em></h2>
   </hgroup>
@@ -1973,7 +1927,7 @@ methods show Age does not affect the 90\% quantile for weight loss.</p></li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-59" style="background:;">
+      <slide class="" id="slide-51" style="background:;">
   <hgroup>
     <h2>Discussion</h2>
   </hgroup>
@@ -1996,7 +1950,7 @@ approach especially when the error is multimodal and highly skewed.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-60" style="background:;">
+      <slide class="" id="slide-52" style="background:;">
   <hgroup>
     <h2>Future Work</h2>
   </hgroup>
@@ -2017,7 +1971,7 @@ distribution in Polya tree adaptively to improve the estimation.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-61" style="background:;">
+      <slide class="" id="slide-53" style="background:;">
   <hgroup>
     <h2>Multivariate Polya Tree Introduction ?</h2>
   </hgroup>
@@ -2034,7 +1988,7 @@ multivariate random effects within multivariate mixture of Polya Tree priors</li
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-62" style="background:;">
+      <slide class="" id="slide-54" style="background:;">
   <hgroup>
     <h2>Chapter 2: Quantile Regression in the Presence of Monotone Missingness with Sensitivity Analysis</h2>
   </hgroup>
@@ -2044,7 +1998,7 @@ multivariate random effects within multivariate mixture of Polya Tree priors</li
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-63" style="background:;">
+      <slide class="" id="slide-55" style="background:;">
   <hgroup>
     <h2>Review</h2>
   </hgroup>
@@ -2065,7 +2019,7 @@ missing outcomes.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-64" style="background:;">
+      <slide class="" id="slide-56" style="background:;">
   <hgroup>
     <h2>Review</h2>
   </hgroup>
@@ -2086,7 +2040,7 @@ exist.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-65" style="background:;">
+      <slide class="" id="slide-57" style="background:;">
   <hgroup>
     <h2>Review</h2>
   </hgroup>
@@ -2116,7 +2070,7 @@ key component in inference for incomplete data (NAS 2010).</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-66" style="background:;">
+      <slide class="" id="slide-58" style="background:;">
   <hgroup>
     <h2>Review</h2>
   </hgroup>
@@ -2146,7 +2100,7 @@ allows non-ignorable missingness and sensitivity analysis.</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-67" style="background:;">
+      <slide class="" id="slide-59" style="background:;">
   <hgroup>
     <h2>Notations</h2>
   </hgroup>
@@ -2177,7 +2131,7 @@ be the densities of response \(\mathbf Y\) given follow-up time \(S=k\) and \(S
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-68" style="background:;">
+      <slide class="" id="slide-60" style="background:;">
   <hgroup>
     <h2>Pattern Mixture Model</h2>
   </hgroup>
@@ -2203,7 +2157,7 @@ parameter vector \(\mathbf \omega\) is partitioned as
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-69" style="background:;">
+      <slide class="" id="slide-61" style="background:;">
   <hgroup>
     <h2>Pattern Mixture Model</h2>
   </hgroup>
@@ -2226,7 +2180,7 @@ responses, the second term on the right hand side.</p></li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-70" style="background:;">
+      <slide class="" id="slide-62" style="background:;">
   <hgroup>
     <h2>Model Settings</h2>
   </hgroup>
@@ -2275,7 +2229,7 @@ multivariate normal distribution within patterns such that MAR exists
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-71" style="background:;">
+      <slide class="" id="slide-63" style="background:;">
   <hgroup>
     <h2>\(\Delta\)</h2>
   </hgroup>
@@ -2304,7 +2258,7 @@ and
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-72" style="background:;">
+      <slide class="" id="slide-64" style="background:;">
   <hgroup>
     <h2>Intuition</h2>
   </hgroup>
@@ -2323,7 +2277,7 @@ the quantile lines would be parallel to each other. Moreover,</li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-73" style="background:;">
+      <slide class="" id="slide-65" style="background:;">
   <hgroup>
     <h2>Identifiability</h2>
   </hgroup>
@@ -2338,7 +2292,7 @@ following restrictions,
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-74" style="background:;">
+      <slide class="" id="slide-66" style="background:;">
   <hgroup>
     <h2>Missing Data Mechanism and Sensitivity Analysis</h2>
   </hgroup>
@@ -2365,7 +2319,7 @@ observed data.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-75" style="background:;">
+      <slide class="" id="slide-67" style="background:;">
   <hgroup>
     <h2>Sensitivity Analysis</h2>
   </hgroup>
@@ -2387,7 +2341,7 @@ J $.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-76" style="background:;">
+      <slide class="" id="slide-68" style="background:;">
   <hgroup>
     <h2>Sensitivity Analysis</h2>
   </hgroup>
@@ -2423,7 +2377,7 @@ assumed with uncertainty, then priors could be \(\textrm{E}(\mathbf
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-77" style="background:;">
+      <slide class="" id="slide-69" style="background:;">
   <hgroup>
     <h2>Curse of Dimension</h2>
   </hgroup>
@@ -2438,7 +2392,7 @@ on pattern.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-78" style="background:;">
+      <slide class="" id="slide-70" style="background:;">
   <hgroup>
     <h2>Calculation of \(\Delta\)</h2>
   </hgroup>
@@ -2465,7 +2419,7 @@ parameters \(\mathbf \xi = (\mathbf \xi_m, \xi_s)\).</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-79" style="background:;">
+      <slide class="" id="slide-71" style="background:;">
   <hgroup>
     <h2>Calculation of \(\Delta_{ij}, 2\leq j \leq J\)</h2>
   </hgroup>
@@ -2494,7 +2448,7 @@ distribution with mean \(\mu\) and standard deviation \(\sigma\).</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-80" style="background:;">
+      <slide class="" id="slide-72" style="background:;">
   <hgroup>
     <h2>Calculation of \(\Delta_{ij}, 2\leq j \leq J\)</h2>
   </hgroup>
@@ -2529,7 +2483,7 @@ distribution with mean \(\mu\) and standard deviation \(\sigma\).</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-81" style="background:;">
+      <slide class="" id="slide-73" style="background:;">
   <hgroup>
     <h2>MLE</h2>
   </hgroup>
@@ -2577,7 +2531,7 @@ intervals.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-82" style="background:;">
+      <slide class="" id="slide-74" style="background:;">
   <hgroup>
     <h2>Goodness of Fit Check</h2>
   </hgroup>
@@ -2605,7 +2559,7 @@ fitted estimates and \(\hat{\Delta}_{ij}\) to obtain,
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-83" style="background:;">
+      <slide class="" id="slide-75" style="background:;">
   <hgroup>
     <h2>Bayesian MCMC</h2>
   </hgroup>
@@ -2632,7 +2586,7 @@ missingness mechanism assumptions.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-84" style="background:;">
+      <slide class="" id="slide-76" style="background:;">
   <hgroup>
     <h2>Updating</h2>
   </hgroup>
@@ -2669,7 +2623,7 @@ specified based on assumptions about the missingness.</p></li>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-85" style="background:;">
+      <slide class="" id="slide-77" style="background:;">
   <hgroup>
     <h2>Simulation Study</h2>
   </hgroup>
@@ -2692,7 +2646,7 @@ assumptions similar to <em>rq</em> and assumes ignorable missing data.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-86" style="background:;">
+      <slide class="" id="slide-78" style="background:;">
   <hgroup>
     <h2>Design</h2>
   </hgroup>
@@ -2727,7 +2681,7 @@ observed data.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-87" style="background:;">
+      <slide class="" id="slide-79" style="background:;">
   <hgroup>
     <h2>Explain</h2>
   </hgroup>
@@ -2755,7 +2709,7 @@ assumed there was an intercept shift between distribution of
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-88" style="background:;">
+      <slide class="" id="slide-80" style="background:;">
   <hgroup>
     <h2>Evaluation</h2>
   </hgroup>
@@ -2785,7 +2739,7 @@ of simulations.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-89" style="background:;">
+      <slide class="" id="slide-81" style="background:;">
   <hgroup>
     <h2>Results</h2>
   </hgroup>
@@ -2799,7 +2753,7 @@ of simulations.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-90" style="background:;">
+      <slide class="" id="slide-82" style="background:;">
   <hgroup>
     <h2>Goodness of Fit Check</h2>
   </hgroup>
@@ -2823,7 +2777,7 @@ when errors are not normal.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-91" style="background:;">
+      <slide class="" id="slide-83" style="background:;">
   <hgroup>
     <h2>Real Data Analysis: Tours</h2>
   </hgroup>
@@ -2852,7 +2806,7 @@ ran 1000 bootstrap samples to obtain 95\% confidence intervals.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-92" style="background:;">
+      <slide class="" id="slide-84" style="background:;">
   <hgroup>
     <h2>Results (Table is too large)</h2>
   </hgroup>
@@ -2956,7 +2910,7 @@ ran 1000 bootstrap samples to obtain 95\% confidence intervals.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-93" style="background:;">
+      <slide class="" id="slide-85" style="background:;">
   <hgroup>
     <h2>Comments</h2>
   </hgroup>
@@ -2979,7 +2933,7 @@ at 18 months unlike at 6 months.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-94" style="background:;">
+      <slide class="" id="slide-86" style="background:;">
   <hgroup>
     <h2>Sensitivity Analysis</h2>
   </hgroup>
@@ -3002,7 +2956,7 @@ the distribution of \(Y_2|Y_1, R=0\) via the following restriction:
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-95" style="background:;">
+      <slide class="" id="slide-87" style="background:;">
   <hgroup>
     <h2>Results</h2>
   </hgroup>
@@ -3069,7 +3023,7 @@ partly due to the low proportion of missing data in this study.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-96" style="background:;">
+      <slide class="" id="slide-88" style="background:;">
   <hgroup>
     <h2>Goodness of Fit Check</h2>
   </hgroup>
@@ -3089,7 +3043,7 @@ confident with the conclusion of our quantile regression models.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-97" style="background:;">
+      <slide class="" id="slide-89" style="background:;">
   <hgroup>
     <h2>Discussion</h2>
   </hgroup>
@@ -3122,7 +3076,7 @@ assumptions.</p>
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-98" style="background:;">
+      <slide class="" id="slide-90" style="background:;">
   <hgroup>
     <h2>Future Work</h2>
   </hgroup>
@@ -3144,7 +3098,7 @@ each pattern; otherwise MAR constraints do not exist (<a href="http://dx.doi.org
   <!-- Presenter Notes -->
 </slide>
 
-      <slide class="" id="slide-99" style="background:;">
+      <slide class="" id="slide-91" style="background:;">
   <hgroup>
     <h2>References</h2>
   </hgroup>
@@ -3157,12 +3111,13 @@ each pattern; otherwise MAR constraints do not exist (<a href="http://dx.doi.org
 <li>Patrick Heagerty,   (1999) Marginally Specified Logistic-Normal Models for Longitudinal Binary Data.  <em>Biometrics</em></li>
 <li>A. Jara, T.E. Hanson, E. Lesaffre,   (2009) Robustifying generalized linear mixed models using a new class of mixtures of multivariate Polya trees.  <em>Journal of Computational and Graphical Statistics</em></li>
 <li>Roger Koenker,  Gilbert, Jr. Bassett,   (1978) Regression Quantiles.  <em>Econometrica</em></li>
-<li>A. Kottas, M. Krnjaji \&#39;c,   (2009) Bayesian semiparametric modelling in quantile regression.  <em>Scandinavian Journal of Statistics</em></li>
+<li>A. Kottas, M. Krnjajic,   (2009) Bayesian semiparametric modelling in quantile regression.  <em>Scandinavian Journal of Statistics</em></li>
+<li>Hideo Kozumi, Genya Kobayashi,   (2011) Gibbs sampling methods for {B}ayesian quantile regression.  <em>J. Stat. Comput. Simul.</em></li>
 <li>Roderick Little,   (1993) Pattern-Mixture Models for Multivariate Incomplete Data.  <em>Journal of the American Statistical Association</em></li>
 <li>Roderick Little,   (1994) A class of pattern-mixture models for normal incomplete data.  <em>Biometrika</em></li>
 <li>Douglas Bates, Katharine Mullen, John Nash, Ravi Varadhan,   (2012) minqa: Derivative-free optimization algorithms by quadratic
 approximation.</li>
-<li>Geert Molenberghs, Bart Michiels, MG Kenward, Peter Diggle,   (1998) Monotone missing data and pattern-mixture models.  <em>Statistica Neerlandica</em></li>
+<li>G. Molenberghs, B. Michiels, M. Kenward, P. Diggle,   (1998) Monotone missing data and pattern-mixture models.  <em>Statist. Neerlandica</em></li>
 <li>Michael Perri, Marian Limacher, Patricia Durning, David Janicke, Lesley Lutes, Linda Bobroff, Martha Dale, Michael Daniels, Tiffany Radcliff, A Martin,   (2008) Extended-care programs for weight management in rural communities: the treatment of obesity in underserved rural settings (TOURS) randomized trial.  <em>Archives of internal medicine</em></li>
 <li>Roger Koenker,   (2012) quantreg: Quantile Regression.</li>
 <li>R Core Team ,   (2013) R: A Language and Environment for Statistical Computing.</li>
@@ -3173,6 +3128,8 @@ approximation.</li>
           dropout with many possible dropout times.  <em>Biometrics</em></li>
 <li>Donald Rubin,   (1977) Formalizing subjective notions about the effect of
           nonrespondents in sample surveys.  <em>J. Amer. Statist. Assoc.</em></li>
+<li>S. Tokdar, J.B. Kadane,   (2011) Simultaneous linear quantile regression: A semiparametric bayesian approach.  <em>Bayesian Analysis</em></li>
+<li>Stephen Walker, Bani Mallick,   (1999) A Bayesian Semiparametric Accelerated Failure Time Model.  <em>Biometrics</em></li>
 <li>Chenguang Wang, Michael Daniels,   (2011) A note on {MAR}, identifying restrictions, model comparison,
           and sensitivity analysis in pattern mixture models with and
           without covariates for incomplete data.  <em>Biometrics</em></li>

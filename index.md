@@ -26,6 +26,26 @@ mode        : selfcontained # {standalone, draft, selfcontained}
 4. Future Work (9/49)
 5. References
 
+--- &twocol
+
+## Why Quantile Regression
+
+*** left
+
+![engel](assets/img/engel.png)
+
+
+*** right
+
+### Scatterplot, Quantile Regression Fit and Linear Regression Fit of the  Engel Food Expenditure Data:
+
+- Scatterplot of the Engel data on food expenditure vs household income for a sample of 235 19th century working class Belgian households.
+- Fitted quantile lines for quantile (0.05; 0.1; 0.25; 0.75; 0.9;
+  0.95).
+- Fitted median regression line
+- Dashed red line is the fitted value from linear regression model
+  estimates.
+
 ---
 
 ## Introduction of Quantile Regression
@@ -51,182 +71,160 @@ Q_{Y}(\tau|\mathbf x) = \mathbf x' \beta(\tau).
 
 ---
 
-## Methods
+## Traditional Frequentist Methods
 
-* Frequentist
-    - R package `quantreg`
-    - Using simplex for linear programming problems mentioned
-	in <a href="http://www.jstor.org/stable/1913643">Koenker et al. (1978)</a>
-
-* Bayesian
-	- <a href="">Yu & Moyeed (2001)</a>: asymmetric Laplace distribution
-	- median regression(a special case of quantile regression),
-non-parametric modeling for the error distribution based on either PT
-or DP priors
-	- <a href="">Kottas & Krnjajic (2009)</a>: semi-parametric models using DP
-mixtures for the error distribution
-	- Kozumi and Kobayashi (2011) developed a simple and efficient Gibbs
-      sampling algorithm for fitting quantile regression based on a
-      location-scale mixture representation of ALD
-	- Sanchez et al (2013) proposed efficient and easy EM algorithm to obtain MLE for ALD settings from the hierarchical representation of ALD
-
---- &twocol
-
-## Traditional Frequentist Method
-
-*** left
-
-Method: using linear programming
-
-- cite Koenker 2005,
+- R package `quantreg` (<a href="http://CRAN.R-project.org/package=quantreg">Koenker, 2012</a>)
+- Using simplex for linear programming problems mentioned
+  in <a href="http://www.jstor.org/stable/1913643">Koenker et al. (1978)</a>
 
 \[
-\mathbf \beta(\tau) = \arg \min \sum_{i=1}^{n} \rho_{\tau}(y_{i} - \mathbf x_{i}' b)^2
+\mathbf \beta(\tau) = \arg \min_b \sum_{i=1}^{n} \rho_{\tau}(y_{i} - \mathbf x_{i}' b)
 \]
 
-* why
-
-The loss function:
-
-\[
-\rho_{\tau}(x) = x(\tau - I(x < 0))
-\]
-
-Optimization problem for the loss function with quantile:
-
-\[
-E \rho_{\tau} (X - \hat{x}) \implies F(\hat{x}) = \tau
-\]
-
-*** right
-
-If $F$ is replaced by the empirical distribution function:
-
-\[
-F_n(x) = n^{-1} \sum_{i=1}^n I(X_i \leq x)
-\]
-
-Then (2) changes to minimizing
-
-\[
-\int \rho_\tau(X-\hat{x}) d \, F_n(x) = n^{-1} \sum_{i=1}^n \rho_\tau(X_i - \hat{x}
-\]
-
---- &twocol
-
-## Analog from mean regression
-
-*** left
-
-* sample mean
-
-\[ \min_{\mu \in \mathbb{R}} \sum_{i=1}^n (y_i - \mu)^2 \]
-
-* least square mean regression
-
-\[ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n (y_i - \mathbf x_i^T \beta)^2 \]
-
-*** right
-
-* $\tau^{th}$ sample quantile
-
-\[ \min_{\alpha \in \mathbb{R}} \sum_{i=1}^n \rho_\tau(y_i - \alpha) \]
-
-* $\tau^{th}$ quantile regression
-
-\[ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n \rho_\tau(y_i - \mathbf x_i^T \beta) \]
-
----
-
-## Pros and Cons of Frequentist Way
+## Pros and Cons
 
 * No distributional assumptions
 * Fast using linear programming
-* asymptotic inference may not be accurate for small sample sizes
-* easy to derivatives:
-  * random effect
-  * l1 , l2 penalty
+* Asymptotic inference may not be accurate for small sample sizes
+* Easy to generalize:
+  * Random effect
+  * $L_1$ , $L_2$ penalties
 
 ---
 
-## Bayesian Approach: Asymmetric Laplace Distribution
+## Bayesian Methods
 
-\[f_{\epsilon}(x) \sim ALD
-\]
+- <a href="http://dx.doi.org/10.1111/j.0006-341X.1999.00477.x">Walker & Mallick (1999)</a>: diffuse finite Polya Tree
+- <a href="">Yu & Moyeed (2001)</a>: asymmetric Laplace distribution
+- <a href="">Hanson & Johnson (2002)</a>: mixture of polya tree prior for median regression on survival time in AFT model
+- <a href="">Kottas & Krnjajic (2009)</a>: semi-parametric models using DP
+  mixtures for the error distribution
+- <a href="">Reich et al. (2010)</a>: an infinite mixture of Gaussian densities for error
+- <a href="http://dx.doi.org/10.1080/00949655.2010.496117">Kozumi & Kobayashi (2011)</a>: developed a simple and efficient Gibbs
+      sampling algorithm for fitting quantile regression based on a
+      location-scale mixture representation of ALD
+- Sanchez et al (2013) proposed efficient and easy EM algorithm to obtain MLE for ALD settings from the hierarchical representation of ALD
 
-- Yu and Moyeed: ALD
-- Walker and Mallick (1999) diffuse finite Polya Tree
-- Kottas and Gelfand : two families of median zero distribution
-- Hanson and Johnson (2002) mixture of polya tree prior for median regression on survival time in AFT model
-- Reich (2010) uses an infinite mixture of Gaussian densities for error
-- Others include quantile pyramid priors, mixture of Dirichlet process priors of multivariate
-  distributions and infinite mixture of Gaussian densities which put quantile constraints on the
-  residuals (Hjort and Petrone 2007, Hjort and Walker 2009, Kottas and Krnjajic 2009)
+<!-- \[ -->
+<!-- \rho_{\tau}(x) = x(\tau - I(x < 0)) -->
+<!-- \] -->
 
+<!-- Optimization problem for the loss function with quantile: -->
+
+<!-- \[ -->
+<!-- E \rho_{\tau} (X - \hat{x}) \implies F(\hat{x}) = \tau -->
+<!-- \] -->
+
+<!-- If $F$ is replaced by the empirical distribution function: -->
+
+<!-- \[ -->
+<!-- F_n(x) = n^{-1} \sum_{i=1}^n I(X_i \leq x) -->
+<!-- \] -->
+
+<!-- Then (2) changes to minimizing -->
+
+<!-- \[ -->
+<!-- \int \rho_\tau(X-\hat{x}) d \, F_n(x) = n^{-1} \sum_{i=1}^n \rho_\tau(X_i - \hat{x} -->
+<!-- \] -->
+
+<!-- --- &twocol -->
+
+<!-- ## Analog from mean regression -->
+
+<!-- *** left -->
+
+<!-- * sample mean -->
+
+<!-- \[ \min_{\mu \in \mathbb{R}} \sum_{i=1}^n (y_i - \mu)^2 \] -->
+
+<!-- * least square mean regression -->
+
+<!-- \[ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n (y_i - \mathbf x_i^T \beta)^2 \] -->
+
+<!-- *** right -->
+
+<!-- * $\tau^{th}$ sample quantile -->
+
+<!-- \[ \min_{\alpha \in \mathbb{R}} \sum_{i=1}^n \rho_\tau(y_i - \alpha) \] -->
+
+<!-- * $\tau^{th}$ quantile regression -->
+
+<!-- \[ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n \rho_\tau(y_i - \mathbf x_i^T \beta) \] -->
+
+<!-- --- -->
+
+
+<!-- ## Bayesian Approach: Asymmetric Laplace Distribution -->
+
+<!-- \[f_{\epsilon}(x) \sim ALD -->
+<!-- \] -->
 
 ---
 
-## ALD (Yu & Moyeed (2001))
+<!-- ## ALD (Yu & Moyeed (2001)) -->
 
-<div class="alert alert-info">
-<p> Definition:
+<!-- <div class="alert alert-info"> -->
+<!-- <p> Definition: -->
 
-A random variable $Y$ is distributed as an Asymmetric Laplace Distribution with
-location parameter $\mu$, scale parameter $\sigma > 0$ and skewness parameter
-$\tau \in (0, 1)$ if its pdf is given by
+<!-- A random variable $Y$ is distributed as an Asymmetric Laplace Distribution with -->
+<!-- location parameter $\mu$, scale parameter $\sigma > 0$ and skewness parameter -->
+<!-- $\tau \in (0, 1)$ if its pdf is given by -->
 
-\[
-f(y|\mu, \sigma, \tau) = \frac{\tau (1 - \tau)}{\sigma} \exp \left\{ - \rho_{\tau}
-\left( \frac{y  - \mu}{ \sigma} \right) \right\}.
-\]
+<!-- \[ -->
+<!-- f(y|\mu, \sigma, \tau) = \frac{\tau (1 - \tau)}{\sigma} \exp \left\{ - \rho_{\tau} -->
+<!-- \left( \frac{y  - \mu}{ \sigma} \right) \right\}. -->
+<!-- \] -->
 
-where $\rho_\tau (.)$ is the check (or loss) function
-</p>
-</div>
+<!-- where $\rho_\tau (.)$ is the check (or loss) function -->
+<!-- </p> -->
+<!-- </div> -->
 
-Property of $ALD(\mu, \sigma, \tau)$:
+<!-- Property of $ALD(\mu, \sigma, \tau)$: -->
 
-- mode at $\mu$
-- $P_Y(Y \le \mu) = \tau$
+<!-- - mode at $\mu$ -->
+<!-- - $P_Y(Y \le \mu) = \tau$ -->
 
----
+<!-- --- -->
 
-## Mixture representation of ALD for efficient Gibbs sampling
+<!-- ## Mixture representation of ALD for efficient Gibbs sampling -->
 
----
+<!-- --- -->
 
-## DP, PT, mixture of DP and PT
+<!-- ## DP, PT, mixture of DP and PT -->
 
----
+<!-- --- -->
 
-## Common
+## Common Issues
 
-- mode at quantile
-- single quantile regression
-- densities have their restrictive mode at the quantile of interest,
+- Single quantile regression each time
+- Densities have their restrictive mode at the quantile of interest,
   which is not appropriate when extreme quantiles are being investigated
 - quantile lines monotonicity constraints and difficulty in making inference for quantile
   regression parameters for an interval
 - Joint inference is poor in borrowing information through single quantile regressions
-- not coherent to pool from every individual quantile regression, because the sampling distribution of $Y$ for $\tau_1$
+- Not coherent to pool from every individual quantile regression, because the sampling distribution of $Y$ for $\tau_1$
   is usually different from that under quantile $\tau_2$ since they are assuming different error distribution
-  under two different quantile regressions (Tokdar and Kadane, 2011)
+  under two different quantile regressions (<a href="">Tokdar & Kadane, 2011</a>)
 
----
+> - Goal of Chapter 1 of the thesis
 
-## Solution
+<!-- --- -->
 
-- Tokdar and Kadane 2011: simultaneous linear quantile regression
-- non-parametric model for the error term (density estimation) to avoid the monotonicity problem (Scaccia and Green 2003,
-  Geweke and Keane 2007, Taddy and Kottas 2010)
+<!-- ## Solution -->
 
----
+<!-- - Tokdar and Kadane 2011: simultaneous linear quantile regression -->
+<!-- - non-parametric model for the error term (density estimation) to avoid the monotonicity problem (Scaccia and Green 2003, -->
+<!--   Geweke and Keane 2007, Taddy and Kottas 2010) -->
 
-## Background of missing data
+<!-- --- -->
 
----
+<!-- ## Background of Missing Data -->
 
-## Goals of the Dissertation
+
+
+<!-- --- -->
+
+<!-- ## Goals of the Dissertation -->
 
 ---
 
@@ -436,7 +434,7 @@ variable $\theta$ with distribution $h_{\theta}$, and Polya tree
 parameters $(\Pi^{\theta}, \mathcal{A}^{\theta})$ such that
 
 \[
-$G_{\theta} | \theta=\theta \sim \pt (\Pi^{\theta}, \mathcal{A}^{\theta})$
+G_{\theta} | \theta=\theta \sim PT (\Pi^{\theta}, \mathcal{A}^{\theta})
 \]
 
 <div class="alert alert-info">
@@ -1922,12 +1920,13 @@ each pattern; otherwise MAR constraints do not exist (<a href="http://dx.doi.org
 - Patrick Heagerty,   (1999) Marginally Specified Logistic-Normal Models for Longitudinal Binary Data.  <em>Biometrics</em>
 - A. Jara, T.E. Hanson, E. Lesaffre,   (2009) Robustifying generalized linear mixed models using a new class of mixtures of multivariate Polya trees.  <em>Journal of Computational and Graphical Statistics</em>
 - Roger Koenker,  Gilbert, Jr. Bassett,   (1978) Regression Quantiles.  <em>Econometrica</em>
-- A. Kottas, M. Krnjaji \'c,   (2009) Bayesian semiparametric modelling in quantile regression.  <em>Scandinavian Journal of Statistics</em>
+- A. Kottas, M. Krnjajic,   (2009) Bayesian semiparametric modelling in quantile regression.  <em>Scandinavian Journal of Statistics</em>
+- Hideo Kozumi, Genya Kobayashi,   (2011) Gibbs sampling methods for {B}ayesian quantile regression.  <em>J. Stat. Comput. Simul.</em>
 - Roderick Little,   (1993) Pattern-Mixture Models for Multivariate Incomplete Data.  <em>Journal of the American Statistical Association</em>
 - Roderick Little,   (1994) A class of pattern-mixture models for normal incomplete data.  <em>Biometrika</em>
 - Douglas Bates, Katharine Mullen, John Nash, Ravi Varadhan,   (2012) minqa: Derivative-free optimization algorithms by quadratic
 approximation.
-- Geert Molenberghs, Bart Michiels, MG Kenward, Peter Diggle,   (1998) Monotone missing data and pattern-mixture models.  <em>Statistica Neerlandica</em>
+- G. Molenberghs, B. Michiels, M. Kenward, P. Diggle,   (1998) Monotone missing data and pattern-mixture models.  <em>Statist. Neerlandica</em>
 - Michael Perri, Marian Limacher, Patricia Durning, David Janicke, Lesley Lutes, Linda Bobroff, Martha Dale, Michael Daniels, Tiffany Radcliff, A Martin,   (2008) Extended-care programs for weight management in rural communities: the treatment of obesity in underserved rural settings (TOURS) randomized trial.  <em>Archives of internal medicine</em>
 - Roger Koenker,   (2012) quantreg: Quantile Regression.
 - R Core Team ,   (2013) R: A Language and Environment for Statistical Computing.
@@ -1938,6 +1937,8 @@ approximation.
               dropout with many possible dropout times.  <em>Biometrics</em>
 - Donald Rubin,   (1977) Formalizing subjective notions about the effect of
               nonrespondents in sample surveys.  <em>J. Amer. Statist. Assoc.</em>
+- S. Tokdar, J.B. Kadane,   (2011) Simultaneous linear quantile regression: A semiparametric bayesian approach.  <em>Bayesian Analysis</em>
+- Stephen Walker, Bani Mallick,   (1999) A Bayesian Semiparametric Accelerated Failure Time Model.  <em>Biometrics</em>
 - Chenguang Wang, Michael Daniels,   (2011) A note on {MAR}, identifying restrictions, model comparison,
               and sensitivity analysis in pattern mixture models with and
               without covariates for incomplete data.  <em>Biometrics</em>
