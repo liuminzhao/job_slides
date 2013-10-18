@@ -1,5 +1,5 @@
 ---
-title       : Quantile Regression
+title       : New Approaches for Quantile Regression
 subtitle    : Ph. D. Dissertation Proposal
 author      : Minzhao Liu
 job         : 'Supervisor: Dr. Mike Daniels. Department of Statistics, University of Florida'
@@ -45,6 +45,7 @@ mode        : selfcontained # {standalone, draft, selfcontained}
 - Fitted median regression line
 - Dashed red line is the fitted value from linear regression model
   estimates.
+- [ ] More details from dissertation
 
 ---
 
@@ -226,21 +227,21 @@ Q_{Y}(\tau|\mathbf x) = \mathbf x' \beta(\tau).
 
 <!-- ## Goals of the Dissertation -->
 
----
+--- .cover .w #FitToWidth
 
 ## Chapter 1: Bayesian Quantile Regression Using Polya Trees Priors
 
-- [ ] May insert a Polya Tree picture here
+![polya](assets/img/polya.jpg)
 
 ---
 
 ## Intuition
 
-Consider heterogeneous linear regression model from He et al (1998):
+Consider heterogeneous linear regression model from <a href="http://dx.doi.org/10.1111/1467-9868.00138">He et al. (1998)</a> :
 
 \[ y_i = \mathbf x_i \mathbf \beta + (\mathbf{x_i \gamma} )\epsilon_i \]
 
-The $\tau^{th}$ quantile regression parameters is
+The $\tau^{th}$ quantile regression parameters can be represented as
 
 \[ \mathbf \beta(\tau) = \mathbf \beta + F^{-1}_\epsilon (\tau) \mathbf \gamma
 \]
@@ -248,7 +249,6 @@ The $\tau^{th}$ quantile regression parameters is
 - Homogeneous model ($\mathbf \gamma = (1, \mathbf 0)$): parallel quantile lines
 - Heterogeneous model ($\mathbf \gamma \neq (1, \mathbf 0)$): non-parallel quantile lines
 - Heterogeneous linear regression model allows non-parallel quantile lines
-- [ ] Illustrate with 2 pictures
 
 ---
 
@@ -263,13 +263,16 @@ The $\tau^{th}$ quantile regression parameters is
 - Closed form for predictive quantile regression parameters
 - Polya tree is a very flexile way to model the unknown distribution
 - Exact inference through MCMC and fewer assumptions
+- Avoid crossing quantile curves
+- Simultaneously fit multiple quantile regressions
 
 ---
 
 ## Polya Tree Definition
 
-- Polya Tree priors were introduced decades ago (Freedman 1963, Fabius 1964, Ferguson 1974)
-- Lavine (1992, 1994) extended to Polya Tree models, completed definitions, and introduced how
+- The concept of Polya Tree priors were introduced decades ago
+<a href="">Freedman (1963)</a>; <a href="">Fabius (1964)</a>; <a href="">Ferguson (1974)</a>
+- <a href="">Lavine (1992)</a>; <a href="">Lavine (1994)</a> extended to Polya Tree models, completed definitions, and introduced how
   to sample from Polya Trees
 - Advantage over Dirichlet process:
   - can be absolutely continuous with probability 1
@@ -278,9 +281,7 @@ The $\tau^{th}$ quantile regression parameters is
 
 ---
 
-## Basic
-
-Denote
+## Basic Notatioins
 
 - $E=\{0,1\}$
 - $E^m$ as the m-fold product of $E$
@@ -295,7 +296,7 @@ $B_{\epsilon 1}$ are the two partition of $B_{\epsilon}$.
 
 ---
 
-## Definition (continue)
+## Definition
 
 <div class="alert alert-info">
 <p> Polya Tree: </p>
@@ -303,7 +304,9 @@ $B_{\epsilon 1}$ are the two partition of $B_{\epsilon}$.
 <p>
 A random probability measure $G$ on $(\Omega, \mathcal{F})$ is said to have a Polya
 tree distribution, or a Polya tree prior with parameter $(\Pi, \mathcal{A})$, written
-as $G|\Pi, \mathcal{A} \sim PT (\Pi, \mathcal{A})$, if there exists nonnegative number
+as
+$$G|\Pi, \mathcal{A} \sim PT (\Pi, \mathcal{A}),$$
+if there exists nonnegative number
 $\mathcal{A} = \left\{ \alpha_\epsilon, \epsilon \in E^* \right \}$ and random vectors
 $\mathcal{Y} = \{ Y_\epsilon : \epsilon \in E^* \}$ such that the following hold:
 </p>
@@ -328,13 +331,13 @@ measure.
 
 $\mathcal{A}$ determines how much $G$ can deviate from $G_0$.
 
-- Ferguson (1974) pointed out $\alpha_{\epsilon} = 1$ yields a $G$ that is absolutely continuous with probability 1
-- $\alpha_{\epsilon_1, \ldots, \epsilon_m} = m^2$ yields $G$ that is
+- <a href="">Ferguson (1974)</a> pointed out $\alpha_{\epsilon} = 1$ yields a $G$ that is absolutely continuous with probability 1
+- $\alpha_{\epsilon_1, \ldots, \epsilon_m} = m^2$ yields that $G$ is
 absolutely continuous with probability 1.
-- Walker and Mallick (1999) and
- Paddock (1999) considered $\alpha_{\epsilon_1, \ldots,
+- <a href="http://dx.doi.org/10.1111/j.0006-341X.1999.00477.x">Walker & Mallick (1999)</a> and
+ <a href="">Paddock (1999)</a> considered $\alpha_{\epsilon_1, \ldots,
   \epsilon_m} = cm^2$, where $c > 0$.
-- Berger and Guglielmi (2001) considered
+- <a href="">Berger & Guglielmi (2001)</a> considered
 $\alpha_{\epsilon_1, \ldots, \epsilon_m} = c \rho(m)$. In general, any
 $\rho(m) $ such that $\sum_{m=1}^{\infty} \rho(m)^{-1} < \infty$
 guarantees $G$ to be absolutely continuous.
@@ -362,7 +365,6 @@ $G(B_{\epsilon 0 } |B_{\epsilon} ) = G(B_{\epsilon 1} | B_{\epsilon}) = 1/2$
 - A simple example is to choose $B_{\epsilon 0}$ and $B_{\epsilon 1}$ in level $m$ by setting them as
 $G^{-1}_0 \left((k/2^m, (k+1)/2^m] \right)$, for $k=0,..., 2^m-1$.
 
-(*May show picture here*)
 
 ---
 
@@ -373,8 +375,10 @@ $G^{-1}_0 \left((k/2^m, (k+1)/2^m] \right)$, for $k=0,..., 2^m-1$.
 Suppose $G \sim PT(\Pi, \mathcal{A})$ is a random probability
 measure and $Y_1, Y_2, ...$ are random samples from $G$.
 
-$F= E(G)$ as a probability measure is defined by
-$F(B) = E(G(B)),\forall B \in \mathcal{B}$. By the definition of Polya tree, for
+- $F= E(G)$ as a probability measure is defined by
+$F(B) = E(G(B)),\forall B \in \mathcal{B}$.
+
+- By the definition of Polya tree, for
   any $\epsilon \in E^{*}$,
 \[
     F(B_{\epsilon})  = E(G(B_{\epsilon})) = \prod_{j=1}^m
@@ -382,7 +386,7 @@ $F(B) = E(G(B)),\forall B \in \mathcal{B}$. By the definition of Polya tree, for
         \ldots, \epsilon_{j-1},0} + \alpha_{\epsilon_1, \ldots, \epsilon_{j-1},1}}.
 \]
 
-If $G$ is constructed based on baseline measure $G_0$ and we set
+- If $G$ is constructed based on baseline measure $G_0$ and we set
 $\alpha_{\epsilon_1, ..., \epsilon_m} = cm^2$,
 $\alpha_{\epsilon_0 }= \alpha_{\epsilon_1}$, then
 $\forall B \in \mathcal{B}, F(B) = G_0(B)$; thus, $F=G_0$, if there is no data.
@@ -412,8 +416,11 @@ f(y) = g_0(y).
 
 ## Conjugacy
 
-If $y_1, ..., y_n | G \sim G, G|\Pi,\mathcal{A} \sim PT(\Pi, \mathcal{A})$,
-then $G|y_1, ..., y_n, \Pi, \mathcal{A} \sim PT(\Pi, \mathcal{A}^{*})$, where in
+- If $y_1, ..., y_n | G \sim G$
+- $G|\Pi,\mathcal{A} \sim PT(\Pi, \mathcal{A})$,
+- then
+$$G|y_1, ..., y_n, \Pi, \mathcal{A} \sim PT(\Pi, \mathcal{A}^{*})$$
+where in
 $\mathcal{A}^{*}, \forall \epsilon \in E^{*}$,
 
 \[
@@ -434,7 +441,7 @@ variable $\theta$ with distribution $h_{\theta}$, and Polya tree
 parameters $(\Pi^{\theta}, \mathcal{A}^{\theta})$ such that
 
 \[
-G_{\theta} | \theta=\theta \sim PT (\Pi^{\theta}, \mathcal{A}^{\theta})
+G_{\theta} | \theta \sim PT (\Pi^{\theta}, \mathcal{A}^{\theta})
 \]
 
 <div class="alert alert-info">
@@ -468,7 +475,7 @@ in level $m$.
 \[
   \alpha_{\epsilon_1, \ldots, \epsilon_m} = cm^2.
 \]
-Therefore, the error model is
+- Therefore, the error model is
 \[
 \begin{aligned}
 y_1, \ldots, y_n |G_{\theta} & \sim G, \\
@@ -481,18 +488,28 @@ G|\Pi^{\theta}, \mathcal{A}^{c} & \sim PT (\Pi^{\theta},
 
 ## Predictive Error Density (2)
 
-The predictive density function of $Y|y_1, \ldots, y_n, \theta$,
+- Recall the posterior of $G|y_1, ..., y_n$ is
+
+$$G|y_1, ..., y_n, \Pi, \mathcal{A} \sim PT(\Pi, \mathcal{A}^{*})$$
+where in
+$\mathcal{A}^{*}, \forall \epsilon \in E^{*}$,
+
+\[
+    \alpha_{\epsilon}^{*} = \alpha_{\epsilon} + n_{\epsilon}(y_1, \ldots, y_n),
+\]
+
+where $n_{\epsilon}(y_1, ..., y_n)$ indicates the count of how many
+samples of $y_1, ..., y_n$ fall in $B_{\epsilon}$.
+
+- The predictive density function of $Y|y_1, \ldots, y_n, \theta$,
 marginalizing out $G$, is
+
 \[
   f_Y^{\theta} (y|y_1, \ldots, y_n)  = \lim_{m \to \infty} \left(
     \prod_{j=2}^m \frac{cj^2 + n_{\epsilon_1 \cdots \epsilon_j(x) }(y_1, \ldots, y_n)}{2cj^2
       + n_{\epsilon_1 \cdots \epsilon_{j-1}(x)}(y_1, \ldots, y_n)}
   \right)2^{m-1} g_0(y),
 \]
-where $n_{\epsilon_1 \cdots \epsilon_j(x) }(y_1, \ldots, y_n)$
-denotes the number of observations $y_1, \ldots, y_n$ dropping in the
-bin $\epsilon_1 \cdots \epsilon_j$ where $y$ stays in the level
-$j$.
 
 - If we restrict the first level weight as
 $\alpha_0=\alpha_1=1$, then we only need to update levels beyond
@@ -515,7 +532,7 @@ the first level.
 \]
 
 - The rule of thumb for choosing $M$ is to set $M=\log_2n$, where $n$
-  is the sample size (Hanson et al 2002)
+  is the sample size <a href="">Hanson & Johnson (2002)</a>
 
 - <a href="">Hanson & Johnson (2002)</a> showed the approximation
 is exact for $M$ large enough.
@@ -567,8 +584,7 @@ where $N$ satisfies $\sum_{i=1}^{N-1} P_i < \tau \le \sum_{i=1}^N P_i$.
 
 ---
 
-## Method
-### Fully Bayesian Quantile Regression Specification with Mixture of Polya Tree Priors
+## Fully Bayesian Quantile Regression with Mixture of Polya Tree Priors
 
 The full Bayesian specification of quantile regression is given as
 follows,
@@ -589,38 +605,20 @@ In order to not confound the location parameter, $\epsilon_i $ or $G$
 is set to have median 0 by fixing $\alpha_0=\alpha_1 = 1$. For the
 similar reason, the first component of $\mathbf{\gamma}$ is fixed at 1.
 
----
-
-## Posterior Distribution of ($\mathbf{\beta}, \mathbf \gamma, \sigma, c$)
+### Posterior Distribution of ($\mathbf{\beta}, \mathbf \gamma, \sigma, c$)
 
 \[
-  \begin{aligned}
-    P(\mathbf{\beta}, \mathbf{\gamma}, \sigma, c|\mathbf{Y}) & \propto L(\mathbf{Y}|
+    L(\mathbf{\beta}, \mathbf{\gamma}, \sigma, c|\mathbf{Y}) \propto p(\mathbf{Y}|
     \mathbf{\beta}, \mathbf{\gamma}, \sigma, c) \pi_{\beta}(\beta)
-    \pi_{\gamma}(\gamma) \pi_{\sigma}(\sigma) \pi_c(c) \\
-    & = \frac{1}{\prod_{i=1}^n (\mathbf{x_i'\gamma})} P \left(
-      \epsilon_1, \ldots, \epsilon_n | \mathbf{\beta}, \mathbf{\gamma},
-      \sigma, c\right) \pi_{\beta}(\beta)
-    \pi_{\gamma}(\gamma) \pi_{\sigma}(\sigma) \pi_c(c) \\
-    & = \frac{1}{\prod_{i=1}^n (\mathbf{x_i'\gamma})} P
-    \left(\epsilon_n| \epsilon_1, \ldots, \epsilon_{n-1}, \mathbf{\beta},
-      \mathbf{\gamma}, \sigma, c\right) \cdots P \left(\epsilon_2|
-      \epsilon_1, \mathbf{\beta}, \mathbf{\gamma}, \sigma, c\right) P
-    \left(\epsilon_1| \mathbf{\beta}, \mathbf{\gamma},
-      \sigma, c\right)\\
-    & \qquad \pi_{\mathbf{\beta}}(\mathbf{\beta})
-    \pi_{\mathbf{\gamma}}(\mathbf{\gamma}) \pi_{\sigma}(\sigma) \pi_c(c),
-  \end{aligned}
+    \pi_{\gamma}(\gamma) \pi_{\sigma}(\sigma) \pi_c(c)
 \]
-where $\epsilon_i = (y_i - \mathbf{x_i'\beta})/(\mathbf{x_i'\gamma})$
+<!-- where $\epsilon_i = (y_i - \mathbf{x_i'\beta})/(\mathbf{x_i'\gamma})$ -->
 
 ---
 
 ## Priors
 
-### $(\sigma, c)$
-
-Diffuse gamma prior:
+### $(\sigma, c)$ using diffuse gamma prior:
 \[
 \begin{align*}
   \pi(\sigma) & \sim \Gamma (1/2, 1/2), \\
@@ -628,7 +626,13 @@ Diffuse gamma prior:
 \end{align*}
 \]
 
-### $(\mathbf \beta, \mathbf \gamma)$
+### $(\mathbf \beta, \mathbf \gamma)$ using **Spike and Slab Priors**
+
+- Shrink toward zero
+- Do variable selection on both quantile regression parameters and heterogeneity parameters
+- Improve efficiency
+- Use continuous spike and slab priors on each component of $(\mathbf \beta, \mathbf \gamma)$ (<a href="http://www.jstor.org/stable/2290777">George & McCulloch, 1993</a>)
+
 \[
 \begin{align*}
   \pi_{\mathbf \beta} (\beta_j) &= \delta_{\beta_j} \phi(\beta_j; 0, s_j^2
@@ -641,15 +645,6 @@ Diffuse gamma prior:
 ---
 
 ## Spike and Slab Priors
-
-- Shrink toward zero
-- Do variable selection on both quantile regression parameters and heterogeneity parameters
-- Improve efficiency
-- Use continuous spike and slab priors on each component of $(\mathbf \beta, \mathbf \gamma)$ (<a href="http://www.jstor.org/stable/2290777">George & McCulloch, 1993</a>)
-
----
-
-## Spike and Slab Priors (Continued)
 
 The density function of priors for
 $\beta_j$ can be written as:
@@ -723,7 +718,7 @@ we can put hyper priors on $\pi_{\beta_j}$ and $\pi_{\gamma_j}$ to get
 rid of uncertainty about distribution of the components.
 - For example,
 in this article, we assign priors for $\pi_{\beta_j}$ and
-$\pi_{\gamma_j}$ to be a beta distribution with parameters $(1,1)$.
+$\pi_{\gamma_j}$ to be a Beta distribution with parameters $(1,1)$.
 
 ---
 
@@ -734,6 +729,10 @@ $\pi_{\gamma_j}$ to be a beta distribution with parameters $(1,1)$.
 Y$)
 - Adaptive Metropolis-Hasting algorithm
 - Thinning
+  - When the actual error distribution is far away from
+the Polya tree baseline measure, the MCMC trace plot may reflect strong
+autocorrelation among posterior samples. Thus we recommend thinning
+to reduce the autocorrelation.
 
 ---
 
@@ -755,15 +754,6 @@ acceptance rate for every 100 iterations during burn-in period, where
 $l$ is the number of current batches of 100 iterations
 
 ---
-
-## Thinning
-
-- When the actual error distribution is far away from
-the Polya tree baseline measure, the MCMC trace plot may reflect strong
-autocorrelation among posterior samples. Thus we recommend thinning
-to reduce the autocorrelation.
-
----
 ## Simulation
 
 - *RQ*: rq function in (<a href="http://CRAN.R-project.org/package=quantreg">Koenker, 2012</a>)
@@ -772,32 +762,20 @@ to reduce the autocorrelation.
 quantile regression (<a href="">Reich et al. 2010</a>)
 - *PT*: Polya trees  with normal diffuse priors
 - *PTSS*: Polya trees with spike and slab priors
-- Compare for both homogeneous and heterogeneous models
-
----
-
-## Design
-
-- [M1:] $y_i = 1 + x_{i1}\beta_1 + \epsilon_{1i}$, $\epsilon_{1i} \sim N(0, 1)$
-- [M2:] $y_i = 1 + x_{i1}\beta_1 + \epsilon_{2i}$, $\epsilon_{1i} \sim t_3()$
-- [M3:] $y_i = 1 + x_{i1}\beta_1 + \epsilon_{3i}$, $\epsilon_{1i} \sim 0.5 N(-2,1) + 0.5N(2,1)$
-- [M4:] $y_i = 1 + x_{i1}\beta_1 + \epsilon_{4i}$, $\epsilon_{1i} \sim 0.8 N(0,1) + 0.2N(3,3)$
-- [M1H:] $y_i = 1 + x_{i1}\beta_1 + (1 + 0.2x_{i1})
-  \epsilon_{1i}$,
-- [M2H:] $y_i = 1 + x_{i1}\beta_1 + (1 + 0.2x_{i1})
-  \epsilon_{2i}$,
-- [M3H:] $y_i = 1 + x_{i1}\beta_1 + (1 + 0.2x_{i1})
-  \epsilon_{3i}$,
-- [M4H:] $y_i = 1 + x_{i1}\beta_1 + (1 + 0.2x_{i1})
-  \epsilon_{4i}$,
-- [M5:] $y_{i} | R_i = 1 \sim 2 + x_{i1} + \epsilon_{1i}, y_{i}|
-  R_i = 0 \sim -2 - x_{i1} + \epsilon_{1i}$, $\epsilon_{1i} \sim N(0, 1)$
-- $x_{i1} \sim \mathrm{Uniform}(0,4)$
-- $\beta_1 = 1$
+- Models:
+$$
+y_i = 1 + x_{i} + (1 + \alpha x_{i})\epsilon_{i}
+$$
+where $\epsilon_{i} \sim N(0, 1), t_3, 0.5N(-2,1) + 0.5N(2,1), 0.8N(0, 1) + 0.2N(3,3)$
+- Compare for both homogeneous ($\alpha = 0$) and heterogeneous ($\alpha = 0.2$) models
 - $n = 200$
 - 100 data sets
+- $x_{i} \sim \mathrm{Uniform}(0,4)$
+- [M5:] $y_{i} | R_i = 1 \sim 2 + x_{i1} + \epsilon_{1i}, y_{i}|
+  R_i = 0 \sim -2 - x_{i1} + \epsilon_{1i}$, $\epsilon_{1i} \sim N(0, 1)$
 
 ---
+
 ## Explain
 
 - (explain these models) In model 1 (M1), the error distribution
@@ -885,63 +863,63 @@ platform: x86\_64-apple-darwin9.8.0/x86\_64 (64-bit).
 	- $\hat{\mbox{sd}}$ is the sample standard deviation
 	- $\mbox{Bias} = \hat{\beta}_{j}(\tau) - \beta_{j}(\tau)$.
 
----
+<!-- --- -->
 
-## Simulation Results
+<!-- ## Simulation Results -->
 
-Mean squared error (reported as 100*average) and MCSE
-(reported as 100*MCSE) for each
-quantile regression method.   The four columns (RQ, FBQR,
-PT, PTSS) stand for frequentist method *rq* function from
-*quantreg* R package, flexible Bayesian method by Reich, and
-our Bayesian approach using Polya tree with normal priors and with
-spike and slab priors.}
+<!-- Mean squared error (reported as 100*average) and MCSE -->
+<!-- (reported as 100*MCSE) for each -->
+<!-- quantile regression method.   The four columns (RQ, FBQR, -->
+<!-- PT, PTSS) stand for frequentist method *rq* function from -->
+<!-- *quantreg* R package, flexible Bayesian method by Reich, and -->
+<!-- our Bayesian approach using Polya tree with normal priors and with -->
+<!-- spike and slab priors.} -->
 
-| Term      |            RQ |        FBQR |          PT |        PTSS |           RQ |        FBQR |          PT |        PTSS |
-|-----------|---------------|-------------|-------------|-------------|--------------|-------------|-------------|-------------|
-|           |        M1 50% |             |             |             |      M1H 50% |             |             |             |
-| $\beta_0$ |    2.55(0.39) |  1.69(0.23) |  1.70(0.23) |  1.70(0.23) |   3.05(0.60) |  2.38(0.42) |  2.41(0.40) |  2.42(0.39) |
-| $\beta_1$ |    0.52(0.08) |  0.31(0.04) |  0.31(0.04) |  0.31(0.04) |   0.84(0.18) |  0.54(0.11) |  0.60(0.11) |  0.60(0.11) |
-|           |        M1 90% |             |             |             |      M1H 90% |             |             |             |
-| $\beta_0$ |    7.68(0.98) |  4.89(0.70) |  3.91(0.54) |  3.39(0.48) |   9.53(1.82) | 6.90(12.93) |  4.80(1.02) |  5.76(1.02) |
-| $\beta_1$ |    1.31(0.16) |  0.84(0.12) |  0.73(0.10) |  0.60(0.08) |   2.33(0.41) |  1.60(0.43) |  1.33(0.26) |  1.49(0.27) |
+<!-- | Term      |            RQ |        FBQR |          PT |        PTSS |           RQ |        FBQR |          PT |        PTSS | -->
+<!-- |-----------|---------------|-------------|-------------|-------------|--------------|-------------|-------------|-------------| -->
+<!-- |           |        M1 50% |             |             |             |      M1H 50% |             |             |             | -->
+<!-- | $\beta_0$ |    2.55(0.39) |  1.69(0.23) |  1.70(0.23) |  1.70(0.23) |   3.05(0.60) |  2.38(0.42) |  2.41(0.40) |  2.42(0.39) | -->
+<!-- | $\beta_1$ |    0.52(0.08) |  0.31(0.04) |  0.31(0.04) |  0.31(0.04) |   0.84(0.18) |  0.54(0.11) |  0.60(0.11) |  0.60(0.11) | -->
+<!-- |           |        M1 90% |             |             |             |      M1H 90% |             |             |             | -->
+<!-- | $\beta_0$ |    7.68(0.98) |  4.89(0.70) |  3.91(0.54) |  3.39(0.48) |   9.53(1.82) | 6.90(12.93) |  4.80(1.02) |  5.76(1.02) | -->
+<!-- | $\beta_1$ |    1.31(0.16) |  0.84(0.12) |  0.73(0.10) |  0.60(0.08) |   2.33(0.41) |  1.60(0.43) |  1.33(0.26) |  1.49(0.27) | -->
 
----
+<!-- --- -->
 
-| Term      |            RQ |        FBQR |          PT |        PTSS |           RQ |        FBQR |          PT |        PTSS |
-|-----------|---------------|-------------|-------------|-------------|--------------|-------------|-------------|-------------|
-|           |        M2 50% |             |             |             |      M2H 50% |             |             |             |
-| $\beta_0$ |    3.41(0.41) |  2.67(0.37) |  2.83(0.38) |  2.77(0.36) |   4.23(0.53) |  2.84(0.31) |  4.54(0.54) |  4.92(0.58) |
-| $\beta_1$ |    0.61(0.07) |  0.49(0.06) |  0.51(0.07) |  0.51(0.06) |   0.96(0.15) |  0.73(0.10) |  1.23(0.17) |  1.30(0.17) |
-|           |        M2 90% |             |             |             |      M2H 90% |             |             |             |
-| $\beta_0$ |   18.12(3.31) | 11.95(2.01) | 16.09(2.72) | 11.93(2.27) |  32.76(6.52) | 15.09(2.40) | 20.73(4.04) | 30.90(4.37) |
-| $\beta_1$ |    3.64(0.57) |  1.84(0.22) |  3.39(0.47) |  2.00(0.31) |   8.35(1.30) |  3.70(0.62) |  7.95(1.43) |  5.62(1.20) |
-|           |        M3 50% |             |             |             |      M3H 50% |             |             |             |
-| $\beta_0$ |   82.04(8.61) | 16.60(2.36) |  9.02(1.40) | 13.68(2.29) |  98.56(9.87) | 16.49(2.09) | 10.33(1.29) | 16.28(2.12) |
-| $\beta_1$ |   17.68(1.73) |  1.79(0.33) |  1.21(0.20) |  1.19(0.19) |  26.90(2.98) |  2.88(0.36) |  2.06(0.29) |  1.80(0.25) |
-|           |        M3 90% |             |             |             |      M3H 90% |             |             |             |
-| $\beta_0$ |   10.86(1.34) |  6.64(0.99) |  9.26(1.53) |  8.99(1.45) |  13.19(1.89) |  9.11(1.28) | 12.29(1.70) | 12.38(1.75) |
-| $\beta_1$ |    2.16(0.30) |  1.41(0.17) |  1.76(0.26) |  1.68(0.24) |   3.94(0.51) |  2.61(0.36) |  3.58(0.50) |  3.56(0.51) |
+<!-- | Term      |            RQ |        FBQR |          PT |        PTSS |           RQ |        FBQR |          PT |        PTSS | -->
+<!-- |-----------|---------------|-------------|-------------|-------------|--------------|-------------|-------------|-------------| -->
+<!-- |           |        M2 50% |             |             |             |      M2H 50% |             |             |             | -->
+<!-- | $\beta_0$ |    3.41(0.41) |  2.67(0.37) |  2.83(0.38) |  2.77(0.36) |   4.23(0.53) |  2.84(0.31) |  4.54(0.54) |  4.92(0.58) | -->
+<!-- | $\beta_1$ |    0.61(0.07) |  0.49(0.06) |  0.51(0.07) |  0.51(0.06) |   0.96(0.15) |  0.73(0.10) |  1.23(0.17) |  1.30(0.17) | -->
+<!-- |           |        M2 90% |             |             |             |      M2H 90% |             |             |             | -->
+<!-- | $\beta_0$ |   18.12(3.31) | 11.95(2.01) | 16.09(2.72) | 11.93(2.27) |  32.76(6.52) | 15.09(2.40) | 20.73(4.04) | 30.90(4.37) | -->
+<!-- | $\beta_1$ |    3.64(0.57) |  1.84(0.22) |  3.39(0.47) |  2.00(0.31) |   8.35(1.30) |  3.70(0.62) |  7.95(1.43) |  5.62(1.20) | -->
+<!-- |           |        M3 50% |             |             |             |      M3H 50% |             |             |             | -->
+<!-- | $\beta_0$ |   82.04(8.61) | 16.60(2.36) |  9.02(1.40) | 13.68(2.29) |  98.56(9.87) | 16.49(2.09) | 10.33(1.29) | 16.28(2.12) | -->
+<!-- | $\beta_1$ |   17.68(1.73) |  1.79(0.33) |  1.21(0.20) |  1.19(0.19) |  26.90(2.98) |  2.88(0.36) |  2.06(0.29) |  1.80(0.25) | -->
+<!-- |           |        M3 90% |             |             |             |      M3H 90% |             |             |             | -->
+<!-- | $\beta_0$ |   10.86(1.34) |  6.64(0.99) |  9.26(1.53) |  8.99(1.45) |  13.19(1.89) |  9.11(1.28) | 12.29(1.70) | 12.38(1.75) | -->
+<!-- | $\beta_1$ |    2.16(0.30) |  1.41(0.17) |  1.76(0.26) |  1.68(0.24) |   3.94(0.51) |  2.61(0.36) |  3.58(0.50) |  3.56(0.51) | -->
 
 
----
+<!-- --- -->
 
-| Term      |            RQ |        FBQR |          PT |        PTSS |           RQ |        FBQR |          PT |        PTSS |
-|-----------|---------------|-------------|-------------|-------------|--------------|-------------|-------------|-------------|
-|           |        M4 50% |             |             |             |      M4H 50% |             |             |             |
-| $\beta_0$ |    5.74(0.75) |  4.26(0.61) |  6.47(0.87) |  6.46(0.90) |   5.24(0.74) |  5.09(0.65) |  6.66(0.83) |  7.06(0.95) |
-| $\beta_1$ |    0.84(0.09) |  0.61(0.08) |  0.86(0.12) |  0.84(0.12) |   1.42(0.19) |  1.14(0.15) |  1.38(0.18) |  1.44(0.18) |
-|           |        M4 90% |             |             |             |      M4H 90% |             |             |             |
-| $\beta_0$ |   52.96(6.46) | 23.18(3.08) | 22.99(2.88) | 19.64(2.52) | 88.72(11.12) | 37.07(4.88) | 38.45(5.02) | 40.52(5.67) |
-| $\beta_1$ |   11.35(1.39) |  3.10(0.36) |  3.83(0.48) |  2.79(0.36) |  25.00(3.17) |  7.09(0.94) |  7.46(0.94) |  8.04(1.00) |
-|           |        M5 50% |             |             |             |              |             |             |             |
-| $\beta_0$ | 174.22(18.64) | 46.01(5.92) |  6.77(1.44) |  4.87(1.06) |              |             |             |             |
-| $\beta_1$ | 149.63(10.65) | 10.75(1.68) |  1.83(0.61) |  1.58(0.33) |              |             |             |             |
-|           |        M5 90% |             |             |             |              |             |             |             |
-| $\beta_0$ |    8.10(1.07) |  6.68(0.97) | 11.48(1.48) | 13.05(1.69) |              |             |             |             |
-| $\beta_1$ |    1.54(0.22) |  2.03(0.28) |  2.77(0.36) |  2.96(0.40) |              |             |             |             |
+<!-- | Term      |            RQ |        FBQR |          PT |        PTSS |           RQ |        FBQR |          PT |        PTSS | -->
+<!-- |-----------|---------------|-------------|-------------|-------------|--------------|-------------|-------------|-------------| -->
+<!-- |           |        M4 50% |             |             |             |      M4H 50% |             |             |             | -->
+<!-- | $\beta_0$ |    5.74(0.75) |  4.26(0.61) |  6.47(0.87) |  6.46(0.90) |   5.24(0.74) |  5.09(0.65) |  6.66(0.83) |  7.06(0.95) | -->
+<!-- | $\beta_1$ |    0.84(0.09) |  0.61(0.08) |  0.86(0.12) |  0.84(0.12) |   1.42(0.19) |  1.14(0.15) |  1.38(0.18) |  1.44(0.18) | -->
+<!-- |           |        M4 90% |             |             |             |      M4H 90% |             |             |             | -->
+<!-- | $\beta_0$ |   52.96(6.46) | 23.18(3.08) | 22.99(2.88) | 19.64(2.52) | 88.72(11.12) | 37.07(4.88) | 38.45(5.02) | 40.52(5.67) | -->
+<!-- | $\beta_1$ |   11.35(1.39) |  3.10(0.36) |  3.83(0.48) |  2.79(0.36) |  25.00(3.17) |  7.09(0.94) |  7.46(0.94) |  8.04(1.00) | -->
+<!-- |           |        M5 50% |             |             |             |              |             |             |             | -->
+<!-- | $\beta_0$ | 174.22(18.64) | 46.01(5.92) |  6.77(1.44) |  4.87(1.06) |              |             |             |             | -->
+<!-- | $\beta_1$ | 149.63(10.65) | 10.75(1.68) |  1.83(0.61) |  1.58(0.33) |              |             |             |             | -->
+<!-- |           |        M5 90% |             |             |             |              |             |             |             | -->
+<!-- | $\beta_0$ |    8.10(1.07) |  6.68(0.97) | 11.48(1.48) | 13.05(1.69) |              |             |             |             | -->
+<!-- | $\beta_1$ |    1.54(0.22) |  2.03(0.28) |  2.77(0.36) |  2.96(0.40) |              |             |             |             | -->
 
-(Explain)
+<!-- (Explain) -->
 
 ---
 
@@ -997,8 +975,8 @@ model 3 (M3 and M3H) and model 5 (M5).
 
 ## Real Data Analysis: Tours
 
-- a recent weight management study (<a href="">Perri et al. 2008</a>)
-- Was designed to test whether a lifestyle modification program could effectively
+- A recent weight management study (<a href="">Perri et al. 2008</a>)
+- Designed to test whether a lifestyle modification program could effectively
 help people to manage their weights in the long term
 - We are interested in the effects of **age** and **race**
 - The age of the subjects ranged from 50 to 75
@@ -1043,20 +1021,20 @@ credible intervals
 
 - Whites lost more weight than blacks for all quantiles.
 - The differential is reported as significant by PT and PTSS, and
-becomes larger when comparing more successful weight losers (70\% -
-90\% percentile).
+becomes larger when comparing more successful weight losers (70% -
+90% percentile).
 - For example, whites lost 5.05 kg more than blacks among people
-losing the most weight (90\%) reported from method PT (4.21 kg from
+losing the most weight (90%) reported from method PT (4.21 kg from
 PTSS).
 - The effect of age on the weight loss is small and not significant in
-most cases (only barely significant in 10\% and 30\% quantile
+most cases (only barely significant in 10% and 30% quantile
 regression by PT and PTSS).
 - The trend is negative showing that older people tend to lose less
 weight. For example, median weight loss is 0.40 kg less for every age
 increase of 5 years reported by PT.
 - PTSS tends to shrink coefficients toward zero. For example, the
 posterior probability that the heterogeneity parameters are zero are
-all 100\% for Age and 99\% for Race, indicating there is no
+all 100% for Age and 99% for Race, indicating there is no
 heterogeneity for covariates AGE and RACE.
 - This can help to select variables in Bayesian models. For example,
 we can exclude AGE out of the regressors or conclude the variance is
@@ -1064,28 +1042,28 @@ homogeneous on the AGE covariate.
 
 ---
 
-## Comparison to *FBQR* and *RQ*
+<!-- ## Comparison to *FBQR* and *RQ* -->
 
-- Results from method RQ and FBQR show similar conclusions as PT and
-PTSS.  But there are still differences on the estimates and
-statistical significance.
+<!-- - Results from method RQ and FBQR show similar conclusions as PT and -->
+<!-- PTSS.  But there are still differences on the estimates and -->
+<!-- statistical significance. -->
 
-- For 10\% quantile, RQ reports Race is not an significant factor,
-which differs from the other three methods.
+<!-- - For 10% quantile, RQ reports Race is not an significant factor, -->
+<!-- which differs from the other three methods. -->
 
-- For 30\% quantile, Age is not significant factor on weight loss from
-RQ and FBQR. However, both PT and PTSS report Age has a significant
-negative effect.
+<!-- - For 30% quantile, Age is not significant factor on weight loss from -->
+<!-- RQ and FBQR. However, both PT and PTSS report Age has a significant -->
+<!-- negative effect. -->
 
-- For 50\% and 70\% quantile, the four methods have some differences
-on the estimates, but they all have agreements on the significances of
-the covariates.
+<!-- - For 50% and 70% quantile, the four methods have some differences -->
+<!-- on the estimates, but they all have agreements on the significances of -->
+<!-- the covariates. -->
 
-- For 90\% quantile, RQ method provides different results than
-others. Age is reported as significant on weight loss, while the other
-methods show Age does not affect the 90\% quantile for weight loss.
+<!-- - For 90% quantile, RQ method provides different results than -->
+<!-- others. Age is reported as significant on weight loss, while the other -->
+<!-- methods show Age does not affect the 90% quantile for weight loss. -->
 
----
+<!-- --- -->
 
 ## Discussion
 
@@ -1118,15 +1096,15 @@ distribution in Polya tree adaptively to improve the estimation.
 
 ---
 
-## Multivariate Polya Tree Introduction ?
+<!-- ## Multivariate Polya Tree Introduction ? -->
 
-- Paddock 1999, 2002 studied multivariate Polya Tree in a k-dimensional hypercube
-- Hanson 2006 constructed a general framework for multivariate random variable with Polya Tree distribution
-- Jara et al 2009 extended the multivariate mixture of Polya Tree prior with a directional orthogonal matrix.
-  And he demonstrated how to fit a generalized mixed effect model by modeling
-  multivariate random effects within multivariate mixture of Polya Tree priors
+<!-- - Paddock 1999, 2002 studied multivariate Polya Tree in a k-dimensional hypercube -->
+<!-- - Hanson 2006 constructed a general framework for multivariate random variable with Polya Tree distribution -->
+<!-- - Jara et al 2009 extended the multivariate mixture of Polya Tree prior with a directional orthogonal matrix. -->
+<!--   And he demonstrated how to fit a generalized mixed effect model by modeling -->
+<!--   multivariate random effects within multivariate mixture of Polya Tree priors -->
 
----
+<!-- --- -->
 ## Chapter 2: Quantile Regression in the Presence of Monotone Missingness with Sensitivity Analysis
 
 
@@ -1143,11 +1121,6 @@ estimated conditional quantile regression and specification of
 conditional density of missing covariates given observed ones.
 - However, they put more focus on the missing covariates rather than
 missing outcomes.
-
----
-
-## Review
-
 - <a href="http://dx.doi.org/10.2427/8758">Bottai & Zhen (2013)</a> illustrated an imputation method
 using estimated conditional quantiles of missing outcomes given
 observed data.
@@ -1157,11 +1130,6 @@ observed data.
 distribution, the joint distribution with such conditionals may not
 exist.
 - In addition, their approach does not allow for MNAR.
-
----
-
-## Review
-
 - <a href="http://dx.doi.org/10.1111/j.1541-0420.2009.01269.x">Yuan & Yin (2010)</a> introduced a fully parametric Bayesian
 quantile regression approach for longitudinal data with nonignorable
 missing data.
@@ -1180,11 +1148,6 @@ methods.
 - Moreover, due to their full parametric specification for the full
 data, their model does not allow for sensitivity analysis, which is a
 key component in inference for incomplete data (NAS 2010).
-
----
-
-## Review
-
 - Pattern mixture models were originally proposed to model missing
 data in <a href="">Rubin (1977)</a>.
 - Later mixture models were extended to handle MNAR in longitudinal
@@ -1232,7 +1195,7 @@ be the densities of response $\mathbf Y$ given follow-up time $S=k$ and $S
 
 ## Pattern Mixture Model
 
-- pattern mixture model jointly model the response and
+- Pattern mixture model jointly model the response and
 missingness (<a href="http://dx.doi.org/10.1093/biomet/81.3.471">Little, 1994</a>; <a href="http://dx.doi.org/10.1201/9781420011180">Daniels & Hogan, 2008</a>)
 - Mixture models factor the
 joint distribution of response and missingness as
@@ -1246,11 +1209,6 @@ joint distribution of response and missingness as
 where $\mathcal{S}$ is the sample space for dropout time $S$ and the
 parameter vector $\mathbf \omega$ is partitioned as
 $(\mathbf \theta, \mathbf \phi)$.
-
----
-
-## Pattern Mixture Model
-
 - Furthermore, the conditional distribution of response within patterns
 can be decomposed as
 \[
@@ -1270,7 +1228,6 @@ responses, the second term on the right hand side.
 
 - We assume models within pattern to be multivariate normal
 distributions and specify a sequential model parametrization.
-- Let the subscript $i$ stand for subject $i$.
 - The marginal quantile regression models as:
 \[
   Pr (Y_{ij} \leq \mathbf x_{ij}^T \mathbf \gamma_j ) = \tau,
@@ -1311,16 +1268,17 @@ multivariate normal distribution within patterns such that MAR exists
 
 ## $\Delta$
 
-$\Delta_{ij}$ are functions of $\tau, \mathbf x_{ij},
-\mathbf \beta, \mathbf h, \mathbf \sigma, \mathbf \gamma_j, \mathbf \phi$ and are determined by the marginal
+$\Delta_{ij}$ are functions of
+$\tau, \mathbf x_{ij}, \mathbf \beta, \mathbf h, \mathbf \sigma, \mathbf \gamma_j, \mathbf \phi$
+and are determined by the marginal
 quantile regressions,
-\begin{equation}
-  \label{eq:deltaeqn1}
+\[
   \tau = Pr (Y_{ij} \leq \mathbf x_{ij}^T \mathbf \gamma_j ) = \sum_{k=1}^J
   \phi_kPr_k (Y_{ij} \leq \mathbf x_{ij}^T \mathbf \gamma_j ) \mbox{  for  } j = 1,
-\end{equation}
+\]
 and
-\begin{align}\label{eq:deltaeqn2}
+\[
+\begin{align}
   \tau &= Pr (Y_{ij} \leq \mathbf x_{ij}^{T} \mathbf \gamma_j ) =
   \sum_{k=1}^J
   \phi_kPr_k (Y_{ij} \leq \mathbf x_{ij}^{T} \mathbf \gamma_j ) \\
@@ -1330,7 +1288,7 @@ and
   & \quad \cdots p_k (y_{i2}| y_{i1}) p_k(y_{i1})
   dy_{i(j-1)}\cdots dy_{i1}.  \mbox{  for  } j = 2, \ldots, J .\nonumber
 \end{align}
-
+\]
 
 ---
 
@@ -1343,12 +1301,7 @@ model.
 quantile regression coefficients to differ by quantiles. Otherwise,
 the quantile lines would be parallel to each other. Moreover,
 - the mixture model also allows sensitivity analysis.
-
----
-
-## Identifiability
-
-For identifiability of the observed data distribution, we apply the
+- For identifiability of the observed data distribution, we apply the
 following restrictions,
 \[
  \sum_{k=1}^J \beta_{l1}^{(k)} = 0, l = 1,\ldots, p,
@@ -1366,20 +1319,19 @@ incomplete patterns, in particular, the extrapolation distribution
 missingness mechanism and sensitivity parameters in mixture models for
 our setting.
 
-In the mixture model , MAR holds (<a href="http://dx.doi.org/10.1111/1467-9574.00075">Molenberghs et al. 1998</a>; <a href="http://dx.doi.org/10.1111/j.1541-0420.2011.01565.x">Wang & Daniels, 2011</a>) if and only if, for each $j \geq 2$ and $k < j$:
+In the mixture model , MAR holds (<a href="http://dx.doi.org/10.1111/1467-9574.00075">Molenberghs et al. 1998</a>; <a href="http://dx.doi.org/10.1111/j.1541-0420.2011.01565.x">Wang & Daniels, 2011</a>) if and only if, for each
+$j \geq 2$ and $k < j$:
 \[
   p_k(y_j|y_1, \ldots, y_{j-1}) = p_{\geq j}(y_j|y_1, \ldots, y_{j-1}).
 \]
 When $2 \leq j \leq J$ and $k < j$, $Y_j$ is not observed, thus
-$\mathbf h_j^{(k)}$ and $\sigma_j^{(k)}$, $\mathbf \beta_{y,
-  j-1}^{(k)} = \big(\beta_{y_1,j}^{(k)}, \ldots,
-\beta_{y_{j-1},j-1}^{(k)} \big)^T $ can not be identified from the
-observed data.
+$\mathbf h_j^{(k)}$ and $\sigma_j^{(k)}$,
+$\mathbf \beta_{y,j-1}^{(k)} = (\beta_{y_1,j}^{(k)}, \ldots, \beta_{y_{j-1},j-1}^{(k)} )^T$
+can not be identified from the observed data.
 
 ---
 
 ## Sensitivity Analysis
-
 \[
 \begin{align*}
   \log \sigma_j^{(k)} &= \log \sigma_j^{(\geq j)} +  \delta_{j}^{(k)}, \\
@@ -1393,17 +1345,10 @@ where $\mathbf \eta_{j-1}^{(k)} = \big( \eta_{y_1,j-1}^{(k)}, \ldots,
 of sensitivity parameters (<a href="http://dx.doi.org/10.1201/9781420011180">Daniels & Hogan, 2008</a>), where $k < j, 2 \leq j \leq
 J $.
 
----
-
-## Sensitivity Analysis
-
-When $\mathbf \xi_s = \mathbf \xi_{s0} = \mathbf 0$, MAR holds. If
-$\mathbf \xi_s$ is fixed at $\mathbf \xi_s \neq \mathbf \xi_{s0}$, the
-missingness mechanism is MNAR. We can vary $\mathbf \xi_s$ around
-$\mathbf 0$ to examine the impact of different MNAR mechanisms.
-
-For fully Bayesian inference, we can put priors on $(\mathbf \xi_s,
-\mathbf \xi_m)$ as :
+- $\mathbf \xi_s = \mathbf \xi_{s0} = \mathbf 0$, MAR holds.
+- $\mathbf \xi_s$ is fixed at $\mathbf \xi_s \neq \mathbf \xi_{s0}$, MNAR.
+- We can vary $\mathbf \xi_s$ around $\mathbf 0$ to examine the impact of different MNAR mechanisms.
+- For Bayesian inference, put priors on $(\mathbf \xi_s, \mathbf \xi_m)$ as :
 \[
   p(\mathbf \xi_s, \mathbf \xi_m) = p(\mathbf \xi_s) p(\mathbf \xi_m),
 \]
@@ -1459,7 +1404,7 @@ parameters $\mathbf \xi = (\mathbf \xi_m, \xi_s)$.
 
 ---
 
-## Calculation of $\Delta_{ij}, 2\leq j \leq J$
+## Lemma for Calculation of $\Delta_{ij}, 2\leq j \leq J$
 
 An integral of a normal CDF with mean $b$ and standard deviation
 $a$ over another normal distribution with mean $\mu$ and standard
@@ -1468,14 +1413,14 @@ normal CDF:
 
 $$
 \begin{array}{l}
-\displaystyle
-\int \Phi \left( \frac{x-b}{a} \right) d\Phi(x; \mu, \sigma)  =
+\displaystyle \int \Phi \left( \frac{x-b}{a} \right) d\Phi(x; \mu, \sigma)  =
 \begin{cases}
-        1- \Phi \left( \frac{b-\mu}{\sigma} \big /
-			\sqrt{\frac{a^2}{\sigma^2}+1} \right) & a > 0, \\
-        \Phi \left( \frac{b-\mu}{\sigma} \big /
-          \sqrt{\frac{a^2}{\sigma^2}+1} \right) & a < 0,
+1- \Phi \left( \frac{b-\mu}{\sigma} \big /
+\sqrt{\frac{a^2}{\sigma^2}+1} \right) & a > 0, \\
+\Phi \left( \frac{b-\mu}{\sigma} \big /
+\sqrt{\frac{a^2}{\sigma^2}+1} \right) & a < 0,
 \end{cases}
+\end{array}
 $$
 
 where $\Phi(x; \mu, \sigma)$ stands for a CDF of normal
@@ -1485,10 +1430,8 @@ distribution with mean $\mu$ and standard deviation $\sigma$.
 
 ## Calculation of $\Delta_{ij}, 2\leq j \leq J$
 
-  Given the result in Lemma , to solve equation
-  (\ref{eq:deltaeqn2}), we propose a recursive approach. For the first
-  multiple integral, apply lemma
-   once to obtain:
+  Given the result in Lemma , to solve above equation, we propose a recursive approach. For the first
+  multiple integral, apply lemma once to obtain:
 
 \[
   \begin{align*}
@@ -1511,7 +1454,6 @@ distribution with mean $\mu$ and standard deviation $\sigma$.
   $\Delta_{ij}$ using standard numerical root-finding method as for $j
   = 1$.
 
-
 ---
 
 ## MLE
@@ -1527,33 +1469,21 @@ L_i(\mathbf \xi| \mathbf y_i, S_{i} = k) & =
   (y_{k-1}|y_1, \ldots, y_{k-2}) \cdots p_{k} (y_1), \nonumber
 \end{align}
 \]
-where $\mathbf y_i = (y_1, \ldots, y_k)$.
-
-We use derivative-free optimization algorithms by quadratic
+- Use derivative-free optimization algorithms by quadratic
 approximation to compute the maximum likelihood estimates
-(<a href="http://CRAN.R-project.org/package=minqa">Bates et al. 2012</a>). Denote $J(\mathbf \xi) = - \log L = - \log \sum_{i =
-  1}^n L_i$.  Then maximizing the likelihood is equivalent to minimizing
-the target function $J(\mathbf \xi)$. Under an MAR assumption, we fix
-$\mathbf \xi_s = \mathbf 0$, while under MNAR assumption, $\mathbf \xi_s
-$ can be chosen as desired.
-
-During each step of the algorithm, $\Delta_{ij}$ has to be calculated
+(<a href="http://CRAN.R-project.org/package=minqa">Bates et al. 2012</a>).
+- Under an MAR assumption, we fix $\mathbf \xi_s = \mathbf 0$
+- Under MNAR assumption, $\mathbf \xi_s$ can be chosen as desired.
+- During each step of the algorithm, $\Delta_{ij}$ has to be calculated
 for each subject and at each time, as well as partial derivatives for
 each parameter.
-
-As an example of the speed of the algorithm, for 100 bivariate
+- Speed: for 100 bivariate
 outcomes and 5 covariates, it takes about 1.9 seconds to get
-convergence using R version 2.15.3 (2013-03-01) (<a href="http://www.R-project.org/"></a>) and
-platform: x86\_64-apple-darwin9.8.0/x86\_64 (64-bit). Main parts of
-the algorithm are coded in Fortran such as calculation of numerical
-derivatives and log-likelihood to quicken computations. We have
-incorporated those functions implementing the algorithm into the new R
+convergence
+- Incorporated those functions implementing the algorithm into the new R
 (<a href="http://www.R-project.org/"></a>) package ``qrmissing''.
-
-We use the bootstrap \citep{efron1979,efron1993,divison1997} to
-construct confidence interval and make inferences.  We resample
-subjects and use bootstrap percentile intervals to form confidence
-intervals.
+- Use the bootstrap \citep{efron1979,efron1993,divison1997} to
+construct confidence interval and make inferences.
 
 ---
 
@@ -1563,8 +1493,8 @@ A simple goodness-of-fit check can be done by examining normal QQ
 plots of the fitted residuals from the model. The visual test can help
 to diagnose if the parametric assumptions are suitable for model.
 
-After obtaining the MLE, we use the approach described in section
-\ref{sec:deltacal} to get the fitted $\Delta_{ij}$ for each
+After obtaining the MLE, we use the aboved approach to
+ get the fitted $\Delta_{ij}$ for each
 subject. Then the fitted residuals can be obtained by plugging in the
 fitted estimates and $\hat{\Delta}_{ij}$ to obtain,
 \[
@@ -1604,110 +1534,84 @@ missingness mechanism assumptions.
 
 ## Updating
 
-As mentioned in section \ref{sec:sa}, MAR or MNAR assumptions are
-implemented via specific priors. For example, if MAR is assumed with
-no uncertainty, then $ \mathbf \xi _s= \mathbf 0$ with probability 1.
-
-Details for updating parameters are:
-
-- $\mathbf \gamma_{1} $: Use Metropolis-Hasting algorithm.
-  \begin{enumerate}
-  - Draw ($\mathbf \gamma_{1}^c$) candidates from candidate
-    distribution;
-  - Based on the new candidate parameter $\mathbf \xi^c$, calculate
-    candidate $\Delta_{ij}^c$ for each subject $i$ as we described in
-    section \ref{sec:deltacal}.
-  - Plug in $\Delta_{ij}^c$ in likelihood (\ref{eq:ll}) to get
-    candidate likelihood;
-  - Compute Metropolis-Hasting ratio, and accept the candidate
-    value or keep the previous value.
-
-- For the rest of the identifiable parameters, algorithms for
-  updating the samples are all similar to $\mathbf \gamma_j$.
-- For sensitivity parameters, because we do not get any
-  information from the data, we sample them from priors, which are
-  specified based on assumptions about the missingness.
-
-
+- MAR or MNAR assumptions are implemented via specific priors.
+- Details for updating parameters are:
+	- $\mathbf \gamma_{1} $: Use Metropolis-Hasting algorithm.
+	\begin{enumerate}
+		- Draw ($\mathbf \gamma_{1}^c$) candidates from candidate
+		  distribution;
+		- Based on the new candidate parameter $\mathbf \xi^c$, calculate
+		  candidate $\Delta_{ij}^c$ for each subject $i$
+		- Plug in $\Delta_{ij}^c$ in likelihood to get
+		  candidate likelihood;
+		- Compute Metropolis-Hasting ratio, and accept the candidate
+		  value or keep the previous value.
+	- For the rest of the identifiable parameters, algorithms for
+	  updating the samples are all similar to $\mathbf \gamma_j$.
+  - For sensitivity parameters, because we do not get any
+	information from the data, we sample them from priors, which are
+	specified based on assumptions about the missingness.
 
 ---
 
 ## Simulation Study
 
-### Design , Introduce candidates
+### Method candidates
 
-In this section, we compare the performance of our proposed model in
-section \ref{sec:settings} with the *rq* function (noted as RQ) in
-*quantreg* R package (<a href="http://CRAN.R-project.org/package=quantreg">Koenker, 2012</a>) and Bottai's algorithm
-(<a href="http://dx.doi.org/10.2427/8758">Bottai & Zhen, 2013</a>) (noted as BZ). The *rq* function
-minimizes the loss (check) function $\sum_{i=1}^n \rho_{\tau} (y_i -
-\mathbf x_i^T \mathbf \beta)$ in terms of $\mathbf \beta$, where the loss
-function $\rho_{\tau} (u) = u(\tau - I(u < 0))$ and does not make any
-distributional assumptions. <a href="http://dx.doi.org/10.2427/8758">Bottai & Zhen (2013)</a> impute missing
-outcomes using the estimated conditional quantiles of missing outcomes
-given observed data. Their approach does not make distributional
-assumptions similar to *rq* and assumes ignorable missing data.
+- *rq* function (noted as RQ) in *quantreg* R package (<a href="http://CRAN.R-project.org/package=quantreg">Koenker, 2012</a>)
+- Bottai's algorithm (<a href="http://dx.doi.org/10.2427/8758">Bottai & Zhen, 2013</a>) (noted as BZ).
+- <a href="http://dx.doi.org/10.2427/8758">Bottai & Zhen (2013)</a> impute missing
+  outcomes using the estimated conditional quantiles of missing outcomes
+  given observed data. Their approach does not make distributional
+  assumptions similar to *rq* and assumes ignorable missing data.
 
----
+--- &twocol
 
 ## Design
 
-We considered three scenarios corresponding to both MAR and MNAR
-assumptions for a bivariate response.  In the first scenario, $Y_2$
-were missing at random and we used the MAR assumption in our
-algorithm. In the next two scenarios, $Y_2$ were missing not at
-random. However, in the second scenario, we misspecified the MDM for
-our algorithm and still assumed MAR, while in the third scenario, we
-used the correct MNAR MDM. For each scenario, we considered three
-error distributions: normal, student t distribution with 3 degrees of
-freedom and Laplace distribution. For each error model, we simulated
-100 data sets. For each set there are 200 bivariate observations
-$\mathbf Y_i = (Y_{i1}, Y_{i2})$ for $i = 1, \ldots, 200$. $Y_{i1}$
-were always observed, while some of $Y_{i2}$ were missing. A single
-covariate $x$ was sampled from Uniform(0,2). The three models for the
-full data response $\mathbf Y_i$ were:
+*** left
+
+- Scenario 1: MAR
+- Scenario 2: MNAR with misspecification
+- Scenario 3: MNAR with correct MNAR MDM
+- Bivariate responses, $Y_2$ were partly missing
+- For each scenario,
+  - N(0, 1)
+  - $T_3$
+  - Laplace distribution (rate = 1)
+- 100 data sets. For each set there are 200 bivariate observations
+- Covariate $x$ was sampled from Uniform(0,2).
+
+*** right
+
+- The three models for the
+  full data response $\mathbf Y_i$ were:
+\[
 \begin{align*}
   Y_{i1} | R = 1 & \sim 2 + x_i +  \epsilon_{i1} , \\
   Y_{i1}| R = 0 & \sim  -2 - x_i +  \epsilon_{i1} , \\
   Y_{i2}| R = 1, Y_{i1}&\sim 1 - x_i - 1/2Y_{i1} + \epsilon_{i2},
 \end{align*}
-where $\epsilon_{i1}, \epsilon_{i2} \sim \textrm{N}(0, 1)$, $t_3$ or
-$\mbox{LP}(\mbox{rate} = 1)$ distribution within each scenario.
+\]
+- $Pr (R = 1) = 0.5$
+- When $R = 0$, $Y_{i2}$ is not observed, so $p(Y_{i2}| R = 0, Y_{i1})$ is not identifiable from
+  observed data.
+- S2 and S3:  assume
+$$Y_{i2}| R = 0, Y_{i1} \sim 3 - x_i - 1/2Y_{i1} + \epsilon_{i2}$$
 
-For all cases, $Pr (R = 1) = 0.5$.  When $R = 0$, $Y_{i2}$ is not
-observed, so $p(Y_{i2}| R = 0, Y_{i1})$ is not identifiable from
-observed data.
-
----
-
-## Explain
-
-In the first scenario, $Y_2$ is missing at random, thus $p(Y_{i2} |
-R = 0, Y_{i1}) = p(Y_{i2}|R = 1, Y_{i1}) $. In the last two
-scenarios, $Y_2$ are missing not at random. We assume $Y_{i2}| R = 0,
-Y_{i1} \sim 3 - x_i - 1/2Y_{i1} + \epsilon_{i2}$. Therefore, there is
-a shift of 2 in the intercept between $p(Y_2|R = 1, Y_1)$ and
-$p(Y_2|R = 0, Y_1)$.
-
-Under an MAR assumption, the sensitivity parameter $\mathbf \xi_s$ is
-fixed at $\mathbf 0$ as discussed in section \ref{sec:sa}. For
-*rq* function from *quantreg* R package, because only
-$Y_{i2}|R = 1$ is observed, the quantile regression for $Y_{i2}$ can
-only be fit from the information of $Y_{i2}|R = 1$ vs $x$.
-
-In scenario 2 under MNAR, we mis-specified the MDM using the wrong
-sensitivity parameter $\mathbf \xi_s$ at $\mathbf 0$. In scenario 3, we
-assumed there was an intercept shift between distribution of
-$Y_{i2}|Y_{i1}, R = 1$ and $Y_{i2}|Y_{i1}$, $R = 0$, thus fixed
-$\mathbf \xi_s$ at its true value.
+<!-- Under an MAR assumption, the sensitivity parameter $\mathbf \xi_s$ is -->
+<!-- fixed at $\mathbf 0$. For -->
+<!-- *rq* function from *quantreg* R package, because only -->
+<!-- $Y_{i2}|R = 1$ is observed, the quantile regression for $Y_{i2}$ can -->
+<!-- only be fit from the information of $Y_{i2}|R = 1$ vs $x$. -->
 
 ---
 
 ## Evaluation
 
-For each dataset, we fit quantile regression for quantiles $\tau =$
-0.1, 0.3, 0.5, 0.7, 0.9.  Parameter estimates were evaluated by mean
-squared error (MSE),
+- Fit quantile regression for quantiles $\tau =$ 0.1, 0.3, 0.5, 0.7, 0.9
+- Parameter estimates were evaluated by mean
+  squared error (MSE),
 \[
   \mbox{MSE} (\gamma_{ij}) = \frac{1}{100} \sum_{k = 1}^{100}
   \left( \hat{\gamma}_{ij}^{(k)}  - \gamma_{ij}\right)^2, i = 0, 1
@@ -1737,94 +1641,88 @@ of simulations.
 
 ## Goodness of Fit Check
 
-To assess the goodness of fit, we examined the QQ plot of fitted
-residuals in model (\ref{eq:model}) to check the normality assumption
-on the error term for a random sample of the simulated datasets
-(Appendix \ref{sec:gofsim}).  When our error assumption is correct
-(normal), the QQ plot reflects the fitted residuals follow exact a
-normal distribution. However, when we misspecified the error
-distribution, the proposed diagnostic method did clearly suggest
-heavier tail error than normal, and this also demonstrates why our
-approach has some disadvantages for regression on extreme quantiles
-when errors are not normal.
-
 - [ ] insert sample QQ plots here
+
+- To assess the goodness of fit, we examined the QQ plot of fitted
+residuals to check the normality assumption on the error term for a
+random sample of the simulated datasets.
+- When our error assumption is correct (normal), the QQ plot reflects
+the fitted residuals follow exact a normal distribution.
+- However, when we misspecified the error distribution, the proposed
+diagnostic method did clearly suggest heavier tail error than normal,
+and this also demonstrates why our approach has some disadvantages for
+regression on extreme quantiles when errors are not normal.
 
 ---
 
 ## Real Data Analysis: Tours
 
-We apply our quantile regression approach to data from TOURS, a weight
-management clinical trial (<a href="">Perri et al. 2008</a>).  This trial was
-designed to test whether a lifestyle modification program could
-effectively help people to manage their weights in the long
-term. After finishing the six-month weight loss program, participants
-were randomly assigned to three treatments groups: face-to-face
-counseling, telephone counseling and control group. Their weights were
-recorded at baseline ($Y_0$), 6 months ($Y_1$) and 18 months
-($Y_2$). Here, we are interested in how the distribution of weights at
-six months and eighteen months change with covariates. The
-regressors of interest include AGE, RACE (black and white) and weight
-at baseline ($Y_0$). Weights at the six months ($Y_1$) were always
-observed and 13 out of 224 observations (6\%) were missing at 18
-months ($Y_2$). The ``Age'' covariate was scaled to 0 to 5 with every
-increment representing 5 years.
-
-We fitted regression models for bivariate responses $\mathbf Y_i =
-(Y_{i1}, Y_{i2})$ for quantiles (10\%, 30\%, 50\%, 70\%, 90\%).  We
-ran 1000 bootstrap samples to obtain 95\% confidence intervals.
+- Weights were recorded at baseline ($Y_0$), 6 months ($Y_1$) and 18
+months ($Y_2$).
+- We are interested in how the distribution of weights at six months
+and eighteen months change with covariates.
+- Theregressors of interest include **AGE**, **RACE** (black and
+white) and **weight at baseline** ($Y_0$).
+- Weights at the six months ($Y_1$) were always observed and 13 out of
+224 observations (6%) were missing at 18 months ($Y_2$).
+- The **AGE** covariate was scaled to 0 to 5 with every increment
+representing 5 years.
+- We fitted regression models for bivariate responses $\mathbf Y_i =
+(Y_{i1}, Y_{i2})$ for quantiles (10%, 30%, 50%, 70%, 90%).
+- We ran 1000 bootstrap samples to obtain 95% confidence intervals.
 
 
 ---
 
 ## Results (Table is too large)
 
-| Term            | Intercept            | Age               | White              | BaseWeight      |
-|-----------------|----------------------|-------------------|--------------------|-----------------|
-| 6 months        |                                                                              ||||
-| 10\%            | -6.05(-10.88,2.67)   | 0.34(-0.25,0.85)  | -3.86(-5.75,-2.43) | 0.92(0.85,0.97) |
-| 30\%            | -2.56(-7.67,3.66)    | 0.33(-0.25,0.84)  | -3.90(-5.43,-2.54) | 0.92(0.86,0.97) |
-| 50\%            | -0.25(-5.29,5.60)    | 0.31(-0.25,0.85)  | -4.04(-5.57,-2.55) | 0.93(0.87,0.98) |
-| 70\%            | 1.79(-3.27,7.81)     | 0.35(-0.22,0.86)  | -4.11(-5.67,-2.68) | 0.93(0.87,0.98) |
-| 90\%            | 4.81(-0.05,11.32)    | 0.40(-0.20,0.94)  | -4.07(-5.68,-2.68) | 0.94(0.88,0.99) |
-| 18 months(MAR)  |                      |                   |                    |                 |
-| 10\%            | -17.65(-31.75,21.41) | -0.73(-1.99,0.39) | -0.12(-10.60,2.96) | 1.01(0.63,1.14) |
-| 30\%            | -18.26(-28.27,9.88)  | -0.74(-2.01,0.32) | 1.07(-8.93,3.67)   | 1.07(0.79,1.17) |
-| 50\%            | -12.72(-24.20,10.45) | -0.73(-2.01,0.30) | 1.04(-6.14,3.94)   | 1.06(0.83,1.17) |
-| 70\%            | -9.12(-19.69,14.38)  | -0.73(-2.00,0.31) | 1.18(-5.18,3.92)   | 1.06(0.84,1.16) |
-| 90\%            | -3.90(-12.65,19.61)  | -0.75(-1.98,0.36) | 1.24(-4.19,3.76)   | 1.08(0.85,1.16) |
+| Term           | Intercept            | Age               | White              | BaseWeight      |
+|----------------|----------------------|-------------------|--------------------|-----------------|
+| 6 months       |                                                                              ||||
+| 10%            | -6.05(-10.88,2.67)   | 0.34(-0.25,0.85)  | -3.86(-5.75,-2.43) | 0.92(0.85,0.97) |
+| 30%            | -2.56(-7.67,3.66)    | 0.33(-0.25,0.84)  | -3.90(-5.43,-2.54) | 0.92(0.86,0.97) |
+| 50%            | -0.25(-5.29,5.60)    | 0.31(-0.25,0.85)  | -4.04(-5.57,-2.55) | 0.93(0.87,0.98) |
+| 70%            | 1.79(-3.27,7.81)     | 0.35(-0.22,0.86)  | -4.11(-5.67,-2.68) | 0.93(0.87,0.98) |
+| 90%            | 4.81(-0.05,11.32)    | 0.40(-0.20,0.94)  | -4.07(-5.68,-2.68) | 0.94(0.88,0.99) |
+| 18 months(MAR) |                      |                   |                    |                 |
+| 10%            | -17.65(-31.75,21.41) | -0.73(-1.99,0.39) | -0.12(-10.60,2.96) | 1.01(0.63,1.14) |
+| 30%            | -18.26(-28.27,9.88)  | -0.74(-2.01,0.32) | 1.07(-8.93,3.67)   | 1.07(0.79,1.17) |
+| 50%            | -12.72(-24.20,10.45) | -0.73(-2.01,0.30) | 1.04(-6.14,3.94)   | 1.06(0.83,1.17) |
+| 70%            | -9.12(-19.69,14.38)  | -0.73(-2.00,0.31) | 1.18(-5.18,3.92)   | 1.06(0.84,1.16) |
+| 90%            | -3.90(-12.65,19.61)  | -0.75(-1.98,0.36) | 1.24(-4.19,3.76)   | 1.08(0.85,1.16) |
 
 ---
 
 ## Comments
 
-Estimates under MAR and MNAR are presented in Table
-\ref{tab:tours}. For weights of participants at six months, weights of
-whites are generally 4kg lower than those of blacks for all quantiles,
-and the coefficients of race are negative and significant. Meanwhile,
-weights of participants are not affected by age since the coefficients
-are not significant. Difference in quantiles are reflected by the
-intercept.  Coefficients of baseline weight show a strong relationship
-with weights after 6 months.
-
-For weights at 18 months after baseline, we have similar results.
-Weights after 18 months still have a strong relationship with baseline
-weights. However, whites do not weigh significantly less than blacks
-at 18 months unlike at 6 months.
+- For weights of participants at six months, weights of whites are
+generally 4kg lower than those of blacks for all quantiles, and the
+coefficients of race are negative and significant.
+- Weights of participants are not affected by age since the
+coefficients are not significant. Difference in quantiles are
+reflected by the intercept.
+- Coefficients of baseline weight show a
+strong relationship with weights after 6 months.
+- For weights at 18 months after baseline, we have similar results.
+- Weights after 18 months still have a strong relationship with baseline
+weights.
+- However, whites do not weigh significantly less than blacks at 18
+months unlike at 6 months.
 
 ---
 
 ## Sensitivity Analysis
 
-We also did a sensitivity analysis based on an assumption of missing
-not at random.  Based on previous studies of pattern of weight regain
-after lifestyle treatment \citep{wadden2001, perri2008extended}, we
+We also did a sensitivity analysis based on an assumption of MNAR.
+- Based on previous studies of pattern of weight regain
+after lifestyle treatment (<a href="http://dx.doi.org/10.1001/archinte.161.2.218">Wadden et al. 2001</a>; <a href="">Perri et al. 2008</a>), we
 assume that
 \[
   E(Y_2 - Y_1| R=0) = 3.6 \mbox{kg},
 \]
 which corresponds to 0.3kg regain per month after finishing the
-initial 6-month program. We incorporate the sensitivity parameters in
+initial 6-month program.
+- We incorporate the sensitivity parameters in
 the distribution of $Y_2|Y_1, R=0$ via the following restriction:
 \[
   \Delta_{i2} + \mathbf x_{i2}^T \mathbf h_2^{(1)} + E(y_{i1}|R=0)(\beta_{y,1}^{(1)} +\eta_1^{(1)} - 1) = 3.6 \mbox{kg}.
@@ -1834,116 +1732,86 @@ the distribution of $Y_2|Y_1, R=0$ via the following restriction:
 
 ## Results
 
-| Term            | Intercept            | Age               | White              | BaseWeight      |
-|-----------------|----------------------|-------------------|--------------------|-----------------|
-| 18 months(MNAR) |                      |                   |                    |                 |
-| 10\%            | -20.51(-30.97,25.00) | -0.69(-2.23,0.47) | 0.24(-10.19,3.04)  | 1.04(0.62,1.14) |
-| 30\%            | -18.04(-27.14,8.73)  | -0.74(-2.04,0.49) | 1.08(-9.22,3.94)   | 1.07(0.83,1.16) |
-| 50\%            | -12.19(-22.52,8.79)  | -0.73(-2.06,0.38) | 1.05(-6.36,4.17)   | 1.06(0.86,1.16) |
-| 70\%            | -7.89(-17.63,12.26)  | -0.73(-1.95,0.32) | 1.17(-4.43,4.20)   | 1.06(0.87,1.16) |
-| 90\%            | -3.11(-8.60,21.70)   | -0.73(-2.02,0.38) | 1.68(-3.90,4.05)   | 1.10(0.87,1.15) |
+| Term           | Intercept            | Age               | White              | BaseWeight      |
+|----------------|----------------------|-------------------|--------------------|-----------------|
+| 18 months(MNAR)|                      |                   |                    |                 |
+| 10%            | -20.51(-30.97,25.00) | -0.69(-2.23,0.47) | 0.24(-10.19,3.04)  | 1.04(0.62,1.14) |
+| 30%            | -18.04(-27.14,8.73)  | -0.74(-2.04,0.49) | 1.08(-9.22,3.94)   | 1.07(0.83,1.16) |
+| 50%            | -12.19(-22.52,8.79)  | -0.73(-2.06,0.38) | 1.05(-6.36,4.17)   | 1.06(0.86,1.16) |
+| 70%            | -7.89(-17.63,12.26)  | -0.73(-1.95,0.32) | 1.17(-4.43,4.20)   | 1.06(0.87,1.16) |
+| 90%            | -3.11(-8.60,21.70)   | -0.73(-2.02,0.38) | 1.68(-3.90,4.05)   | 1.10(0.87,1.15) |
 
-Table \ref{tab:tours} presents the estimates and bootstrap percentile
-confidence intervals under the above MNAR mechanism. There are not
-large differences for estimates for $Y_2$ under MNAR vs MAR. This is
-partly due to the low proportion of missing data in this study.
+- Estimates and bootstrap percentile confidence intervals under the above MNAR mechanism.
+- There are not large differences for estimates for $Y_2$ under MNAR
+vs MAR.
+- This is partly due to the low proportion of missing data in this
+study.
 
 ---
 
 ## Goodness of Fit Check
 
-We also checked the goodness of fit via QQ plots on the fitted
-residuals as described in section \ref{sec:goodness} for each quantile
-regression fit.  Plots are presented in Appendix
-\ref{sec:goftours}. The QQ plots showed minimal evidence against the
-assumption that the residuals were normally distributed; thus we were
-confident with the conclusion of our quantile regression models.
-
 - [ ] insert sample GoF graphs here
+
+- We also checked the goodness of fit via QQ plots on the fitted
+residuals for each quantile regression fit.
+
+- The QQ plots showed minimal evidence against the assumption that the
+residuals were normally distributed; thus we were confident with the
+conclusion of our quantile regression models.
 
 ---
 
-## Discussion
+## Summary
 
-In this paper, we have developed a marginal quantile regression model
-for data with monotone missingness. We use a pattern mixture model to
-jointly model the full data response and missingness. Here we estimate
-marginal quantile regression coefficients instead of coefficients
-conditional on random effects as in <a href="http://dx.doi.org/10.1111/j.1541-0420.2009.01269.x">Yuan & Yin (2010)</a>. In addition, our
-approach allows non-parallel quantile lines over different quantiles
-via the mixture distribution and allows for sensitivity analysis which
-is essential for the analysis of missing data (NAS 2010).
+- Developed a marginal quantile regression model
+for data with monotone missingness.
+- Used a pattern mixture model to
+jointly model the full data response and missingness.
+- Estimate marginal quantile regression coefficients instead of coefficients
+conditional on random effects as in <a href="http://dx.doi.org/10.1111/j.1541-0420.2009.01269.x">Yuan & Yin (2010)</a>.
+- Allows non-parallel quantile lines over different quantiles
+via the mixture distribution
+- Allows for sensitivity analysis which is essential for the analysis
+of missing data (NAS 2010).
+- Allows the missingness to be non-ignorable.
+- Illustrated how to put informative priors for Bayesian inference and
+how to find sensitivity parameters to allow different missing data
+mechanisms in general.
+- The recursive integration algorithm simplifies
+computation and can be easily implemented even in high
+dimensions.
 
-Our method allows the missingness to be non-ignorable.  We illustrated
-how to put informative priors for Bayesian inference and how to find
-sensitivity parameters to allow different missing data mechanisms in
-general. The recursive integration algorithm simplifies computation
-and can be easily implemented even in high dimensions. Simulation
-studies demonstrates that our approach has smaller MSE than the
-traditional frequentist method *rq* function for most cases,
-especially for inferences of partial missing responses. And it has
-advantages over Bottai's appraoch for middle quantiles regression
-inference even when the distribution is mis-specified.  However, our
-approach also shows little bias for extreme quantiles comparing to
-<a href="http://dx.doi.org/10.2427/8758">Bottai & Zhen (2013)</a> if error is mis-specified. We also illustrated
-sensitivity analysis and how to allow non-ignorable missingness
-assumptions.
+<!-- - Simulation studies demonstrates that our approach has -->
+<!-- smaller MSE than the traditional frequentist method *rq* function for -->
+<!-- most cases, especially for inferences of partial missing -->
+<!-- responses. -->
+<!-- - Has advantages over Bottai's appraoch for middle -->
+<!-- quantiles regression inference even when the distribution is -->
+<!-- mis-specified. -->
+<!-- - However, our approach also shows little bias for -->
+<!-- extreme quantiles comparing to <a href="http://dx.doi.org/10.2427/8758">Bottai & Zhen (2013)</a> if -->
+<!-- error is mis-specified. -->
 
 ---
 
 ## Future Work
 
-Our model assumes a multivariate normal distribution for each
-component in the pattern mixture model, which might be too restrictive
-in some settings. Simulation results showed that the mis-specification
-of the error term did have a small impact on the extreme quantile
-regression inferences.  It is possible to replace that with a
-semi-parametric model, for example, a Dirichlet process mixture or
-Polya trees. However, computational algorithms would need to be
-developed.  Meanwhile, even though we use a multivariate normal
-distributions within patterns, which can easily departures from MAR
-via differences in means and (co)-variances, we still need strong
-assumptions for sequential multivariate normal distribution within
-each pattern; otherwise MAR constraints do not exist (<a href="http://dx.doi.org/10.1111/j.1541-0420.2011.01565.x">Wang & Daniels, 2011</a>).
+- Our model assumes a sequential multivariate normal distribution for
+each component in the pattern mixture models, which might be too
+restrictive in some settings.
+- Simulation results showed that the mis-specification of the error
+term did have an impact on the extreme quantile regression inferences.
+- We are working on replacing it with a non-parametric model, for
+example, a Dirichlet process mixture.
 
----
+<!-- --- -->
 
-## References
+<!-- ## References -->
+<!-- ```{r include=FALSE} -->
+<!-- out <- bibliography("html", ordering = c("authors", "year", "title", "journal")) -->
+<!-- ``` -->
 
-
-
-
-- Matteo Bottai, Huiling Zhen,   (2013) Multiple Imputation Based on Conditional Quantile Estimation.  <em>Epidemiology, Biostatistics and Public Health</em>
-- Michael Daniels, Joseph Hogan,   (2008) Missing data in longitudinal studies.
-- Edward George, Robert McCulloch,   (1993) Variable Selection Via Gibbs Sampling.  <em>Journal of the American Statistical Association</em>
-- T. Hanson, W.O. Johnson,   (2002) Modeling regression error with a mixture of Polya trees.  <em>Journal of the American Statistical Association</em>
-- Patrick Heagerty,   (1999) Marginally Specified Logistic-Normal Models for Longitudinal Binary Data.  <em>Biometrics</em>
-- A. Jara, T.E. Hanson, E. Lesaffre,   (2009) Robustifying generalized linear mixed models using a new class of mixtures of multivariate Polya trees.  <em>Journal of Computational and Graphical Statistics</em>
-- Roger Koenker,  Gilbert, Jr. Bassett,   (1978) Regression Quantiles.  <em>Econometrica</em>
-- A. Kottas, M. Krnjajic,   (2009) Bayesian semiparametric modelling in quantile regression.  <em>Scandinavian Journal of Statistics</em>
-- Hideo Kozumi, Genya Kobayashi,   (2011) Gibbs sampling methods for {B}ayesian quantile regression.  <em>J. Stat. Comput. Simul.</em>
-- Roderick Little,   (1993) Pattern-Mixture Models for Multivariate Incomplete Data.  <em>Journal of the American Statistical Association</em>
-- Roderick Little,   (1994) A class of pattern-mixture models for normal incomplete data.  <em>Biometrika</em>
-- Douglas Bates, Katharine Mullen, John Nash, Ravi Varadhan,   (2012) minqa: Derivative-free optimization algorithms by quadratic
-approximation.
-- G. Molenberghs, B. Michiels, M. Kenward, P. Diggle,   (1998) Monotone missing data and pattern-mixture models.  <em>Statist. Neerlandica</em>
-- Michael Perri, Marian Limacher, Patricia Durning, David Janicke, Lesley Lutes, Linda Bobroff, Martha Dale, Michael Daniels, Tiffany Radcliff, A Martin,   (2008) Extended-care programs for weight management in rural communities: the treatment of obesity in underserved rural settings (TOURS) randomized trial.  <em>Archives of internal medicine</em>
-- Roger Koenker,   (2012) quantreg: Quantile Regression.
-- R Core Team ,   (2013) R: A Language and Environment for Statistical Computing.
-- B.J. Reich, H.D. Bondell, H.J. Wang,   (2010) Flexible Bayesian quantile regression for independent and clustered data.  <em>Biostatistics</em>
-- Jason Roy,   (2003) Modeling longitudinal data with nonignorable dropouts using a
-              latent dropout class model.  <em>Biometrics</em>
-- Jason Roy, Michael Daniels,   (2008) A general class of pattern mixture models for nonignorable
-              dropout with many possible dropout times.  <em>Biometrics</em>
-- Donald Rubin,   (1977) Formalizing subjective notions about the effect of
-              nonrespondents in sample surveys.  <em>J. Amer. Statist. Assoc.</em>
-- S. Tokdar, J.B. Kadane,   (2011) Simultaneous linear quantile regression: A semiparametric bayesian approach.  <em>Bayesian Analysis</em>
-- Stephen Walker, Bani Mallick,   (1999) A Bayesian Semiparametric Accelerated Failure Time Model.  <em>Biometrics</em>
-- Chenguang Wang, Michael Daniels,   (2011) A note on {MAR}, identifying restrictions, model comparison,
-              and sensitivity analysis in pattern mixture models with and
-              without covariates for incomplete data.  <em>Biometrics</em>
-- Ying Wei, Yanyuan Ma, Raymond Carroll,   (2012) Multiple imputation in quantile regression.  <em>Biometrika</em>
-- Keming Yu, Rana Moyeed,   (2001) Bayesian quantile regression.  <em>Statistics \& Probability Letters</em>
-- Ying Yuan, Guosheng Yin,   (2010) Bayesian quantile regression for longitudinal studies with
-              nonignorable missing data.  <em>Biometrics</em> NA NA NA NA
-
+<!-- ```{r reference, results = "asis", echo = FALSE} -->
+<!-- cat(out[1:5]) -->
+<!-- ``` -->
