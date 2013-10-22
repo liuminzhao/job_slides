@@ -13,7 +13,7 @@
   -webkit-box-shadow: 0 0 0 1px #1d212e inset,0 0 2px 1px #fff inset,0 0 1em #888;
   -moz-box-shadow: 0 0 0 1px #1d212e inset,0 0 2px 1px #fff inset,0 0 1em #888;
   box-shadow: 0 0 0 1px #1d212e inset,0 0 2px 1px #fff inset,0 0 1em #888;
-  color: #FF0;
+  color: #FF0 ;
   display: block;
   padding: .6em 3.5em;
   position: absolute;
@@ -47,4 +47,12 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
+}
+
+article p, article li, article li.build{
+  font-family: 'Helvetica', 'Crimson Text', 'Garamond',  'Palatino', sans-serif;
+  text-align: justify;
+  font-size:22px;
+  line-height: 1.5em;
+  color:black;
 }
