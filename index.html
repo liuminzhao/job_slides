@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="libraries/frameworks/io2012/phone.css" 
     media="only screen and (max-device-width: 480px)" >
   <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
-  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/github.css" />
   <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
   <script data-main="libraries/frameworks/io2012/js/slides" 
     src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
@@ -47,28 +47,30 @@
     </slide>
 
     <!-- SLIDES -->
-      <slide class="" id="slide-1" style="background:;">
+      <slide class="" id="slide-1">
   <hgroup>
     <h2>Outline</h2>
   </hgroup>
-  <article>
-    <ol>
-<li>Introduction and Review (8-9 / 49)</li>
-<li>Bayesian Quantile Regression Using Polya Trees Priors (8/49)</li>
-<li>Quantile Regression in the Presence of Monotone Missingness with Sensitivity Analysis (19/49)</li>
-<li>Future Work (9/49)</li>
-<li>References</li>
-</ol>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
+    <ul>
+<li>Introduction and Review</li>
+<li>Chapter 1: Bayesian Quantile Regression Using a Mixture of Polya Trees Priors</li>
+<li>Chapter 2: Quantile Regression in the Presence of Monotone Missingness with Sensitivity Analysis</li>
+</ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-2" style="background:;">
+      <slide class="" id="slide-2">
   <hgroup>
     <h2>Why Quantile Regression</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     
 <div style='float:left;width:48%;' class='centered'>
   <p><img src="assets/img/engel.png" alt="engel"></p>
@@ -76,35 +78,42 @@
 
 </div>
 <div style='float:right;width:48%;'>
-  <h3>Scatterplot, Quantile Regression Fit and Linear Regression Fit of the  Engel Food Expenditure Data:</h3>
+  <ul>
+<li>Engel data on food expenditure vs household income for a sample of 235 19th century
+working class Belgian households.</li>
+<li>\(\tau\): 5%, 10%, 25%, 75%, 90%, 95%</li>
+<li>Median regression</li>
+<li>Mean regression</li>
+<li>Increasing trend from mean regression</li>
+<li>More info from QR
 
 <ul>
-<li>Scatterplot of the Engel data on food expenditure vs household income for a sample of 235 19th century working class Belgian households.</li>
-<li>Fitted quantile lines for quantile (0.05; 0.1; 0.25; 0.75; 0.9;
-0.95).</li>
-<li>Fitted median regression line</li>
-<li>Dashed red line is the fitted value from linear regression model
-estimates.</li>
-<li>[ ] More details from dissertation</li>
+<li>Slope change</li>
+<li>Skewness</li>
+</ul></li>
+<li>Less sensitive to heterogeneity and outliers</li>
 </ul>
 
 </div>
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-3" style="background:;">
+      <slide class="" id="slide-3">
   <hgroup>
     <h2>Introduction of Quantile Regression</h2>
   </hgroup>
-  <article>
-    <h3>Quantile</h3>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
+    <h3>Quantile (unconditional)</h3>
 
 <p>\[
 Q_{Y}(\tau) = \inf \{y: F(y) \geq \tau \},
 \]</p>
 
-<h3>Quantile Regression</h3>
+<h3>Quantile Regression (conditional with covariates)</h3>
 
 <p>\[
 Q_{Y}(\tau|\mathbf x) = \mathbf x' \beta(\tau).
@@ -119,15 +128,18 @@ Q_{Y}(\tau|\mathbf x) = \mathbf x' \beta(\tau).
 <li>More complete description of the conditional distribution</li>
 </ol>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-4" style="background:;">
+      <slide class="" id="slide-4">
   <hgroup>
     <h2>Traditional Frequentist Methods</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>R package <code>quantreg</code> (<a href="http://CRAN.R-project.org/package=quantreg">Koenker, 2012</a>)</li>
 <li>Using simplex for linear programming problems mentioned
@@ -137,8 +149,6 @@ in <a href="http://www.jstor.org/stable/1913643">Koenker et al. (1978)</a></li>
 <p>\[
 \mathbf \beta(\tau) = \arg \min_b \sum_{i=1}^{n} \rho_{\tau}(y_{i} - \mathbf x_{i}' b)
 \]</p>
-
-<h2>Pros and Cons</h2>
 
 <ul>
 <li>No distributional assumptions</li>
@@ -152,15 +162,18 @@ in <a href="http://www.jstor.org/stable/1913643">Koenker et al. (1978)</a></li>
 </ul></li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-5" style="background:;">
+      <slide class="" id="slide-5">
   <hgroup>
     <h2>Bayesian Methods</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li><a href="http://dx.doi.org/10.1111/j.0006-341X.1999.00477.x">Walker &amp; Mallick (1999)</a>: diffuse finite Polya Tree</li>
 <li><a href="">Yu &amp; Moyeed (2001)</a>: asymmetric Laplace distribution</li>
@@ -236,15 +249,18 @@ mixtures for the error distribution</li>
 
 <!-- \] -->
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-6" style="background:;">
+      <slide class="" id="slide-6">
   <hgroup>
     
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <!-- ## ALD (Yu & Moyeed (2001)) -->
 
 <!-- <div class="alert alert-info"> -->
@@ -293,16 +309,12 @@ mixtures for the error distribution</li>
 <li>Single quantile regression each time</li>
 <li>Densities have their restrictive mode at the quantile of interest,
 which is not appropriate when extreme quantiles are being investigated</li>
-<li>quantile lines monotonicity constraints and difficulty in making inference for quantile
+<li>Quantile lines monotonicity constraints and difficulty in making inference for quantile
 regression parameters for an interval</li>
 <li>Joint inference is poor in borrowing information through single quantile regressions</li>
 <li>Not coherent to pool from every individual quantile regression, because the sampling distribution of \(Y\) for \(\tau_1\)
 is usually different from that under quantile \(\tau_2\) since they are assuming different error distribution
 under two different quantile regressions (<a href="">Tokdar &amp; Kadane, 2011</a>)</li>
-</ul>
-
-<ul class = "build">
-<li>Goal of Chapter 1 of the thesis</li>
 </ul>
 
 <!-- --- -->
@@ -323,26 +335,32 @@ under two different quantile regressions (<a href="">Tokdar &amp; Kadane, 2011</
 
 <!-- ## Goals of the Dissertation -->
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="cover w" id="FitToWidth" style="background:;">
+      <slide class="cover w" id="FitToWidth">
   <hgroup>
     <h2>Chapter 1: Bayesian Quantile Regression Using Polya Trees Priors</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p><img src="assets/img/polya.jpg" alt="polya"></p>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-8" style="background:;">
+      <slide class="" id="slide-8">
   <hgroup>
     <h2>Intuition</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>Consider heterogeneous linear regression model from <a href="http://dx.doi.org/10.1111/1467-9868.00138">He et al. (1998)</a> :</p>
 
 <p>\[ y_i = \mathbf x_i \mathbf \beta + (\mathbf{x_i \gamma} )\epsilon_i \]</p>
@@ -353,48 +371,30 @@ under two different quantile regressions (<a href="">Tokdar &amp; Kadane, 2011</
 \]</p>
 
 <ul>
-<li>Homogeneous model (\(\mathbf \gamma = (1, \mathbf 0)\)): parallel quantile lines</li>
-<li>Heterogeneous model (\(\mathbf \gamma \neq (1, \mathbf 0)\)): non-parallel quantile lines</li>
-<li>Heterogeneous linear regression model allows non-parallel quantile lines</li>
+<li><p>Homogeneous (\(\mathbf \gamma = (1, \mathbf 0)\)): parallel vs Heterogeneous (\(\mathbf \gamma \neq (1, \mathbf 0)\)): non-parallel</p></li>
+<li><p>Estimate \(\mathbf \beta, \mathbf \gamma, F^{-1}_\epsilon(\tau) |\mathbf Y\), then \(\mathbf \beta(\tau) | \mathbf Y\)</p></li>
+<li><p>Use mixture of Polya Tree priors to nonparametrically estimate  \(F^{-1}_\epsilon(\tau) |\mathbf Y\)</p></li>
+<li><p>Closed form for predictive quantile regression parameters</p></li>
+<li><p>Exact inference through MCMC and fewer assumptions</p></li>
+<li><p>Avoid crossing quantile curves and simultaneously multiple QR in <strong>ONE</strong> model</p></li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-9" style="background:;">
-  <hgroup>
-    <h2>Idea</h2>
-  </hgroup>
-  <article>
-    <p>\[ y_i = \mathbf x_i \mathbf \beta + (\mathbf{x_i \gamma} )\epsilon_i \]</p>
-
-<p>\[ \mathbf \beta(\tau) = \mathbf \beta + F^{-1}_\epsilon (\tau) \mathbf \gamma \]</p>
-
-<ul>
-<li>Estimate \(\mathbf \beta, \mathbf \gamma, F^{-1}_\epsilon(\tau) |\mathbf Y\), then \(\mathbf \beta(\tau) | \mathbf Y\)</li>
-<li>Use mixture of Polya Tree priors to nonparametrically estimate  \(F^{-1}_\epsilon(\tau) |\mathbf Y\)</li>
-<li>Closed form for predictive quantile regression parameters</li>
-<li>Polya tree is a very flexile way to model the unknown distribution</li>
-<li>Exact inference through MCMC and fewer assumptions</li>
-<li>Avoid crossing quantile curves</li>
-<li>Simultaneously fit multiple quantile regressions</li>
-</ul>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-10" style="background:;">
+      <slide class="" id="slide-9">
   <hgroup>
     <h2>Polya Tree Definition</h2>
   </hgroup>
-  <article>
-    <ul>
-<li>The concept of Polya Tree priors were introduced decades ago
-<a href="">Freedman (1963)</a>; <a href="">Fabius (1964)</a>; <a href="">Ferguson (1974)</a></li>
-<li><a href="">Lavine (1992)</a>; <a href="">Lavine (1994)</a> extended to Polya Tree models, completed definitions, and introduced how
-to sample from Polya Trees</li>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul>
+<li><a href="">Freedman (1963)</a>; <a href="">Fabius (1964)</a>; <a href="">Ferguson (1974)</a>, <a href="">Lavine (1992)</a>; <a href="">Lavine (1994)</a></li>
 <li>Advantage over Dirichlet process:
 
 <ul>
@@ -404,16 +404,12 @@ to sample from Polya Trees</li>
 </ul></li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
 
-      <slide class="" id="slide-11" style="background:;">
-  <hgroup>
-    <h2>Basic Notatioins</h2>
-  </hgroup>
-  <article>
-    <ul>
+</div>
+<div style='float:right;width:48%;'>
+  <h3>Basic Notation</h3>
+
+<ul>
 <li>\(E=\{0,1\}\)</li>
 <li>\(E^m\) as the m-fold product of \(E\)</li>
 <li>\(E^0 = \emptyset\)</li>
@@ -426,15 +422,19 @@ to sample from Polya Trees</li>
 \(B_{\epsilon 1}\) are the two partition of \(B_{\epsilon}\).</li>
 </ul>
 
+</div>
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-12" style="background:;">
+      <slide class="" id="slide-10">
   <hgroup>
     <h2>Definition</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <div class="alert alert-info">
 <p> Polya Tree: </p>
 
@@ -450,7 +450,7 @@ $\mathcal{Y} = \{ Y_\epsilon : \epsilon \in E^* \}$ such that the following hold
 </div>
 
 <ul>
-<li>all the random variables in \(\mathcal{Y}\) are
+<li>All the random variables in \(\mathcal{Y}\) are
 independent;</li>
 <li>\(Y_{\epsilon}= (Y_{\epsilon 0}, Y_{\epsilon 1}) \sim
 \mathrm{Dirichlet}(\alpha_{\epsilon 0 }, \alpha_{\epsilon 1}),
@@ -460,15 +460,18 @@ G(B_{\epsilon_{1}, \ldots, \epsilon_m}) = \prod_{j=1}^m
 Y_{\epsilon_1 \cdots \epsilon_j}\).</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-13" style="background:;">
+      <slide class="" id="slide-11">
   <hgroup>
-    <h2>Polya Tree Parameters (\(\mathcal{A}\))</h2>
+    <h2>Polya Tree Parameters: \(\mathcal{A}\)</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>Usually a Polya tree is centered around a
 pre-specified distribution \(G_0\), which is called the baseline
 measure.</p>
@@ -490,15 +493,18 @@ guarantees \(G\) to be absolutely continuous.</li>
 <li>\(m\) is the number of levels</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-14" style="background:;">
+      <slide class="" id="slide-12">
   <hgroup>
-    <h2>Polya Tree Parameters (\(\Pi\))</h2>
+    <h2>Polya Tree Parameters: \(\Pi\)</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>Partition parameter \(\Pi\)</p>
 
 <ul>
@@ -513,15 +519,18 @@ guarantees \(G\) to be absolutely continuous.</li>
 \(G^{-1}_0 \left((k/2^m, (k+1)/2^m] \right)\), for \(k=0,..., 2^m-1\).</p></li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-15" style="background:;">
+      <slide class="" id="slide-13">
   <hgroup>
     <h2>Properties of Polya Tree</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <h3>Expectation of Polya Tree</h3>
 
 <p>Suppose \(G \sim PT(\Pi, \mathcal{A})\) is a random probability
@@ -543,15 +552,18 @@ F(B_{\epsilon})  = E(G(B_{\epsilon})) = \prod_{j=1}^m
 \(\forall B \in \mathcal{B}, F(B) = G_0(B)\); thus, \(F=G_0\), if there is no data.</p></li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-16" style="background:;">
+      <slide class="" id="slide-14">
   <hgroup>
     <h2>Density Function</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>Suppose \(F=E(G), G|\Pi, \mathcal{A} \sim PT (\Pi, \mathcal{A})\),
 where $G_0 $ is the baseline measure. Then, using the canonical
 construction, \(F=G_0\), the density function is</p>
@@ -569,15 +581,18 @@ simplifies to</p>
 f(y) = g_0(y).
 \]</p>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-17" style="background:;">
+      <slide class="" id="slide-15">
   <hgroup>
     <h2>Conjugacy</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>If \(y_1, ..., y_n | G \sim G\)</li>
 <li>\(G|\Pi,\mathcal{A} \sim PT(\Pi, \mathcal{A})\),</li>
@@ -593,15 +608,18 @@ where in
 where \(n_{\epsilon}(y_1, ..., y_n)\) indicates the count of how many
 samples of \(y_1, ..., y_n\) fall in \(B_{\epsilon}\).</p>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-18" style="background:;">
+      <slide class="" id="slide-16">
   <hgroup>
     <h2>Mixture of Polya Trees</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>The behavior of a single Polya tree highly depends on how the
 partition is specified.</li>
@@ -631,49 +649,66 @@ lessened</li>
 Polya tree distribution.</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-19" style="background:;">
+      <slide class="" id="slide-17">
   <hgroup>
-    <h2>Predictive Error Density (1)</h2>
+    <h2>Predictive Error Density</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>Suppose \(G_{\theta}\) is the baseline measure, \(g_0(y)\) is the density
 function.</li>
-<li>\(\Pi^{\theta}\) is defined as
-\[
-B^{\theta}_{\epsilon_1, \ldots, \epsilon_m} = \left( G^{-1}_{\theta}
-\left( \frac{k}{2^m} \right), G^{-1}_{\theta}\left( \frac{k+1}{2^m} \right) \right),
-\]
-where \(k\) is the index of partition \(\epsilon_1, \ldots, \epsilon_m\)
-in level \(m\).</li>
-<li>\(\mathcal{A}^c\) is defined as
-\[
-\alpha_{\epsilon_1, \ldots, \epsilon_m} = cm^2.
-\]</li>
-<li>Therefore, the error model is
-\[
-\begin{aligned}
-y_1, \ldots, y_n |G_{\theta} & \sim G, \\
-G|\Pi^{\theta}, \mathcal{A}^{c} & \sim PT (\Pi^{\theta},
-\mathcal{A}^{c}).
-\end{aligned}
-\]</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<!-- - $\Pi^{\theta}$ is defined as -->
 
-      <slide class="" id="slide-20" style="background:;">
-  <hgroup>
-    <h2>Predictive Error Density (2)</h2>
-  </hgroup>
-  <article>
-    <ul>
+<!-- \[ -->
+
+<!-- B^{\theta}_{\epsilon_1, \ldots, \epsilon_m} = \left( G^{-1}_{\theta} -->
+
+<!-- \left( \frac{k}{2^m} \right), G^{-1}_{\theta}\left( \frac{k+1}{2^m} \right) \right), -->
+
+<!-- \] -->
+
+<!-- where $k$ is the index of partition $\epsilon_1, \ldots, \epsilon_m$ -->
+
+<!-- in level $m$. -->
+
+<!-- - $\mathcal{A}^c$ is defined as -->
+
+<!-- \[ -->
+
+<!--   \alpha_{\epsilon_1, \ldots, \epsilon_m} = cm^2. -->
+
+<!-- \] -->
+
+<!-- - Therefore, the error model is -->
+
+<!-- \[ -->
+
+<!-- \begin{aligned} -->
+
+<!-- y_1, \ldots, y_n |G_{\theta} & \sim G, \\ -->
+
+<!-- G|\Pi^{\theta}, \mathcal{A}^{c} & \sim PT (\Pi^{\theta}, -->
+
+<!-- \mathcal{A}^{c}). -->
+
+<!-- \end{aligned} -->
+
+<!-- \] -->
+
+<!-- --- -->
+
+<!-- ## Predictive Error Density -->
+
+<ul>
 <li>Recall the posterior of \(G|y_1, ..., y_n\) is</li>
 </ul>
 
@@ -706,15 +741,18 @@ marginalizing out \(G\), is</li>
 the first level.</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-21" style="background:;">
+      <slide class="" id="slide-18">
   <hgroup>
     <h2>Finite Polya Tree</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li><p>In practice, a finite \(M\) level Polya Tree is usually adopted to
 approximate the full Polya tree, in which, only up to \(M\) levels
@@ -732,15 +770,18 @@ is the sample size <a href="">Hanson &amp; Johnson (2002)</a></p></li>
 is exact for \(M\) large enough.</p></li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-22" style="background:;">
+      <slide class="" id="slide-19">
   <hgroup>
     <h2>Predictive Cumulative Density Function</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>Based on the predictive density function of a
 finite Polya tree distribution, the predictive cumulative density
 function is
@@ -762,15 +803,18 @@ the number of observations \(y_1, \ldots, y_n\) in the \(\lceil
   i2^{j-M} \rceil\) slot at level \(j\), \(\lceil \cdot \rceil\) is the
   ceiling function, and \([ \cdot ]\) is the floor function.</p>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-23" style="background:;">
+      <slide class="" id="slide-20">
   <hgroup>
     <h2>Predictive Error Quantiles</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li><p>The posterior predictive quantile of finite Polya tree
 distribution is
@@ -788,15 +832,18 @@ where \(N\) satisfies \(\sum_{i=1}^{N-1} P_i < \tau \le \sum_{i=1}^N P_i\).</p><
 <li><p>Greatly facilitate computations</p></li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-24" style="background:;">
+      <slide class="" id="slide-21">
   <hgroup>
     <h2>Fully Bayesian Quantile Regression with Mixture of Polya Tree Priors</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>The full Bayesian specification of quantile regression is given as
 follows,
 \[
@@ -816,7 +863,7 @@ In order to not confound the location parameter, $\epsilon_i $ or \(G\)
 is set to have median 0 by fixing \(\alpha_0=\alpha_1 = 1\). For the
 similar reason, the first component of \(\mathbf{\gamma}\) is fixed at 1.</p>
 
-<h3>Posterior Distribution of (\(\mathbf{\beta}, \mathbf \gamma, \sigma, c\))</h3>
+<h3>Posterior Distribution of \(\mathbf{\beta}, \mathbf \gamma, \sigma, c\)</h3>
 
 <p>\[
     L(\mathbf{\beta}, \mathbf{\gamma}, \sigma, c|\mathbf{Y}) \propto p(\mathbf{Y}|
@@ -826,16 +873,19 @@ similar reason, the first component of \(\mathbf{\gamma}\) is fixed at 1.</p>
 
 <!-- where $\epsilon_i = (y_i - \mathbf{x_i'\beta})/(\mathbf{x_i'\gamma})$ -->
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-25" style="background:;">
+      <slide class="" id="slide-22">
   <hgroup>
     <h2>Priors</h2>
   </hgroup>
-  <article>
-    <h3>\((\sigma, c)\) using diffuse gamma prior:</h3>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
+    <h3>\(\sigma, c\) using diffuse gamma prior:</h3>
 
 <p>\[
 \begin{align*}
@@ -844,7 +894,7 @@ similar reason, the first component of \(\mathbf{\gamma}\) is fixed at 1.</p>
 \end{align*}
 \]</p>
 
-<h3>\((\mathbf \beta, \mathbf \gamma)\) using <strong>Spike and Slab Priors</strong></h3>
+<h3>\(\mathbf \beta, \mathbf \gamma\) using <strong>Spike and Slab Priors</strong></h3>
 
 <ul>
 <li>Shrink toward zero</li>
@@ -862,15 +912,18 @@ similar reason, the first component of \(\mathbf{\gamma}\) is fixed at 1.</p>
 \end{align*}
 \]</p>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-26" style="background:;">
+      <slide class="" id="slide-23">
   <hgroup>
     <h2>Spike and Slab Priors</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>The density function of priors for
 \(\beta_j\) can be written as:
 \[
@@ -898,15 +951,18 @@ as non-significant and removed from the model</li>
 \(\beta_j\) is believed to come from a diffuse prior distribution</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-27" style="background:;">
+      <slide class="" id="slide-24">
   <hgroup>
     <h2>Choice of Diffuse Priors</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>\[
 \begin{aligned}
   \pi_{\mathbf \beta} (\beta_j) &= \delta_{\beta_j} \phi(\beta_j; 0, s_j^2\sigma_{\beta_j}^2) +
@@ -925,19 +981,22 @@ matrix \(\mathbf X\), i.e., \(\mathbf{(X^TX)^{-1}X^TY}\).</li>
 where \(\hat{\sigma}^2 = \sum_i^n (y_i - \mathbf{x_i\beta}^p)^2/(n - p)\).</p></li>
 <li><p>The priors for \(\mathbf \gamma\) are similar to priors for \(\mathbf \beta\).</p></li>
 <li><p>\(\mathbf \gamma^p = \mathbf 0\)</p></li>
-<li><p>\(\mathbf \sigma_{\gamma} = \mathbf 100\)</p></li>
+<li><p>\(\mathbf \sigma_{\gamma} = \mathbf{100}\)</p></li>
 <li><p>To shrink heterogeneity parameters toward 0</p></li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-28" style="background:;">
+      <slide class="" id="slide-25">
   <hgroup>
     <h2>Choice of \(\pi_\beta\), \(\pi_\gamma\)</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>\[
 \begin{aligned}
   \pi_{\mathbf \beta} (\beta_j) &= \delta_{\beta_j} \phi(\beta_j; 0, s_j^2\sigma_{\beta_j}^2) +
@@ -954,20 +1013,22 @@ doubt that regressors should be included, and vice versa.</li>
 <li>Furthermore,
 we can put hyper priors on \(\pi_{\beta_j}\) and \(\pi_{\gamma_j}\) to get
 rid of uncertainty about distribution of the components.</li>
-<li>For example,
-in this article, we assign priors for \(\pi_{\beta_j}\) and
+<li>In this article, we assign priors for \(\pi_{\beta_j}\) and
 \(\pi_{\gamma_j}\) to be a Beta distribution with parameters \((1,1)\).</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-29" style="background:;">
+      <slide class="" id="slide-26">
   <hgroup>
     <h2>Computation Details</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>Using an MCMC algorithm implemented in our R package <em>bqrpt</em></li>
 <li>Draw posterior samples of (\(\mathbf \beta, \mathbf \gamma, \sigma, c | \mathbf
@@ -983,15 +1044,18 @@ to reduce the autocorrelation.</li>
 </ul></li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-30" style="background:;">
+      <slide class="" id="slide-27">
   <hgroup>
     <h2>Metropolis-Hasting Algorithm</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>Candidate distribution
 
@@ -1015,15 +1079,18 @@ acceptance rate for every 100 iterations during burn-in period, where
 </ul></li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-31" style="background:;">
+      <slide class="" id="slide-28">
   <hgroup>
     <h2>Simulation</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li><em>RQ</em>: rq function in (<a href="http://CRAN.R-project.org/package=quantreg">Koenker, 2012</a>)
 (frequentist quantile regression method)</li>
@@ -1044,38 +1111,47 @@ where \(\epsilon_{i} \sim N(0, 1), t_3, 0.5N(-2,1) + 0.5N(2,1), 0.8N(0, 1) + 0.2
 R_i = 0 \sim -2 - x_{i1} + \epsilon_{1i}\), \(\epsilon_{1i} \sim N(0, 1)\)</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-32" style="background:;">
+      <slide class="" id="slide-29">
   <hgroup>
-    <h2>Explain</h2>
+    
   </hgroup>
-  <article>
-    <ul>
-<li>(explain these models) In model 1 (M1), the error distribution
-coincides with baseline distribution. Model 2 (M2) has a heavier tail
-distribution, student-t distribution with 3 degrees of freedom. Model
-3 (M3) has a bimodal distribution for the error term.  Model 4 (M4)
-uses a skewed mixture of normal distribution error introduced in
-<a href="">Reich et al. (2010)</a>. Model 1H-4H (M1H-M4H) assume heterogeneous
-variances such that the quantiles lines are no long parallel to each
-other. Model 5 (M5) also assumes heterogeneous variance, but the
-heterogeneity comes from the mixture of distributions instead of
-heterogeneous variance from covariates.</li>
-</ul>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
+    <!-- ## Explain -->
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<!-- - (explain these models) In model 1 (M1), the error distribution -->
 
-      <slide class="" id="slide-33" style="background:;">
-  <hgroup>
-    <h2>PT Priors</h2>
-  </hgroup>
-  <article>
-    <p>\[
+<!-- coincides with baseline distribution. Model 2 (M2) has a heavier tail -->
+
+<!-- distribution, student-t distribution with 3 degrees of freedom. Model -->
+
+<!-- 3 (M3) has a bimodal distribution for the error term.  Model 4 (M4) -->
+
+<!-- uses a skewed mixture of normal distribution error introduced in -->
+
+<!-- <a href="">Reich et al. (2010)</a>. Model 1H-4H (M1H-M4H) assume heterogeneous -->
+
+<!-- variances such that the quantiles lines are no long parallel to each -->
+
+<!-- other. Model 5 (M5) also assumes heterogeneous variance, but the -->
+
+<!-- heterogeneity comes from the mixture of distributions instead of -->
+
+<!-- heterogeneous variance from covariates. -->
+
+<!-- --- -->
+
+
+<div style='float:left;width:48%;' class='centered'>
+  <h2>PT Priors</h2>
+
+<p>\[
 \begin{align*}
   \pi(\beta_j) & \sim N(\mathbf \beta_j^p, \mathbf V_{jj}) , j = 0, 1,\\
   \pi(\gamma_j) & \sim N(0, 100), j = 1,\\
@@ -1092,58 +1168,60 @@ estimator</li>
 <li>\(a = b = 1\).</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
 
-      <slide class="" id="slide-34" style="background:;">
-  <hgroup>
-    <h2>PTSS Priors</h2>
-  </hgroup>
-  <article>
-    <ul>
+</div>
+<div style='float:right;width:48%;'>
+  <h2>PTSS Priors</h2>
+
+<ul>
 <li>Same priors for \(\sigma\) and \(c\)</li>
 <li>spike-slab priors for \(\mathbf \beta\) and \(\mathbf \gamma\):
 \[
 \begin{align*}
-\pi(\beta_j) & \sim \delta_{\beta_j}N(0, s_j\mathbf V_{jj}) +  (1 - \delta_{\beta_j})N(\mathbf \beta_j^p, \mathbf V_{jj}) , j = 0, 1, \\
-\pi(\gamma_j) & \sim \delta_{\gamma_j}N(0, 100s_j) + (1 - \delta_{\gamma_j}) N(0, 100), j = 1, \\
+\pi(\beta_j) & \sim \delta_{\beta_j}N(0, s_j\mathbf V_{jj}) +  (1 - \delta_{\beta_j})N(\mathbf \beta_j^p, \mathbf V_{jj})  \\
+\pi(\gamma_j) & \sim \delta_{\gamma_j}N(0, 100s_j) + (1 - \delta_{\gamma_j}) N(0, 100)\\
 \delta_{\beta_j} & \sim \mbox{Bernoulli}(\pi_{\beta_j}) , \pi_{\beta_j} \sim \mbox{Beta}(1, 1),\\
 \delta_{\gamma_j} & \sim \mbox{Bernoulli}(\pi_{\gamma_j}),
 \pi_{\gamma_j} \sim \mbox{Beta}(1, 1).
 \end{align*}
 \]</li>
-<li>\(s_j = 1/1000\) from <a href="http://www.jstor.org/stable/2290777">George &amp; McCulloch (1993)</a></li>
+<li>\(s_j = 1/1000\) (<a href="http://www.jstor.org/stable/2290777">George &amp; McCulloch, 1993</a>)</li>
 </ul>
 
+</div>
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-35" style="background:;">
+      <slide class="" id="slide-30">
   <hgroup>
     <h2>MCMC Setup</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>\(M = 7\)</li>
 <li>30,000 burn-in</li>
 <li>30,000 saved samples</li>
-<li>thin: 5</li>
+<li>Thin: 5</li>
 <li>Acceptance rates were set to approach 20% for all parameters candidates during the adaptive Metropolis-Hastings algorithm</li>
-<li>It takes around 90 seconds for one simulation for PT under R version 2.15.3 (2013-03-01) and
-platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit).</li>
+<li>It takes around 90 seconds for one simulation for PT under R version 2.15.3 (2013-03-01) and platform: x86_64-apple-darwin9.8.0/x86_64 (64-bit).</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-36" style="background:;">
+      <slide class="" id="slide-31">
   <hgroup>
     <h2>Evaluation Methods</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li><p><strong>MSE</strong>
 \[
@@ -1268,77 +1346,73 @@ mean as estimated parameters.</li>
 
 <!-- (Explain) -->
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-37" style="background:;">
+      <slide class="" id="slide-32">
   <hgroup>
     <h2>Simulation Summary</h2>
   </hgroup>
-  <article>
-    <ul>
-<li><p>When error distribution  coincides with Polya tree baseline measure, RQ
-has a larger MSE than FBQR and PT. PTSS performed best since its prior
-shrunk the heterogeneity parameters toward zero.  When considering
-heterogeneity in model 1 (M1H), PT and PTSS still perform well versus
-RQ and FBQR.</p></li>
-<li><p>In model 2, 3, 4 and 2H, 3H, 4H, when error is homogeneous or
-heterogeneous, and is from a mixture of normals (student t
-distribution can be regarded as a mixture of normals), which is away
-from Polya tree baseline measure, FBQR dominates the other three
-methods in terms of MSE, because simulated models coincide with the
-models in the FBQR approach. However, PT and PTSS are also
-competitive.  In median regression for model 3 and model 3
-heterogeneity scenario, PT and PTSS have smaller MSE than FBQR and RQ.
-The similar situation also happened in model 4 with 90% quantile
-regression.</p></li>
-<li><p>In model 5, the heterogeneity comes from the mixture of distributions.
-the mode of the error distribution is no longer at median for RQ and
-FBQR, thus leading to larger MSE. Although PT and PTSS have larger MSE
-than RQ and BQR in 90% quantile, the deficit is offset by much
-smaller bias in 50% quantile regression.</p></li>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul>
+<li>M1 and M1H: PT and PTSS better</li>
+<li>M2-M4, M2H-M4H, error away from Polya tree baseline measure, FBQR
+dominates (simulated models coincide with the models in the FBQR
+approach)</li>
+<li>PT and PTSS are also competitive (M3 and M3H with \(\tau=\) 50%
+and M4 with \(\tau=\) 90%)</li>
+<li>M5: heterogeneity from the mixture of distributions. The deficit in
+90% quantile is offset by much smaller bias in 50% quantile
+regression.</li>
+<li>RQ performs poorly</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
 
-      <slide class="" id="slide-38" style="background:;">
-  <hgroup>
-    <h2>Simulation Summary</h2>
-  </hgroup>
-  <article>
-    <ul>
-<li>In all cases, the RQ method performs poorly in terms of MSE
-since the mode of the error is no longer the quantile of interest.</li>
-<li>In contrast, PT is not impacted by lack of unimodality and heterogeneity
+</div>
+<div style='float:right;width:48%;'>
+  <ul>
+<li>PT is not impacted by lack of unimodality and heterogeneity
 and provides more information for the relationship between responses
 and covariates.</li>
-<li>FBQR outperforms PT in some cases, since the error is
-assigned an infinite mixture of normal distribution in FBQR.</li>
 <li>Less information is available from our approach to detect the shape at a
 particular extreme percentile of the distribution since there are few
 observations at extreme quantiles.</li>
-<li>However, PT and PTSS can fit simultaneously multiple quantile regressions and provide coherent
+<li>PT and PTSS can fit simultaneously multiple QR and provide coherent
 information about the error distribution.</li>
-<li>An overall evaluation method over multiple quantiles, such as summation of MSE over all
-quantiles and coefficients, may reflect PT and PTSS have advantages
-when error distribution is away from regular unimodal shape as in
-model 3 (M3 and M3H) and model 5 (M5).</li>
-<li>Quantile lines do not cross using our method.</li>
+</ul>
+
+<!-- - An overall evaluation method over multiple quantiles, such as summation of MSE over all -->
+
+<!-- quantiles and coefficients, may reflect PT and PTSS have advantages -->
+
+<!-- when error distribution is away from regular unimodal shape as in -->
+
+<!-- model 3 (M3 and M3H) and model 5 (M5). -->
+
+<ul>
+<li>No crossing QR curves</li>
 <li>Expect to see advantages when dimension of responses is bivariate or more.</li>
 </ul>
 
+</div>
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-39" style="background:;">
+      <slide class="" id="slide-33">
   <hgroup>
     <h2>Real Data Analysis: Tours</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>A recent weight management study (<a href="">Perri et al. 2008</a>)</li>
 <li>Designed to test whether a lifestyle modification program could effectively
@@ -1356,26 +1430,32 @@ years.</li>
 credible intervals</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-40" style="background:;">
+      <slide class="" id="slide-34">
   <hgroup>
     
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p><img src="assets/img/weight-age-race3.png" alt="weight-age"></p>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-41" style="background:;">
+      <slide class="" id="slide-35">
   <hgroup>
     
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <table><thead>
 <tr>
 <th>\(\tau\)</th>
@@ -1508,47 +1588,53 @@ credible intervals</li>
 </tr>
 </tbody></table>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-42" style="background:;">
+      <slide class="" id="slide-36">
   <hgroup>
     <h2>Tours Summary</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>Whites lost more weight than blacks for all quantiles.</li>
 <li>The differential is reported as significant by PT and PTSS, and
 becomes larger when comparing more successful weight losers (70% -
 90% percentile).</li>
-<li>For example, whites lost 5.05 kg more than blacks among people
+<li>Whites lost 5.05 kg more than blacks among people
 losing the most weight (90%) reported from method PT (4.21 kg from
 PTSS).</li>
 <li>The effect of age on the weight loss is small and not significant in
 most cases (only barely significant in 10% and 30% quantile
 regression by PT and PTSS).</li>
 <li>The trend is negative showing that older people tend to lose less
-weight. For example, median weight loss is 0.40 kg less for every age
+weight. Median weight loss is 0.40 kg less for every age
 increase of 5 years reported by PT.</li>
-<li>PTSS tends to shrink coefficients toward zero. For example, the
-posterior probability that the heterogeneity parameters are zero are
-all 100% for Age and 99% for Race, indicating there is no
-heterogeneity for covariates AGE and RACE.</li>
-<li>This can help to select variables in Bayesian models. For example,
-we can exclude AGE out of the regressors or conclude the variance is
+<li>PTSS tends to shrink coefficients toward zero. The posterior
+probability that the heterogeneity parameters are zero are all 100%
+for Age and 99% for Race, indicating there is no heterogeneity for
+covariates AGE and RACE.</li>
+<li>This can help to select variables in Bayesian models.  We can
+exclude AGE out of the regressors or conclude the variance is
 homogeneous on the AGE covariate.</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-43" style="background:;">
+      <slide class="" id="slide-37">
   <hgroup>
     
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <!-- ## Comparison to *FBQR* and *RQ* -->
 
 <!-- - Results from method RQ and FBQR show similar conclusions as PT and -->
@@ -1591,21 +1677,24 @@ heterogeneity parameters.</li>
 tree distribution, quantiles of interest can be obtained in closed
 form by inverting the predictive cumulative distribution.</li>
 <li>Exact posterior inference can be made via MCMC.</li>
-<li>Here, quantile lines cannot cross since quantiles are estimated
+<li>Quantile lines cannot cross since quantiles are estimated
 through density estimation.</li>
-<li>The simulations show our method performs better than the frequentist
-approach especially when the error is multimodal and highly skewed.</li>
+<li>The simulations show advantages of our method in some cases
+especially when the error is multimodal and highly skewed.</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-44" style="background:;">
+      <slide class="" id="slide-38">
   <hgroup>
     <h2>Future Work</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>Further research includes quantile regression for correlated data by
 modelling error as a mixture of multivariate Polya tree
@@ -1618,15 +1707,18 @@ missingness.</li>
 distribution in Polya tree adaptively to improve the estimation.</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-45" style="background:;">
+      <slide class="" id="slide-39">
   <hgroup>
     
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <!-- ## Multivariate Polya Tree Introduction ? -->
 
 <!-- - Paddock 1999, 2002 studied multivariate Polya Tree in a k-dimensional hypercube -->
@@ -1643,84 +1735,126 @@ distribution in Polya tree adaptively to improve the estimation.</li>
 
 <h2>Chapter 2: Quantile Regression in the Presence of Monotone Missingness with Sensitivity Analysis</h2>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-46" style="background:;">
-  <hgroup>
-    <h2>Review</h2>
-  </hgroup>
-  <article>
-    <ul>
+<ul>
 <li><a href="http://dx.doi.org/10.1093/biomet/ass007">Wei et al. (2012)</a> proposed a multiple imputation method
 for quantile regression model when there are some covariates missing
 at random (MAR).</li>
-<li>They impute the missing covariates by specifying its conditional
-density given observed covariates and outcomes, which comes from the
-estimated conditional quantile regression and specification of
-conditional density of missing covariates given observed ones.</li>
-<li>However, they put more focus on the missing covariates rather than
-missing outcomes.</li>
+</ul>
+
+<!-- - They impute the missing covariates by specifying its conditional -->
+
+<!-- density given observed covariates and outcomes, which comes from the -->
+
+<!-- estimated conditional quantile regression and specification of -->
+
+<!-- conditional density of missing covariates given observed ones. -->
+
+<!-- - However, they put more focus on the missing covariates rather than -->
+
+<!-- missing outcomes. -->
+
+<ul>
 <li><a href="http://dx.doi.org/10.2427/8758">Bottai &amp; Zhen (2013)</a> illustrated an imputation method
 using estimated conditional quantiles of missing outcomes given
 observed data.</li>
-<li>Their approach does not make distributional assumptions.</li>
-<li>They assumed the missing data mechanism (MDM) is ignorable.</li>
-<li>However, because their imputation method is not derived from a joint
-distribution, the joint distribution with such conditionals may not
-exist.</li>
-<li>In addition, their approach does not allow for MNAR.</li>
+</ul>
+
+<!-- - Their approach does not make distributional assumptions. -->
+
+<!-- - They assumed the missing data mechanism (MDM) is ignorable. -->
+
+<!-- - However, because their imputation method is not derived from a joint -->
+
+<!-- distribution, the joint distribution with such conditionals may not -->
+
+<!-- exist. -->
+
+<!-- - In addition, their approach does not allow for MNAR. -->
+
+<ul>
 <li><a href="http://dx.doi.org/10.1111/j.1541-0420.2009.01269.x">Yuan &amp; Yin (2010)</a> introduced a fully parametric Bayesian
 quantile regression approach for longitudinal data with nonignorable
 missing data.</li>
-<li>They used shared latent subject-specific random effects to explain
-the within-subject correlation and to associate the response process
-with missing data process, and applied multivariate normal priors on
-the random terms to match the traditional quantile regression check
-function with penalties.</li>
-<li>However, the quantile regression coefficients are conditional on the
-random effects, which is not of interest if we are interested in
-interpreting regression coefficients unconditional on random effects.</li>
-<li>In addition, they are conditional on random effects, which tie
-together the responses and missingness process, so they have slightly
-different interpretation than regular random effects in longitudinal
-methods.</li>
-<li>Moreover, due to their full parametric specification for the full
-data, their model does not allow for sensitivity analysis, which is a
-key component in inference for incomplete data (NAS 2010).</li>
-<li>Pattern mixture models were originally proposed to model missing
-data in <a href="">Rubin (1977)</a>.</li>
-<li>Later mixture models were extended to handle MNAR in longitudinal
-data.</li>
-<li>For discrete dropout times,
-<a href="http://dx.doi.org/10.1080/01621459.1993.10594302">Little (1993)</a>; <a href="http://dx.doi.org/10.1093/biomet/81.3.471">Little (1994)</a> proposed a general method
-by introducing a finite mixture of multivariate distribution for
-longitudinal data.</li>
-<li>When there are many possible dropout time, <a href="http://dx.doi.org/10.1111/j.0006-341X.2003.00097.x">Roy (2003)</a>
-proposed to group them by latent classes.</li>
-<li><a href="http://dx.doi.org/10.1111/j.1541-0420.2007.00884.x">Roy &amp; Daniels (2008)</a> extended <a href="http://dx.doi.org/10.1111/j.0006-341X.2003.00097.x">Roy (2003)</a> to
-generalized linear models and proposed a pattern mixture model for
-data with nonignorable dropout, borrowing ideas from
-<a href="http://www.jstor.org/stable/2533591">Heagerty (1999)</a>.</li>
-<li>their approach only estimates the marginal covariate effects on the
-mean.</li>
-<li>We will use related ideas for quantile regression models which
-allows non-ignorable missingness and sensitivity analysis.</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<!-- - They used shared latent subject-specific random effects to explain -->
 
-      <slide class="" id="slide-47" style="background:;">
+<!-- the within-subject correlation and to associate the response process -->
+
+<!-- with missing data process, and applied multivariate normal priors on -->
+
+<!-- the random terms to match the traditional quantile regression check -->
+
+<!-- function with penalties. -->
+
+<!-- - However, the quantile regression coefficients are conditional on the -->
+
+<!-- random effects, which is not of interest if we are interested in -->
+
+<!-- interpreting regression coefficients unconditional on random effects. -->
+
+<!-- - In addition, they are conditional on random effects, which tie -->
+
+<!-- together the responses and missingness process, so they have slightly -->
+
+<!-- different interpretation than regular random effects in longitudinal -->
+
+<!-- methods. -->
+
+<!-- - Moreover, due to their full parametric specification for the full -->
+
+<!-- data, their model does not allow for sensitivity analysis, which is a -->
+
+<!-- key component in inference for incomplete data (NAS 2010). -->
+
+<!-- - Pattern mixture models were originally proposed to model missing -->
+
+<!-- data in <a href="">Rubin (1977)</a>. -->
+
+<!-- - Later mixture models were extended to handle MNAR in longitudinal -->
+
+<!-- data. -->
+
+<!-- - For discrete dropout times, -->
+
+<!-- <a href="http://dx.doi.org/10.1080/01621459.1993.10594302">Little (1993)</a>; <a href="http://dx.doi.org/10.1093/biomet/81.3.471">Little (1994)</a> proposed a general method -->
+
+<!-- by introducing a finite mixture of multivariate distribution for -->
+
+<!-- longitudinal data. -->
+
+<ul>
+<li>When there are many possible dropout time, <a href="http://dx.doi.org/10.1111/j.0006-341X.2003.00097.x">Roy (2003)</a>
+proposed to group them by latent classes.</li>
+<li><a href="http://dx.doi.org/10.1111/j.1541-0420.2007.00884.x">Roy &amp; Daniels (2008)</a> extended <a href="http://dx.doi.org/10.1111/j.0006-341X.2003.00097.x">Roy (2003)</a>
+to generalized linear models and proposed a pattern mixture model for
+data with nonignorable dropout, borrowing ideas from
+<a href="http://www.jstor.org/stable/2533591">Heagerty (1999)</a>.</li>
+</ul>
+
+<!-- - their approach only estimates the marginal covariate effects on the -->
+
+<!--   mean. -->
+
+<!-- - We will use related ideas for quantile regression models which -->
+
+<!-- allows non-ignorable missingness and sensitivity analysis. -->
+
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
+  </article>
+</slide>
+      <slide class="" id="slide-40">
   <hgroup>
-    <h2>Notations</h2>
+    <h2>Notation</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
-<li>Under monotone dropout, without loss of generality,</li>
-<li>denote \(S_i \in \{1, 2, \ldots, J\}\) to be the number of observed \(Y_{ij}'s\) for subject \(i\),</li>
+<li>Under monotone dropout, WOLOG, denote \(S_i \in \{1, 2, \ldots, J\}\)
+to be the number of observed \(Y_{ij}'s\) for subject \(i\),</li>
 <li>\(\mathbf Y_i = (Y_{i1}, Y_{i2}, \ldots, Y_{iJ})^{T}\) to
 be the full data response vector for subject \(i\),</li>
 <li>\(J\) is the maximum follow up time.</li>
@@ -1740,18 +1874,19 @@ be the densities of response \(\mathbf Y\) given follow-up time \(S=k\) and \(S
 \geq k\). And \(Pr_k\) be the corresponding probability given \(S = k\).</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-48" style="background:;">
+      <slide class="" id="slide-41">
   <hgroup>
     <h2>Pattern Mixture Model</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
-<li>Pattern mixture model jointly model the response and
-missingness (<a href="http://dx.doi.org/10.1093/biomet/81.3.471">Little, 1994</a>; <a href="http://dx.doi.org/10.1201/9781420011180">Daniels &amp; Hogan, 2008</a>)</li>
 <li>Mixture models factor the
 joint distribution of response and missingness as
 \[
@@ -1771,69 +1906,85 @@ P (Y_{obs}, Y_{mis} | \mathbf S, \mathbf \theta) = P
 (Y_{mis}|Y_{obs}, \mathbf S, \mathbf \theta_E) Pr (Y_{obs} | \mathbf S, \mathbf
 \theta_{y, O}),
 \]</p></li>
-<li><p>where \(\mathbf \theta_E\) indexes the parameters in the extrapolation
-distribution, the first term on the right hand side and \(\mathbf
-\theta_{y, O}\) indexes parameters in the distribution of observed
-responses, the second term on the right hand side.</p></li>
+<li><p>\(\mathbf \theta_E\):  extrapolation distribution</p></li>
+<li><p>\(\mathbf \theta_{y, O}\) : distribution of observed responses</p></li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-49" style="background:;">
+      <slide class="" id="slide-42">
   <hgroup>
     <h2>Model Settings</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
-<li>We assume models within pattern to be multivariate normal
-distributions and specify a sequential model parametrization.</li>
-<li><p>The marginal quantile regression models as:
+<li>Multivariate normal distributions within pattern</li>
+<li>The marginal quantile regression models as:
 \[
 Pr (Y_{ij} \leq \mathbf x_{ij}^T \mathbf \gamma_j ) = \tau,
 \]
 where \(\mathbf \gamma_j\) is the \(\tau^{th}\) quantile regression
-coefficients of interest for component \(j\).</p></li>
-<li><p>Then we specify the conditional distributions as:
-\[
-\begin{array}{l}
-  \displaystyle p_k(y_{i1}) = N (\Delta_{i1} + \mathbf x_{i1}^T \mathbf \beta_1^{(k)},
-  \sigma_1^{(k)}  ), k = 1, \ldots, J,\\
-   \displaystyle p_k(y_{ij}|\mathbf y_{ij^{-}}) =
-  \begin{cases}
-    \textrm{N} \big (\Delta_{ij} + \mathbf x_{ij}^T \mathbf h_{j}^{(k)} +
-    \mathbf y_{ij^{-}}^T \mathbf \beta_{y,j-1}^{(k)},
-    \sigma_j^{(k)} \big), & k < j ;  \\
-    \textrm{N} \big (\Delta_{ij} + \mathbf y_{ij^{-}}^T \mathbf
-    \beta_{y,j-1}^{(\geq j)},
-    \sigma_j^{(\geq j)} \big), & k \geq j ;  \\
-  \end{cases}, \mbox{ for } 2 \leq j \leq J,  \\
-  \displaystyle S_{ij} = k| \mathbf x_{ij} \sim \textrm{Multinomial}(1, \mathbf \phi),
-\end{array}
-\]</p></li>
-<li><p>where \(\mathbf y_{ij^{-}} = (y_{i1}, \ldots, y_{i(j-1)})^T\) is the
-response history for subject \(i\) up to time point  \((j-1)\); \(\mathbf \phi =
-(\phi_1, \ldots, \phi_J)\) is the multinomial probability vector for the
-number of observed responses; \(\mathbf h_j^{(k)} = (h_{j1}^{(k)}, \ldots,
-h_{jp}^{(k)})\) are sensitivity parameters .  \(\mathbf x_{ij}\) is a \(p \times 1\) covariate vector;
-\(\mathbf \beta_{y, j-1}^{(k)} = \big(\beta_{y_1, j-1}^{(k)}, \ldots,
-\beta_{y_{j-1}, j-1}^{(k)} \big)^T\) are autoregressive coefficients
-and \(\sigma_j^{(k)}\) is the conditional standard deviation of response
-component \(j\). We specify the model to have
-multivariate normal distribution within patterns such that MAR exists
-(<a href="http://dx.doi.org/10.1111/j.1541-0420.2011.01565.x">Wang &amp; Daniels, 2011</a>).</p></li>
+coefficients of interest for component \(j\).</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<p>\[
+  \begin{array}{l}
+      \displaystyle p_k(y_{i1}) = N (\Delta_{i1} + \mathbf x_{i1}^T \mathbf \beta_1^{(k)},
+      \sigma_1^{(k)}  ), k = 1, \ldots, J,\\
+       \displaystyle p_k(y_{ij}|\mathbf y_{ij^{-}}) =
+      \begin{cases}
+        \textrm{N} \big (\Delta_{ij} + \mathbf x_{ij}^T \mathbf h_{j}^{(k)} +
+        \mathbf y_{ij^{-}}^T \mathbf \beta_{y,j-1}^{(k)},
+        \sigma_j^{(k)} \big), & k < j ;  \\
+        \textrm{N} \big (\Delta_{ij} + \mathbf y_{ij^{-}}^T \mathbf
+        \beta_{y,j-1}^{(\geq j)},
+        \sigma_j^{(\geq j)} \big), & k \geq j ;  \\
+      \end{cases}, \mbox{ for } 2 \leq j \leq J,  \\
+      \displaystyle S_{ij} = k| \mathbf x_{ij} \sim \textrm{Multinomial}(1, \mathbf \phi),
+    \end{array}
+\]</p>
 
-      <slide class="" id="slide-50" style="background:;">
+<!-- - where $\mathbf y_{ij^{-}} = (y_{i1}, \ldots, y_{i(j-1)})^T$ is the -->
+
+<!-- response history for subject $i$ up to time point $(j-1)$; $\mathbf -->
+
+<!-- \phi = (\phi_1, \ldots, \phi_J)$ is the multinomial probability vector -->
+
+<!-- for the number of observed responses; $\mathbf h_j^{(k)} = -->
+
+<!-- (h_{j1}^{(k)}, \ldots, h_{jp}^{(k)})$ are sensitivity parameters . -->
+
+<!-- $\mathbf x_{ij}$ is a $p \times 1$ covariate vector; $\mathbf -->
+
+<!-- \beta_{y, j-1}^{(k)} = \big(\beta_{y_1, j-1}^{(k)}, \ldots, -->
+
+<!-- \beta_{y_{j-1}, j-1}^{(k)} \big)^T$ are autoregressive coefficients -->
+
+<!-- and $\sigma_j^{(k)}$ is the conditional standard deviation of response -->
+
+<!-- component $j$. We specify the model to have multivariate normal -->
+
+<!-- distribution within patterns such that MAR exists `r -->
+
+<!-- citep(bib2[['wang2011']])`. -->
+
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
+  </article>
+</slide>
+      <slide class="" id="slide-43">
   <hgroup>
     <h2>\(\Delta\)</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>\(\Delta_{ij}\) are functions of
 \(\tau, \mathbf x_{ij}, \mathbf \beta, \mathbf h, \mathbf \sigma, \mathbf \gamma_j, \mathbf \phi\)
 and are determined by the marginal
@@ -1856,67 +2007,77 @@ and
 \end{align}
 \]</p>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-51" style="background:;">
+      <slide class="" id="slide-44">
   <hgroup>
     <h2>Intuition</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>The idea is to model the marginal quantile regressions directly,</li>
-<li>then to embed them in the likelihood through restrictions in the mixture
+<li>Embed them in the likelihood through restrictions in the mixture
 model.</li>
 <li>The mixture model  allows the marginal
 quantile regression coefficients to differ by quantiles. Otherwise,
-the quantile lines would be parallel to each other. Moreover,</li>
-<li>the mixture model also allows sensitivity analysis.</li>
+the quantile lines would be parallel to each other.</li>
+<li>The mixture model also allows sensitivity analysis.</li>
 <li>For identifiability of the observed data distribution, we apply the
-following restrictions,
+following restraints,
 \[
 \sum_{k=1}^J \beta_{l1}^{(k)} = 0, l = 1,\ldots, p,
 \]</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-52" style="background:;">
+      <slide class="" id="slide-45">
   <hgroup>
     <h2>Missing Data Mechanism and Sensitivity Analysis</h2>
   </hgroup>
-  <article>
-    <p>In general, mixture models are not identified due to insufficient
-information provided by observed data. Specific forms of missingness
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
+    <ul>
+<li>Mixture models are not identified due to insufficient
+information provided by observed data.</li>
+<li><p>Specific forms of missingness
 are needed to induce constraints to identify the distributions for
-incomplete patterns, in particular, the extrapolation distribution
-. In this section, we explore ways to embed the
-missingness mechanism and sensitivity parameters in mixture models for
-our setting.</p>
-
-<p>In the mixture model , MAR holds (<a href="http://dx.doi.org/10.1111/1467-9574.00075">Molenberghs et al. 1998</a>; <a href="http://dx.doi.org/10.1111/j.1541-0420.2011.01565.x">Wang &amp; Daniels, 2011</a>) if and only if, for each
+incomplete patterns, in particular, the extrapolation distribution</p></li>
+<li><p>In mixture models , MAR holds (<a href="http://dx.doi.org/10.1111/1467-9574.00075">Molenberghs et al. 1998</a>; <a href="http://dx.doi.org/10.1111/j.1541-0420.2011.01565.x">Wang &amp; Daniels, 2011</a>) if and only if, for each
 \(j \geq 2\) and \(k < j\):
 \[
-  p_k(y_j|y_1, \ldots, y_{j-1}) = p_{\geq j}(y_j|y_1, \ldots, y_{j-1}).
-\]
-When \(2 \leq j \leq J\) and \(k < j\), \(Y_j\) is not observed, thus
+p_k(y_j|y_1, \ldots, y_{j-1}) = p_{\geq j}(y_j|y_1, \ldots, y_{j-1}).
+\]</p></li>
+<li><p>When \(2 \leq j \leq J\) and \(k < j\), \(Y_j\) is not observed, thus
 \(\mathbf h_j^{(k)}\) and \(\sigma_j^{(k)}\),
 \(\mathbf \beta_{y,j-1}^{(k)} = (\beta_{y_1,j}^{(k)}, \ldots, \beta_{y_{j-1},j-1}^{(k)} )^T\)
-can not be identified from the observed data.</p>
+can not be identified from the observed data.</p></li>
+</ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-53" style="background:;">
+      <slide class="" id="slide-46">
   <hgroup>
     <h2>Sensitivity Analysis</h2>
   </hgroup>
-  <article>
-    <p>\[
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
+    
+<div style='float:left;width:48%;' class='centered'>
+  <p>\[
 \begin{align*}
   \log \sigma_j^{(k)} &= \log \sigma_j^{(\geq j)} +  \delta_{j}^{(k)}, \\
   \mathbf \beta_{y, j-1}^{(k)} &= \mathbf \beta_{y, j-1}^{(\geq j)} +
@@ -1933,52 +2094,50 @@ J $.</p>
 <li>\(\mathbf \xi_s = \mathbf \xi_{s0} = \mathbf 0\), MAR holds.</li>
 <li>\(\mathbf \xi_s\) is fixed at \(\mathbf \xi_s \neq \mathbf \xi_{s0}\), MNAR.</li>
 <li>We can vary \(\mathbf \xi_s\) around \(\mathbf 0\) to examine the impact of different MNAR mechanisms.</li>
-<li>For Bayesian inference, put priors on \((\mathbf \xi_s, \mathbf \xi_m)\) as :
+</ul>
+
+
+</div>
+<div style='float:right;width:48%;'>
+  <ul>
+<li><p>For Bayesian, put priors on \((\mathbf \xi_s, \mathbf \xi_m)\):
 \[
 p(\mathbf \xi_s, \mathbf \xi_m) = p(\mathbf \xi_s) p(\mathbf \xi_m),
 \]
 where \(\mathbf \xi_m = \big(\mathbf \gamma_j, \mathbf \beta_{y,
-j-1}^{(\geq j)}, \mathbf \alpha_j^{(\geq j)}, \mathbf \phi \big)\), the
-identified parameters in the data distribution.  If we assume MAR with
-no uncertainty, the prior of \(\mathbf \xi_s\) is \(p(\mathbf \xi_s =
-\mathbf 0) \equiv 1\). Sensitivity analysis can be executed by putting
-point mass priors on \(\mathbf \xi_s\) to examine the effect of priors on
-the posterior inference about quantile regression coefficients \(\mathbf
-\gamma_{j}^{\tau}\). For example, if MAR is assumed with uncertainty,
-priors can be assigned as \(\textrm{E}(\mathbf \xi_s) = \mathbf \xi_{s0}
-= \mathbf 0\) with \(\textrm{Var}(\mathbf \xi_s) \neq \mathbf 0\). If we
-assume MNAR with no uncertainty, we can put priors satisfying
-\(\textrm{E}(\mathbf \xi_s) = \Delta_{\xi}\), where \(\Delta_{\xi} \neq
-\mathbf 0\) and \(\textrm{Var}(\mathbf \xi_s) = \mathbf 0\). If MNAR is
-assumed with uncertainty, then priors could be \(\textrm{E}(\mathbf
-\xi_s) = \Delta_{\xi}\), where $\Delta_{\xi} \neq \mathbf 0 $ and
-\(\textrm{Var}(\mathbf \xi_s) \neq \mathbf 0\).</li>
+j-1}^{(\geq j)}, \mathbf \alpha_j^{(\geq j)}, \mathbf \phi \big)\)</p></li>
+<li><p>SA can be done by putting
+point mass priors on \(\mathbf \xi_s\)</p></li>
 </ul>
 
+<!-- to examine the effect of priors on -->
+
+<!-- the posterior inference about quantile regression coefficients $\mathbf -->
+
+<!-- \gamma_{j}^{\tau}$. -->
+
+<ul>
+<li>MAR with no uncertainty:  \(p(\mathbf \xi_s = \mathbf 0) \equiv 1\).</li>
+<li>MAR with uncertainty:  \(\textrm{E}(\mathbf \xi_s) = \mathbf \xi_{s0}
+= \mathbf 0\) with \(\textrm{Var}(\mathbf \xi_s) \neq \mathbf 0\).</li>
+<li> MNAR with no uncertainty, \(\textrm{E}(\mathbf \xi_s) = \Delta_{\xi}\), where \(\Delta_{\xi} \neq
+\mathbf 0\) and \(\textrm{Var}(\mathbf \xi_s) = \mathbf 0\).</li>
+<li>MNAR with uncertainty,  \(\textrm{E}(\mathbf \xi_s) = \Delta_{\xi}\), where $\Delta_{\xi} \neq \mathbf 0 $ and \(\textrm{Var}(\mathbf \xi_s) \neq \mathbf 0\).</li>
+</ul>
+
+</div>
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-54" style="background:;">
-  <hgroup>
-    <h2>Curse of Dimension</h2>
-  </hgroup>
-  <article>
-    <p>In general, each pattern \(S = k\) has its own set of sensitivity
-parameters \(\mathbf \xi_s^{(k)}\). However, to keep the number of
-sensitivity parameters at a manageable level (<a href="http://dx.doi.org/10.1201/9781420011180">Daniels &amp; Hogan, 2008</a>) and
-without loss of generality, we assume \(\mathbf \xi_s\) does not depend
-on pattern.</p>
-
-  </article>
-  <!-- Presenter Notes -->
-</slide>
-
-      <slide class="" id="slide-55" style="background:;">
+      <slide class="" id="slide-47">
   <hgroup>
     <h2>Calculation of \(\Delta\)</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>\(\Delta_{ij}\) depends on subject-specific covariates \(\mathbf x_{ij}\),
 thus \(\Delta_{ij}\) needs to be calculated for each subject. We now
 illustrate how to calculate \(\Delta_{ij}\) given all the other
@@ -1997,15 +2156,18 @@ parameters \(\mathbf \xi = (\mathbf \xi_m, \xi_s)\).</p>
   standard numerical root-finding method (e.g. bisection method) with
   minimal difficulty.</p>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-56" style="background:;">
+      <slide class="" id="slide-48">
   <hgroup>
     <h2>Lemma for Calculation of \(\Delta_{ij}, 2\leq j \leq J\)</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>An integral of a normal CDF with mean \(b\) and standard deviation
 \(a\) over another normal distribution with mean \(\mu\) and standard
 deviation \(\sigma\) can be simplified to a closed form in terms of
@@ -2026,15 +2188,18 @@ normal CDF:</p>
 <p>where \(\Phi(x; \mu, \sigma)\) stands for a CDF of normal
 distribution with mean \(\mu\) and standard deviation \(\sigma\).</p>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-57" style="background:;">
+      <slide class="" id="slide-49">
   <hgroup>
     <h2>Calculation of \(\Delta_{ij}, 2\leq j \leq J\)</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>Given the result in Lemma , to solve above equation, we propose a recursive approach. For the first
   multiple integral, apply lemma once to obtain:</p>
 
@@ -2059,15 +2224,18 @@ distribution with mean \(\mu\) and standard deviation \(\sigma\).</p>
   \(\Delta_{ij}\) using standard numerical root-finding method as for \(j
   = 1\).</p>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-58" style="background:;">
+      <slide class="" id="slide-50">
   <hgroup>
     <h2>MLE</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>The observed data likelihood for an individual \(i\) with follow-up time
 \(S_i = k\) is
 \[
@@ -2089,24 +2257,26 @@ approximation to compute the maximum likelihood estimates
 <li>During each step of the algorithm, \(\Delta_{ij}\) has to be calculated
 for each subject and at each time, as well as partial derivatives for
 each parameter.</li>
-<li>Speed: for 100 bivariate
-outcomes and 5 covariates, it takes about 1.9 seconds to get
-convergence</li>
+<li>Speed: takes about 1.9 seconds for 100 bivariate outcomes and 5
+covariates</li>
 <li>Incorporated those functions implementing the algorithm into the new R
-(<a href="http://www.R-project.org/"></a>) package ``qrmissing&#39;&#39;.</li>
-<li>Use the bootstrap \citep{efron1979,efron1993,divison1997} to
-construct confidence interval and make inferences.</li>
+package <strong>qrmissing</strong></li>
+<li>Use the bootstrap to construct confidence interval and make
+inferences.</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-59" style="background:;">
+      <slide class="" id="slide-51">
   <hgroup>
     <h2>Goodness of Fit Check</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>A simple goodness-of-fit check can be done by examining normal QQ
 plots of the fitted residuals from the model. The visual test can help
 to diagnose if the parametric assumptions are suitable for model.</p>
@@ -2126,15 +2296,26 @@ fitted estimates and \(\hat{\Delta}_{ij}\) to obtain,
   \end{cases}.
 \]</p>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<h2>Curse of Dimension</h2>
 
-      <slide class="" id="slide-60" style="background:;">
+<p>In general, each pattern \(S = k\) has its own set of sensitivity
+parameters \(\mathbf \xi_s^{(k)}\). However, to keep the number of
+sensitivity parameters at a manageable level (<a href="http://dx.doi.org/10.1201/9781420011180">Daniels &amp; Hogan, 2008</a>) and
+without loss of generality, we assume \(\mathbf \xi_s\) does not depend
+on pattern.</p>
+
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
+  </article>
+</slide>
+      <slide class="" id="slide-52">
   <hgroup>
     <h2>Bayesian MCMC</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>For Bayesian inference, we specify priors on the parameters \(\mathbf
 \xi\) and use a block Gibbs sampling method to draw samples from the
 posterior distribution. Denote all the parameters to sample as :
@@ -2153,22 +2334,24 @@ of \(\mathbf \xi_m\) require a Metropolis-Hasting algorithm, while
 \(\mathbf \xi_s\) samples are drawn directly from priors as desired for
 missingness mechanism assumptions.</p>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-61" style="background:;">
+      <slide class="" id="slide-53">
   <hgroup>
     <h2>Updating</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>MAR or MNAR assumptions are implemented via specific priors.</li>
 <li>Details for updating parameters are:
 
 <ul>
 <li>$\mathbf \gamma_{1} $: Use Metropolis-Hasting algorithm.
-\begin{enumerate}
 
 <ul>
 <li>Draw (\(\mathbf \gamma_{1}^c\)) candidates from candidate
@@ -2188,15 +2371,18 @@ specified based on assumptions about the missingness.</li>
 </ul></li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-62" style="background:;">
+      <slide class="" id="slide-54">
   <hgroup>
     <h2>Simulation Study</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <h3>Method candidates</h3>
 
 <ul>
@@ -2208,15 +2394,18 @@ given observed data. Their approach does not make distributional
 assumptions similar to <em>rq</em> and assumes ignorable missing data.</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-63" style="background:;">
+      <slide class="" id="slide-55">
   <hgroup>
     <h2>Design</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     
 <div style='float:left;width:48%;' class='centered'>
   <ul>
@@ -2266,17 +2455,20 @@ observed data.</li>
 <!-- only be fit from the information of $Y_{i2}|R = 1$ vs $x$. -->
 
 </div>
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-64" style="background:;">
+      <slide class="" id="slide-56">
   <hgroup>
     <h2>Evaluation</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
-<li>Fit quantile regression for quantiles \(\tau =\) 0.1, 0.3, 0.5, 0.7, 0.9</li>
+<li>Fit quantile regression for quantiles \(\tau =\) 10%, 30%, 50%, 70%, 90%</li>
 <li>Parameter estimates were evaluated by mean
 squared error (MSE),
 \[
@@ -2298,29 +2490,63 @@ where \(\hat{\mbox{sd}}\) is the sample standard deviation and
 \(\mbox{Bias} = \hat{\gamma}_{ij} - \gamma_{ij}\) and \(N\) is the number
 of simulations.</p>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-65" style="background:;">
+      <slide class="" id="slide-57">
   <hgroup>
     <h2>Results</h2>
   </hgroup>
-  <article>
-    <ul>
-<li>[ ] may convert the result table into graph</li>
-<li>[ ] comments</li>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
+    
+<div style='float:left;width:48%;' class='centered'>
+  <ul>
+<li>Ours and BZ are closer to the true value for all quantiles from 10% to 90%.</li>
+<li>Under normal errors, the
+proposed methods dominates both <em>RQ</em> and <em>BZ</em> in most cases for
+MAR, incorrect MAR, and MNAR.</li>
+<li>For the heavier tail distributions,our approach shows better
+performance in middle quantiles and worse performance for extreme
+quantiles for observed data \(Y_1\).</li>
+<li>Our algorithm provides larger gains over <em>RQ</em> function for
+each marginal quantile for the second component \(Y_2\), which is
+missing for some units, since <em>RQ</em> implicitly assumes MAR missingness.</li>
 </ul>
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
 
-      <slide class="" id="slide-66" style="background:;">
+</div>
+<div style='float:right;width:48%;'>
+  <ul>
+<li>The difference in MSE becomes larger for the upper quantiles because
+\(Y_2 |R = 0\) tends to be larger than \(Y_2 | R = 1\); therefore, the
+<em>RQ</em> method using only the observed \(Y_2\) yields larger bias for upper
+quantiles.</li>
+<li>Bottai&#39;s approach does much better than <em>rq</em> function for missing
+data because it imputes missing responses under MAR.</li>
+<li>It also has smaller MSE than ours on extreme
+quantiles when distribution has heavy tail.</li>
+<li>Our approach has advantages in the middle quantiles (30% - 70%).</li>
+<li>We also see more gains over <em>BZ</em> in the quantile regression
+slope estimates for \(Y_2\).</li>
+</ul>
+
+</div>
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
+  </article>
+</slide>
+      <slide class="" id="slide-58">
   <hgroup>
     <h2>Goodness of Fit Check</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li><p>[ ] insert sample QQ plots here</p></li>
 <li><p>To assess the goodness of fit, we examined the QQ plot of fitted
@@ -2334,15 +2560,18 @@ and this also demonstrates why our approach has some disadvantages for
 regression on extreme quantiles when errors are not normal.</p></li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-67" style="background:;">
+      <slide class="" id="slide-59">
   <hgroup>
     <h2>Real Data Analysis: Tours</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>Weights were recorded at baseline (\(Y_0\)), 6 months (\(Y_1\)) and 18
 months (\(Y_2\)).</li>
@@ -2359,125 +2588,58 @@ representing 5 years.</li>
 <li>We ran 1000 bootstrap samples to obtain 95% confidence intervals.</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-68" style="background:;">
+      <slide class="" id="slide-60">
   <hgroup>
-    <h2>Results (Table is too large)</h2>
+    
   </hgroup>
-  <article>
-    <table><thead>
-<tr>
-<th>Term</th>
-<th>Intercept</th>
-<th>Age</th>
-<th>White</th>
-<th>BaseWeight</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>6 months</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>10%</td>
-<td>-6.05(-10.88,2.67)</td>
-<td>0.34(-0.25,0.85)</td>
-<td>-3.86(-5.75,-2.43)</td>
-<td>0.92(0.85,0.97)</td>
-</tr>
-<tr>
-<td>30%</td>
-<td>-2.56(-7.67,3.66)</td>
-<td>0.33(-0.25,0.84)</td>
-<td>-3.90(-5.43,-2.54)</td>
-<td>0.92(0.86,0.97)</td>
-</tr>
-<tr>
-<td>50%</td>
-<td>-0.25(-5.29,5.60)</td>
-<td>0.31(-0.25,0.85)</td>
-<td>-4.04(-5.57,-2.55)</td>
-<td>0.93(0.87,0.98)</td>
-</tr>
-<tr>
-<td>70%</td>
-<td>1.79(-3.27,7.81)</td>
-<td>0.35(-0.22,0.86)</td>
-<td>-4.11(-5.67,-2.68)</td>
-<td>0.93(0.87,0.98)</td>
-</tr>
-<tr>
-<td>90%</td>
-<td>4.81(-0.05,11.32)</td>
-<td>0.40(-0.20,0.94)</td>
-<td>-4.07(-5.68,-2.68)</td>
-<td>0.94(0.88,0.99)</td>
-</tr>
-<tr>
-<td>18 months(MAR)</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>10%</td>
-<td>-17.65(-31.75,21.41)</td>
-<td>-0.73(-1.99,0.39)</td>
-<td>-0.12(-10.60,2.96)</td>
-<td>1.01(0.63,1.14)</td>
-</tr>
-<tr>
-<td>30%</td>
-<td>-18.26(-28.27,9.88)</td>
-<td>-0.74(-2.01,0.32)</td>
-<td>1.07(-8.93,3.67)</td>
-<td>1.07(0.79,1.17)</td>
-</tr>
-<tr>
-<td>50%</td>
-<td>-12.72(-24.20,10.45)</td>
-<td>-0.73(-2.01,0.30)</td>
-<td>1.04(-6.14,3.94)</td>
-<td>1.06(0.83,1.17)</td>
-</tr>
-<tr>
-<td>70%</td>
-<td>-9.12(-19.69,14.38)</td>
-<td>-0.73(-2.00,0.31)</td>
-<td>1.18(-5.18,3.92)</td>
-<td>1.06(0.84,1.16)</td>
-</tr>
-<tr>
-<td>90%</td>
-<td>-3.90(-12.65,19.61)</td>
-<td>-0.75(-1.98,0.36)</td>
-<td>1.24(-4.19,3.76)</td>
-<td>1.08(0.85,1.16)</td>
-</tr>
-</tbody></table>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
+    <!-- ## Results (Table is too large) -->
 
-  </article>
-  <!-- Presenter Notes -->
-</slide>
+<!-- | Term           | Intercept            | Age               | White              | BaseWeight      | -->
 
-      <slide class="" id="slide-69" style="background:;">
-  <hgroup>
-    <h2>Comments</h2>
-  </hgroup>
-  <article>
-    <ul>
+<!-- |----------------|----------------------|-------------------|--------------------|-----------------| -->
+
+<!-- | 6 months       |                                                                              |||| -->
+
+<!-- | 10%            | -6.05(-10.88,2.67)   | 0.34(-0.25,0.85)  | -3.86(-5.75,-2.43) | 0.92(0.85,0.97) | -->
+
+<!-- | 30%            | -2.56(-7.67,3.66)    | 0.33(-0.25,0.84)  | -3.90(-5.43,-2.54) | 0.92(0.86,0.97) | -->
+
+<!-- | 50%            | -0.25(-5.29,5.60)    | 0.31(-0.25,0.85)  | -4.04(-5.57,-2.55) | 0.93(0.87,0.98) | -->
+
+<!-- | 70%            | 1.79(-3.27,7.81)     | 0.35(-0.22,0.86)  | -4.11(-5.67,-2.68) | 0.93(0.87,0.98) | -->
+
+<!-- | 90%            | 4.81(-0.05,11.32)    | 0.40(-0.20,0.94)  | -4.07(-5.68,-2.68) | 0.94(0.88,0.99) | -->
+
+<!-- | 18 months(MAR) |                      |                   |                    |                 | -->
+
+<!-- | 10%            | -17.65(-31.75,21.41) | -0.73(-1.99,0.39) | -0.12(-10.60,2.96) | 1.01(0.63,1.14) | -->
+
+<!-- | 30%            | -18.26(-28.27,9.88)  | -0.74(-2.01,0.32) | 1.07(-8.93,3.67)   | 1.07(0.79,1.17) | -->
+
+<!-- | 50%            | -12.72(-24.20,10.45) | -0.73(-2.01,0.30) | 1.04(-6.14,3.94)   | 1.06(0.83,1.17) | -->
+
+<!-- | 70%            | -9.12(-19.69,14.38)  | -0.73(-2.00,0.31) | 1.18(-5.18,3.92)   | 1.06(0.84,1.16) | -->
+
+<!-- | 90%            | -3.90(-12.65,19.61)  | -0.75(-1.98,0.36) | 1.24(-4.19,3.76)   | 1.08(0.85,1.16) | -->
+
+<!-- --- -->
+
+<h2>Results</h2>
+
+<ul>
 <li>For weights of participants at six months, weights of whites are
 generally 4kg lower than those of blacks for all quantiles, and the
 coefficients of race are negative and significant.</li>
 <li>Weights of participants are not affected by age since the
-coefficients are not significant. Difference in quantiles are
+coefficients are not significant. Differences in quantiles are
 reflected by the intercept.</li>
 <li>Coefficients of baseline weight show a
 strong relationship with weights after 6 months.</li>
@@ -2488,15 +2650,18 @@ weights.</li>
 months unlike at 6 months.</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-70" style="background:;">
+      <slide class="" id="slide-61">
   <hgroup>
     <h2>Sensitivity Analysis</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <p>We also did a sensitivity analysis based on an assumption of MNAR.</p>
 
 <ul>
@@ -2515,15 +2680,18 @@ the distribution of \(Y_2|Y_1, R=0\) via the following restriction:
 \]</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-71" style="background:;">
+      <slide class="" id="slide-62">
   <hgroup>
     <h2>Results</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <table><thead>
 <tr>
 <th>Term</th>
@@ -2585,15 +2753,18 @@ vs MAR.</li>
 study.</li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-72" style="background:;">
+      <slide class="" id="slide-63">
   <hgroup>
     <h2>Goodness of Fit Check</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li><p>[ ] insert sample GoF graphs here</p></li>
 <li><p>We also checked the goodness of fit via QQ plots on the fitted
@@ -2603,22 +2774,25 @@ residuals were normally distributed; thus we were confident with the
 conclusion of our quantile regression models.</p></li>
 </ul>
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-73" style="background:;">
+      <slide class="" id="slide-64">
   <hgroup>
     <h2>Summary</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>Developed a marginal quantile regression model
 for data with monotone missingness.</li>
 <li>Used a pattern mixture model to
 jointly model the full data response and missingness.</li>
 <li>Estimate marginal quantile regression coefficients instead of coefficients
-conditional on random effects as in <a href="http://dx.doi.org/10.1111/j.1541-0420.2009.01269.x">Yuan &amp; Yin (2010)</a>.</li>
+conditional on random effects</li>
 <li>Allows non-parallel quantile lines over different quantiles
 via the mixture distribution</li>
 <li>Allows for sensitivity analysis which is essential for the analysis
@@ -2652,15 +2826,18 @@ dimensions.</li>
 
 <!-- error is mis-specified. -->
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
-      <slide class="" id="slide-74" style="background:;">
+      <slide class="" id="slide-65">
   <hgroup>
     <h2>Future Work</h2>
   </hgroup>
-  <article>
+  <article text='blue'>
+    <!-- <hr noshade size=4 color='yellow'> -->
     <ul>
 <li>Our model assumes a sequential multivariate normal distribution for
 each component in the pattern mixture models, which might be too
@@ -2687,10 +2864,12 @@ example, a Dirichlet process mixture.</li>
 
 <!-- ``` -->
 
+    <footer class = 'logo'>
+      <!-- <img src = 'path/to/logo'></img> -->
+      <!-- haha -->
+    </footer>
   </article>
-  <!-- Presenter Notes -->
 </slide>
-
     <slide class="backdrop"></slide>
   </slides>
 
