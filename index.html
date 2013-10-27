@@ -187,35 +187,35 @@ mixtures for the error distribution</li>
 <li>Sanchez et al (2013) proposed efficient and easy EM algorithm to obtain MLE for ALD settings from the hierarchical representation of ALD</li>
 </ul>
 
-<!-- \[ -->
+<!-- $$ -->
 
 <!-- \rho_{\tau}(x) = x(\tau - I(x < 0)) -->
 
-<!-- \] -->
+<!-- $$ -->
 
 <!-- Optimization problem for the loss function with quantile: -->
 
-<!-- \[ -->
+<!-- $$ -->
 
 <!-- E \rho_{\tau} (X - \hat{x}) \implies F(\hat{x}) = \tau -->
 
-<!-- \] -->
+<!-- $$ -->
 
 <!-- If $F$ is replaced by the empirical distribution function: -->
 
-<!-- \[ -->
+<!-- $$ -->
 
 <!-- F_n(x) = n^{-1} \sum_{i=1}^n I(X_i \leq x) -->
 
-<!-- \] -->
+<!-- $$ -->
 
 <!-- Then (2) changes to minimizing -->
 
-<!-- \[ -->
+<!-- $$ -->
 
 <!-- \int \rho_\tau(X-\hat{x}) d \, F_n(x) = n^{-1} \sum_{i=1}^n \rho_\tau(X_i - \hat{x} -->
 
-<!-- \] -->
+<!-- $$ -->
 
 <!-- --- &twocol -->
 
@@ -225,29 +225,29 @@ mixtures for the error distribution</li>
 
 <!-- * sample mean -->
 
-<!-- \[ \min_{\mu \in \mathbb{R}} \sum_{i=1}^n (y_i - \mu)^2 \] -->
+<!-- $$ \min_{\mu \in \mathbb{R}} \sum_{i=1}^n (y_i - \mu)^2 $$ -->
 
 <!-- * least square mean regression -->
 
-<!-- \[ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n (y_i - \mathbf x_i^T \beta)^2 \] -->
+<!-- $$ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n (y_i - \mathbf x_i^T \beta)^2 $$ -->
 
 <!-- *** right -->
 
 <!-- * $\tau^{th}$ sample quantile -->
 
-<!-- \[ \min_{\alpha \in \mathbb{R}} \sum_{i=1}^n \rho_\tau(y_i - \alpha) \] -->
+<!-- $$ \min_{\alpha \in \mathbb{R}} \sum_{i=1}^n \rho_\tau(y_i - \alpha) $$ -->
 
 <!-- * $\tau^{th}$ quantile regression -->
 
-<!-- \[ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n \rho_\tau(y_i - \mathbf x_i^T \beta) \] -->
+<!-- $$ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n \rho_\tau(y_i - \mathbf x_i^T \beta) $$ -->
 
 <!-- --- -->
 
 <!-- ## Bayesian Approach: Asymmetric Laplace Distribution -->
 
-<!-- \[f_{\epsilon}(x) \sim ALD -->
+<!-- $$f_{\epsilon}(x) \sim ALD -->
 
-<!-- \] -->
+<!-- $$ -->
 
     <footer class = 'logo'>
       <!-- <img src = 'path/to/logo'></img> -->
@@ -273,13 +273,13 @@ mixtures for the error distribution</li>
 
 <!-- $\tau \in (0, 1)$ if its pdf is given by -->
 
-<!-- \[ -->
+<!-- $$ -->
 
 <!-- f(y|\mu, \sigma, \tau) = \frac{\tau (1 - \tau)}{\sigma} \exp \left\{ - \rho_{\tau} -->
 
 <!-- \left( \frac{y  - \mu}{ \sigma} \right) \right\}. -->
 
-<!-- \] -->
+<!-- $$ -->
 
 <!-- where $\rho_\tau (.)$ is the check (or loss) function -->
 
@@ -668,13 +668,13 @@ function.</li>
 
 <!-- - $\Pi^{\theta}$ is defined as -->
 
-<!-- \[ -->
+<!-- $$ -->
 
 <!-- B^{\theta}_{\epsilon_1, \ldots, \epsilon_m} = \left( G^{-1}_{\theta} -->
 
 <!-- \left( \frac{k}{2^m} \right), G^{-1}_{\theta}\left( \frac{k+1}{2^m} \right) \right), -->
 
-<!-- \] -->
+<!-- $$ -->
 
 <!-- where $k$ is the index of partition $\epsilon_1, \ldots, \epsilon_m$ -->
 
@@ -682,15 +682,15 @@ function.</li>
 
 <!-- - $\mathcal{A}^c$ is defined as -->
 
-<!-- \[ -->
+<!-- $$ -->
 
 <!--   \alpha_{\epsilon_1, \ldots, \epsilon_m} = cm^2. -->
 
-<!-- \] -->
+<!-- $$ -->
 
 <!-- - Therefore, the error model is -->
 
-<!-- \[ -->
+<!-- $$ -->
 
 <!-- \begin{aligned} -->
 
@@ -702,7 +702,7 @@ function.</li>
 
 <!-- \end{aligned} -->
 
-<!-- \] -->
+<!-- $$ -->
 
 <!-- --- -->
 
@@ -1444,149 +1444,41 @@ credible intervals</li>
     <!-- <hr noshade size=4 color='yellow'> -->
     <p><img src="assets/img/weight-age-race3.png" alt="weight-age"></p>
 
-    <footer class = 'logo'>
-      <!-- <img src = 'path/to/logo'></img> -->
-      <!-- haha -->
-    </footer>
-  </article>
-</slide>
-      <slide class="" id="slide-35">
-  <hgroup>
-    
-  </hgroup>
-  <article text='blue'>
-    <!-- <hr noshade size=4 color='yellow'> -->
-    <table><thead>
-<tr>
-<th>\(\tau\)</th>
-<th>Term</th>
-<th>PT</th>
-<th>PTSS</th>
-<th>RQ</th>
-<th>FBQR</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>10%</td>
-<td>Intercept</td>
-<td>2.62(1.11,4.22)</td>
-<td>2.10(0.65,3.36)</td>
-<td>2.20(1.39,4.63)</td>
-<td>1.90(0.04,3.62)</td>
-</tr>
-<tr>
-<td></td>
-<td>Age</td>
-<td>-0.57(-1.25,-0.03)</td>
-<td>-0.57(-1.09,-0.07)</td>
-<td>-0.25(-0.73,0.16)</td>
-<td>-0.32(-0.99,0.36)</td>
-</tr>
-<tr>
-<td></td>
-<td>Race</td>
-<td>2.70(1.20,4.29)</td>
-<td>3.32(2.07,4.70)</td>
-<td>2.40(-0.23,3.92)</td>
-<td>2.92(0.91,5.06)</td>
-</tr>
-<tr>
-<td>30%</td>
-<td>Intercept</td>
-<td>5.59(4.64,6.70)</td>
-<td>5.45(4.41,6.36)</td>
-<td>5.56(4.83,6.52)</td>
-<td>5.32(3.67,6.80)</td>
-</tr>
-<tr>
-<td></td>
-<td>Age</td>
-<td>-0.46(-0.91,-0.10)</td>
-<td>-0.47(-0.82,-0.19)</td>
-<td>-0.66(-1.28,0.05)</td>
-<td>-0.47(-1.02,0.05)</td>
-</tr>
-<tr>
-<td></td>
-<td>Race</td>
-<td>3.38(2.22,4.42)</td>
-<td>3.58(2.56,4.65)</td>
-<td>3.74(2.04,4.42)</td>
-<td>3.56(1.99,5.20)</td>
-</tr>
-<tr>
-<td>50%</td>
-<td>Intercept</td>
-<td>7.43(6.46,8.56)</td>
-<td>7.47(6.24,8.40)</td>
-<td>7.83(5.42,9.09)</td>
-<td>7.55(6.07,9.13)</td>
-</tr>
-<tr>
-<td></td>
-<td>Age</td>
-<td>-0.40(-0.75,-0.08)</td>
-<td>-0.42(-0.72,-0.16)</td>
-<td>-0.57(-1.04,0.14)</td>
-<td>-0.50(-1.06,0.03)</td>
-</tr>
-<tr>
-<td></td>
-<td>Race</td>
-<td>3.81(2.77,4.68)</td>
-<td>3.74(2.76,4.72)</td>
-<td>3.53(2.52,5.46)</td>
-<td>3.89(2.36,5.33)</td>
-</tr>
-<tr>
-<td>70%</td>
-<td>Intercept</td>
-<td>9.79(8.74,11.09)</td>
-<td>10.12(8.92,11.18)</td>
-<td>9.70(7.95,12.39)</td>
-<td>9.84(8.11,11.83)</td>
-</tr>
-<tr>
-<td></td>
-<td>Age</td>
-<td>-0.31(-0.74,0.06)</td>
-<td>-0.34(-0.74,0.00)</td>
-<td>-0.69(-1.12,0.20)</td>
-<td>-0.57(-1.16,0.04)</td>
-</tr>
-<tr>
-<td></td>
-<td>Race</td>
-<td>4.35(3.19,5.39)</td>
-<td>3.94(2.87,4.99)</td>
-<td>4.80(2.11,6.61)</td>
-<td>4.30(2.59,5.75)</td>
-</tr>
-<tr>
-<td>90%</td>
-<td>Intercept</td>
-<td>12.80(11.30,14.62)</td>
-<td>13.53(11.98,15.06)</td>
-<td>12.61(11.48,15.27)</td>
-<td>13.65(11.65,15.86)</td>
-</tr>
-<tr>
-<td></td>
-<td>Age</td>
-<td>-0.20(-0.89,0.38)</td>
-<td>-0.24(-0.86,0.30)</td>
-<td>-0.71(-1.59,-0.05)</td>
-<td>-0.55(-1.38,0.42)</td>
-</tr>
-<tr>
-<td></td>
-<td>Race</td>
-<td>5.05(3.36,6.61)</td>
-<td>4.21(2.85,5.51)</td>
-<td>6.08(2.48,6.85)</td>
-<td>4.69(2.39,6.86)</td>
-</tr>
-</tbody></table>
+<!-- --- -->
+
+<!-- | $\tau$ | Term      | PT                 | PTSS               | RQ                 | FBQR               | -->
+
+<!-- |--------|-----------|--------------------|--------------------|--------------------|--------------------| -->
+
+<!-- |    10% | Intercept | 2.62(1.11,4.22)    | 2.10(0.65,3.36)    | 2.20(1.39,4.63)    | 1.90(0.04,3.62)    | -->
+
+<!-- |        | Age       | -0.57(-1.25,-0.03) | -0.57(-1.09,-0.07) | -0.25(-0.73,0.16)  | -0.32(-0.99,0.36)  | -->
+
+<!-- |        | Race      | 2.70(1.20,4.29)    | 3.32(2.07,4.70)    | 2.40(-0.23,3.92)   | 2.92(0.91,5.06)    | -->
+
+<!-- |    30% | Intercept | 5.59(4.64,6.70)    | 5.45(4.41,6.36)    | 5.56(4.83,6.52)    | 5.32(3.67,6.80)    | -->
+
+<!-- |        | Age       | -0.46(-0.91,-0.10) | -0.47(-0.82,-0.19) | -0.66(-1.28,0.05)  | -0.47(-1.02,0.05)  | -->
+
+<!-- |        | Race      | 3.38(2.22,4.42)    | 3.58(2.56,4.65)    | 3.74(2.04,4.42)    | 3.56(1.99,5.20)    | -->
+
+<!-- |    50% | Intercept | 7.43(6.46,8.56)    | 7.47(6.24,8.40)    | 7.83(5.42,9.09)    | 7.55(6.07,9.13)    | -->
+
+<!-- |        | Age       | -0.40(-0.75,-0.08) | -0.42(-0.72,-0.16) | -0.57(-1.04,0.14)  | -0.50(-1.06,0.03)  | -->
+
+<!-- |        | Race      | 3.81(2.77,4.68)    | 3.74(2.76,4.72)    | 3.53(2.52,5.46)    | 3.89(2.36,5.33)    | -->
+
+<!-- |    70% | Intercept | 9.79(8.74,11.09)   | 10.12(8.92,11.18)  | 9.70(7.95,12.39)   | 9.84(8.11,11.83)   | -->
+
+<!-- |        | Age       | -0.31(-0.74,0.06)  | -0.34(-0.74,0.00)  | -0.69(-1.12,0.20)  | -0.57(-1.16,0.04)  | -->
+
+<!-- |        | Race      | 4.35(3.19,5.39)    | 3.94(2.87,4.99)    | 4.80(2.11,6.61)    | 4.30(2.59,5.75)    | -->
+
+<!-- |    90% | Intercept | 12.80(11.30,14.62) | 13.53(11.98,15.06) | 12.61(11.48,15.27) | 13.65(11.65,15.86) | -->
+
+<!-- |        | Age       | -0.20(-0.89,0.38)  | -0.24(-0.86,0.30)  | -0.71(-1.59,-0.05) | -0.55(-1.38,0.42)  | -->
+
+<!-- |        | Race      | 5.05(3.36,6.61)    | 4.21(2.85,5.51)    | 6.08(2.48,6.85)    | 4.69(2.39,6.86)    | -->
 
     <footer class = 'logo'>
       <!-- <img src = 'path/to/logo'></img> -->
@@ -1594,7 +1486,7 @@ credible intervals</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-36">
+      <slide class="" id="slide-35">
   <hgroup>
     <h2>Tours Summary</h2>
   </hgroup>
@@ -1629,7 +1521,7 @@ homogeneous on the AGE covariate.</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-37">
+      <slide class="" id="slide-36">
   <hgroup>
     
   </hgroup>
@@ -1689,7 +1581,7 @@ especially when the error is multimodal and highly skewed.</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-38">
+      <slide class="" id="slide-37">
   <hgroup>
     <h2>Future Work</h2>
   </hgroup>
@@ -1713,7 +1605,7 @@ distribution in Polya tree adaptively to improve the estimation.</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-39">
+      <slide class="" id="slide-38">
   <hgroup>
     
   </hgroup>
@@ -1846,7 +1738,7 @@ data with nonignorable dropout, borrowing ideas from
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-40">
+      <slide class="" id="slide-39">
   <hgroup>
     <h2>Notation</h2>
   </hgroup>
@@ -1880,7 +1772,7 @@ be the densities of response \(\mathbf Y\) given follow-up time \(S=k\) and \(S
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-41">
+      <slide class="" id="slide-40">
   <hgroup>
     <h2>Pattern Mixture Model</h2>
   </hgroup>
@@ -1916,7 +1808,7 @@ P (Y_{obs}, Y_{mis} | \mathbf S, \mathbf \theta) = P
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-42">
+      <slide class="" id="slide-41">
   <hgroup>
     <h2>Model Settings</h2>
   </hgroup>
@@ -1979,7 +1871,7 @@ coefficients of interest for component \(j\).</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-43">
+      <slide class="" id="slide-42">
   <hgroup>
     <h2>\(\Delta\)</h2>
   </hgroup>
@@ -2013,7 +1905,7 @@ and
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-44">
+      <slide class="" id="slide-43">
   <hgroup>
     <h2>Intuition</h2>
   </hgroup>
@@ -2040,7 +1932,7 @@ following restraints,
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-45">
+      <slide class="" id="slide-44">
   <hgroup>
     <h2>Missing Data Mechanism and Sensitivity Analysis</h2>
   </hgroup>
@@ -2069,7 +1961,7 @@ can not be identified from the observed data.</p></li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-46">
+      <slide class="" id="slide-45">
   <hgroup>
     <h2>Sensitivity Analysis</h2>
   </hgroup>
@@ -2132,7 +2024,7 @@ point mass priors on \(\mathbf \xi_s\)</p></li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-47">
+      <slide class="" id="slide-46">
   <hgroup>
     <h2>Calculation of \(\Delta\)</h2>
   </hgroup>
@@ -2162,7 +2054,7 @@ parameters \(\mathbf \xi = (\mathbf \xi_m, \xi_s)\).</p>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-48">
+      <slide class="" id="slide-47">
   <hgroup>
     <h2>Lemma for Calculation of \(\Delta_{ij}, 2\leq j \leq J\)</h2>
   </hgroup>
@@ -2194,7 +2086,7 @@ distribution with mean \(\mu\) and standard deviation \(\sigma\).</p>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-49">
+      <slide class="" id="slide-48">
   <hgroup>
     <h2>Calculation of \(\Delta_{ij}, 2\leq j \leq J\)</h2>
   </hgroup>
@@ -2230,7 +2122,7 @@ distribution with mean \(\mu\) and standard deviation \(\sigma\).</p>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-50">
+      <slide class="" id="slide-49">
   <hgroup>
     <h2>MLE</h2>
   </hgroup>
@@ -2271,7 +2163,7 @@ inferences.</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-51">
+      <slide class="" id="slide-50">
   <hgroup>
     <h2>Goodness of Fit Check</h2>
   </hgroup>
@@ -2310,7 +2202,7 @@ on pattern.</p>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-52">
+      <slide class="" id="slide-51">
   <hgroup>
     <h2>Bayesian MCMC</h2>
   </hgroup>
@@ -2340,7 +2232,7 @@ missingness mechanism assumptions.</p>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-53">
+      <slide class="" id="slide-52">
   <hgroup>
     <h2>Updating</h2>
   </hgroup>
@@ -2377,7 +2269,7 @@ specified based on assumptions about the missingness.</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-54">
+      <slide class="" id="slide-53">
   <hgroup>
     <h2>Simulation Study</h2>
   </hgroup>
@@ -2400,7 +2292,7 @@ assumptions similar to <em>rq</em> and assumes ignorable missing data.</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-55">
+      <slide class="" id="slide-54">
   <hgroup>
     <h2>Design</h2>
   </hgroup>
@@ -2461,7 +2353,7 @@ observed data.</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-56">
+      <slide class="" id="slide-55">
   <hgroup>
     <h2>Evaluation</h2>
   </hgroup>
@@ -2496,7 +2388,7 @@ of simulations.</p>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-57">
+      <slide class="" id="slide-56">
   <hgroup>
     <h2>Results</h2>
   </hgroup>
@@ -2541,7 +2433,7 @@ slope estimates for \(Y_2\).</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-58">
+      <slide class="" id="slide-57">
   <hgroup>
     <h2>Goodness of Fit Check</h2>
   </hgroup>
@@ -2566,7 +2458,7 @@ regression on extreme quantiles when errors are not normal.</p></li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-59">
+      <slide class="" id="slide-58">
   <hgroup>
     <h2>Real Data Analysis: Tours</h2>
   </hgroup>
@@ -2594,7 +2486,7 @@ representing 5 years.</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-60">
+      <slide class="" id="slide-59">
   <hgroup>
     
   </hgroup>
@@ -2656,7 +2548,7 @@ months unlike at 6 months.</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-61">
+      <slide class="" id="slide-60">
   <hgroup>
     <h2>Sensitivity Analysis</h2>
   </hgroup>
@@ -2686,7 +2578,7 @@ the distribution of \(Y_2|Y_1, R=0\) via the following restriction:
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-62">
+      <slide class="" id="slide-61">
   <hgroup>
     <h2>Results</h2>
   </hgroup>
@@ -2759,7 +2651,7 @@ study.</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-63">
+      <slide class="" id="slide-62">
   <hgroup>
     <h2>Goodness of Fit Check</h2>
   </hgroup>
@@ -2780,7 +2672,7 @@ conclusion of our quantile regression models.</p></li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-64">
+      <slide class="" id="slide-63">
   <hgroup>
     <h2>Summary</h2>
   </hgroup>
@@ -2832,7 +2724,7 @@ dimensions.</li>
     </footer>
   </article>
 </slide>
-      <slide class="" id="slide-65">
+      <slide class="" id="slide-64">
   <hgroup>
     <h2>Future Work</h2>
   </hgroup>

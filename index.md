@@ -51,15 +51,15 @@ working class Belgian households.
 
 ### Quantile (unconditional)
 
-\[
+$$
 Q_{Y}(\tau) = \inf \{y: F(y) \geq \tau \},
-\]
+$$
 
 ### Quantile Regression (conditional with covariates)
 
-\[
+$$
 Q_{Y}(\tau|\mathbf x) = \mathbf x' \beta(\tau).
-\]
+$$
 
 ### Quantile Regression vs Mean Regression
 
@@ -76,9 +76,9 @@ Q_{Y}(\tau|\mathbf x) = \mathbf x' \beta(\tau).
 - Using simplex for linear programming problems mentioned
   in <a href="http://www.jstor.org/stable/1913643">Koenker et al. (1978)</a>
 
-\[
+$$
 \mathbf \beta(\tau) = \arg \min_b \sum_{i=1}^{n} \rho_{\tau}(y_{i} - \mathbf x_{i}' b)
-\]
+$$
 
 * No distributional assumptions
 * Fast using linear programming
@@ -102,27 +102,27 @@ Q_{Y}(\tau|\mathbf x) = \mathbf x' \beta(\tau).
       location-scale mixture representation of ALD
 - Sanchez et al (2013) proposed efficient and easy EM algorithm to obtain MLE for ALD settings from the hierarchical representation of ALD
 
-<!-- \[ -->
+<!-- $$ -->
 <!-- \rho_{\tau}(x) = x(\tau - I(x < 0)) -->
-<!-- \] -->
+<!-- $$ -->
 
 <!-- Optimization problem for the loss function with quantile: -->
 
-<!-- \[ -->
+<!-- $$ -->
 <!-- E \rho_{\tau} (X - \hat{x}) \implies F(\hat{x}) = \tau -->
-<!-- \] -->
+<!-- $$ -->
 
 <!-- If $F$ is replaced by the empirical distribution function: -->
 
-<!-- \[ -->
+<!-- $$ -->
 <!-- F_n(x) = n^{-1} \sum_{i=1}^n I(X_i \leq x) -->
-<!-- \] -->
+<!-- $$ -->
 
 <!-- Then (2) changes to minimizing -->
 
-<!-- \[ -->
+<!-- $$ -->
 <!-- \int \rho_\tau(X-\hat{x}) d \, F_n(x) = n^{-1} \sum_{i=1}^n \rho_\tau(X_i - \hat{x} -->
-<!-- \] -->
+<!-- $$ -->
 
 <!-- --- &twocol -->
 
@@ -132,29 +132,29 @@ Q_{Y}(\tau|\mathbf x) = \mathbf x' \beta(\tau).
 
 <!-- * sample mean -->
 
-<!-- \[ \min_{\mu \in \mathbb{R}} \sum_{i=1}^n (y_i - \mu)^2 \] -->
+<!-- $$ \min_{\mu \in \mathbb{R}} \sum_{i=1}^n (y_i - \mu)^2 $$ -->
 
 <!-- * least square mean regression -->
 
-<!-- \[ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n (y_i - \mathbf x_i^T \beta)^2 \] -->
+<!-- $$ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n (y_i - \mathbf x_i^T \beta)^2 $$ -->
 
 <!-- *** right -->
 
 <!-- * $\tau^{th}$ sample quantile -->
 
-<!-- \[ \min_{\alpha \in \mathbb{R}} \sum_{i=1}^n \rho_\tau(y_i - \alpha) \] -->
+<!-- $$ \min_{\alpha \in \mathbb{R}} \sum_{i=1}^n \rho_\tau(y_i - \alpha) $$ -->
 
 <!-- * $\tau^{th}$ quantile regression -->
 
-<!-- \[ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n \rho_\tau(y_i - \mathbf x_i^T \beta) \] -->
+<!-- $$ \min_{\beta \in \mathbb{R}^p} \sum_{i=1}^n \rho_\tau(y_i - \mathbf x_i^T \beta) $$ -->
 
 <!-- --- -->
 
 
 <!-- ## Bayesian Approach: Asymmetric Laplace Distribution -->
 
-<!-- \[f_{\epsilon}(x) \sim ALD -->
-<!-- \] -->
+<!-- $$f_{\epsilon}(x) \sim ALD -->
+<!-- $$ -->
 
 ---
 
@@ -167,10 +167,10 @@ Q_{Y}(\tau|\mathbf x) = \mathbf x' \beta(\tau).
 <!-- location parameter $\mu$, scale parameter $\sigma > 0$ and skewness parameter -->
 <!-- $\tau \in (0, 1)$ if its pdf is given by -->
 
-<!-- \[ -->
+<!-- $$ -->
 <!-- f(y|\mu, \sigma, \tau) = \frac{\tau (1 - \tau)}{\sigma} \exp \left\{ - \rho_{\tau} -->
 <!-- \left( \frac{y  - \mu}{ \sigma} \right) \right\}. -->
-<!-- \] -->
+<!-- $$ -->
 
 <!-- where $\rho_\tau (.)$ is the check (or loss) function -->
 <!-- </p> -->
@@ -233,12 +233,12 @@ Q_{Y}(\tau|\mathbf x) = \mathbf x' \beta(\tau).
 
 Consider heterogeneous linear regression model from <a href="http://dx.doi.org/10.1111/1467-9868.00138">He et al. (1998)</a> :
 
-\[ y_i = \mathbf x_i \mathbf \beta + (\mathbf{x_i \gamma} )\epsilon_i \]
+$$ y_i = \mathbf x_i \mathbf \beta + (\mathbf{x_i \gamma} )\epsilon_i $$
 
 The $\tau^{th}$ quantile regression parameters can be represented as
 
-\[ \mathbf \beta(\tau) = \mathbf \beta + F^{-1}_\epsilon (\tau) \mathbf \gamma
-\]
+$$ \mathbf \beta(\tau) = \mathbf \beta + F^{-1}_\epsilon (\tau) \mathbf \gamma
+$$
 
 - Homogeneous ($\mathbf \gamma = (1, \mathbf 0)$): parallel vs Heterogeneous ($\mathbf \gamma \neq (1, \mathbf 0)$): non-parallel
 
@@ -361,11 +361,11 @@ $F(B) = E(G(B)),\forall B \in \mathcal{B}$.
 
 - By the definition of Polya tree, for
   any $\epsilon \in E^{*}$,
-\[
+$$
     F(B_{\epsilon})  = E(G(B_{\epsilon})) = \prod_{j=1}^m
     \frac{\alpha_{\epsilon_1, \ldots, \epsilon_j}}{\alpha_{\epsilon_1,
         \ldots, \epsilon_{j-1},0} + \alpha_{\epsilon_1, \ldots, \epsilon_{j-1},1}}.
-\]
+$$
 
 - If $G$ is constructed based on baseline measure $G_0$ and we set
 $\alpha_{\epsilon_1, ..., \epsilon_m} = cm^2$,
@@ -380,18 +380,18 @@ Suppose $F=E(G), G|\Pi, \mathcal{A} \sim PT (\Pi, \mathcal{A})$,
 where $G_0 $ is the baseline measure. Then, using the canonical
 construction, $F=G_0$, the density function is
 
-\[
+$$
 f(y) = \left[ \prod_{j=1}^m \frac{ \alpha_{\epsilon_1, \ldots, \epsilon_j}(y)}{\alpha_{\epsilon_1, \ldots, \epsilon_{j-1},0}(y) +\alpha_{\epsilon_1, \ldots, \epsilon_{j-1},1}(y)} \right] 2^{m } g_0(y)
-\]
+$$
 where $g_0$ is the pdf of $G_0$.
 
 When using the canonical construction with no data,
 $\alpha_{\epsilon_0 } = \alpha_{\epsilon_1}$, above equation
 simplifies to
 
-\[
+$$
 f(y) = g_0(y).
-\]
+$$
 
 ---
 
@@ -404,9 +404,9 @@ $$G|y_1, ..., y_n, \Pi, \mathcal{A} \sim PT(\Pi, \mathcal{A}^{*})$$
 where in
 $\mathcal{A}^{*}, \forall \epsilon \in E^{*}$,
 
-\[
+$$
     \alpha_{\epsilon}^{*} = \alpha_{\epsilon} + n_{\epsilon}(y_1, \ldots, y_n),
-\]
+$$
 where $n_{\epsilon}(y_1, ..., y_n)$ indicates the count of how many
 samples of $y_1, ..., y_n$ fall in $B_{\epsilon}$.
 
@@ -421,9 +421,9 @@ said to be a mixture of Polya tree if there exists a random
 variable $\theta$ with distribution $h_{\theta}$, and Polya tree
 parameters $(\Pi^{\theta}, \mathcal{A}^{\theta})$ such that
 
-\[
+$$
 G_{\theta} | \theta \sim PT (\Pi^{\theta}, \mathcal{A}^{\theta})
-\]
+$$
 
 <div class="alert alert-info">
 <p> Example:
@@ -447,24 +447,24 @@ Polya tree distribution.
 function.
 
 <!-- - $\Pi^{\theta}$ is defined as -->
-<!-- \[ -->
+<!-- $$ -->
 <!-- B^{\theta}_{\epsilon_1, \ldots, \epsilon_m} = \left( G^{-1}_{\theta} -->
 <!-- \left( \frac{k}{2^m} \right), G^{-1}_{\theta}\left( \frac{k+1}{2^m} \right) \right), -->
-<!-- \] -->
+<!-- $$ -->
 <!-- where $k$ is the index of partition $\epsilon_1, \ldots, \epsilon_m$ -->
 <!-- in level $m$. -->
 <!-- - $\mathcal{A}^c$ is defined as -->
-<!-- \[ -->
+<!-- $$ -->
 <!--   \alpha_{\epsilon_1, \ldots, \epsilon_m} = cm^2. -->
-<!-- \] -->
+<!-- $$ -->
 <!-- - Therefore, the error model is -->
-<!-- \[ -->
+<!-- $$ -->
 <!-- \begin{aligned} -->
 <!-- y_1, \ldots, y_n |G_{\theta} & \sim G, \\ -->
 <!-- G|\Pi^{\theta}, \mathcal{A}^{c} & \sim PT (\Pi^{\theta}, -->
 <!-- \mathcal{A}^{c}). -->
 <!-- \end{aligned} -->
-<!-- \] -->
+<!-- $$ -->
 
 <!-- --- -->
 
@@ -476,9 +476,9 @@ $$G|y_1, ..., y_n, \Pi, \mathcal{A} \sim PT(\Pi, \mathcal{A}^{*})$$
 where in
 $\mathcal{A}^{*}, \forall \epsilon \in E^{*}$,
 
-\[
+$$
     \alpha_{\epsilon}^{*} = \alpha_{\epsilon} + n_{\epsilon}(y_1, \ldots, y_n),
-\]
+$$
 
 where $n_{\epsilon}(y_1, ..., y_n)$ indicates the count of how many
 samples of $y_1, ..., y_n$ fall in $B_{\epsilon}$.
@@ -486,12 +486,12 @@ samples of $y_1, ..., y_n$ fall in $B_{\epsilon}$.
 - The predictive density function of $Y|y_1, \ldots, y_n, \theta$,
 marginalizing out $G$, is
 
-\[
+$$
   f_Y^{\theta} (y|y_1, \ldots, y_n)  = \lim_{m \to \infty} \left(
     \prod_{j=2}^m \frac{cj^2 + n_{\epsilon_1 \cdots \epsilon_j(x) }(y_1, \ldots, y_n)}{2cj^2
       + n_{\epsilon_1 \cdots \epsilon_{j-1}(x)}(y_1, \ldots, y_n)}
   \right)2^{m-1} g_0(y),
-\]
+$$
 
 - If we restrict the first level weight as
 $\alpha_0=\alpha_1=1$, then we only need to update levels beyond
@@ -506,12 +506,12 @@ the first level.
   are updated.
 
 - The corresponding predictive density becomes
-\[
+$$
     f_Y^{\theta, M} (y|y_1, \ldots, y_n)  =  \left(
       \prod_{j=2}^M \frac{cj^2 + n_{\epsilon_1 \cdots \epsilon_j(x) }(y_1, \ldots, y_n)}{2cj^2
         + n_{\epsilon_1 \cdots \epsilon_{j-1}(x)}(y_1, \ldots, y_n)}
     \right)2^{M-1} g_0(y).
-\]
+$$
 
 - The rule of thumb for choosing $M$ is to set $M=\log_2n$, where $n$
   is the sample size <a href="">Hanson & Johnson (2002)</a>
@@ -525,19 +525,19 @@ is exact for $M$ large enough.
 Based on the predictive density function of a
 finite Polya tree distribution, the predictive cumulative density
 function is
-\[
+$$
     F^{\theta,M}_Y(y|y_1, \ldots, y_n) = \sum_{i=1}^{N-1} P_{i} + P_N
     \left( G_{\theta}(y)2^M -(N-1) \right),
-\]
+$$
 where
-\[
+$$
 \begin{aligned}
     P_i &= \frac{1}{2} \left(\prod_{j=2}^M \frac{cj^2 + n_{j,\lceil
           i2^{j-M} \rceil}(y_1, \ldots, y_n)}{2cj^2 + n_{j-1,\lceil
           i2^{j-1-M} \rceil}(y_{1 },\ldots, y_n)} \right) \mbox{ and}\\
     N & = \left[ 2^{M } G_{\theta}(y) +1\right],
 \end{aligned}
-\]
+$$
 in which $n_{j,\lceil i2^{j-M} \rceil}(y_1, \ldots, y_n)$ denotes
 the number of observations $y_1, \ldots, y_n$ in the $\lceil
   i2^{j-M} \rceil$ slot at level $j$, $\lceil \cdot \rceil$ is the
@@ -549,18 +549,18 @@ the number of observations $y_1, \ldots, y_n$ in the $\lceil
 
 - The posterior predictive quantile of finite Polya tree
 distribution is
-\[
+$$
     Q^{\theta, M}_{Y|y_1, \ldots, y_n}(\tau) = G^{-1}_{\theta} \left(
       \frac{\tau- \sum_{i=1}^N P_i + N P_N}{2^M P_N} \right),
-\]
+$$
 where $N$ satisfies $\sum_{i=1}^{N-1} P_i < \tau \le \sum_{i=1}^N P_i$.
 
 - The explicit form for quantile regression coefficients becomes:
-\[
+$$
   \mathbf{\beta}(\tau) = \mathbf{\beta} + \mathbf{\gamma}G_{\theta}^{-1}
   \left(\frac{\tau - \sum_{i=1}^NP_i +
       NP_N}{2^MP_N}  \right),
-\]
+$$
 
 - Greatly facilitate computations
 
@@ -570,7 +570,7 @@ where $N$ satisfies $\sum_{i=1}^{N-1} P_i < \tau \le \sum_{i=1}^N P_i$.
 
 The full Bayesian specification of quantile regression is given as
 follows,
-\[
+$$
 \begin{align*}
   y_i& = \mathbf{x_i'\beta} + (\mathbf{x_i'\gamma}) \epsilon_{i}, i = 1,
   \ldots,
@@ -582,18 +582,18 @@ follows,
   \mathbf{\beta} & \sim \pi_{\mathbf \beta}(\mathbf \beta)\\
   \mathbf{\gamma} &\sim \pi_{\mathbf \gamma}(\mathbf \gamma).
 \end{align*}
-\]
+$$
 In order to not confound the location parameter, $\epsilon_i $ or $G$
 is set to have median 0 by fixing $\alpha_0=\alpha_1 = 1$. For the
 similar reason, the first component of $\mathbf{\gamma}$ is fixed at 1.
 
 ### Posterior Distribution of $\mathbf{\beta}, \mathbf \gamma, \sigma, c$
 
-\[
+$$
     L(\mathbf{\beta}, \mathbf{\gamma}, \sigma, c|\mathbf{Y}) \propto p(\mathbf{Y}|
     \mathbf{\beta}, \mathbf{\gamma}, \sigma, c) \pi_{\beta}(\beta)
     \pi_{\gamma}(\gamma) \pi_{\sigma}(\sigma) \pi_c(c)
-\]
+$$
 <!-- where $\epsilon_i = (y_i - \mathbf{x_i'\beta})/(\mathbf{x_i'\gamma})$ -->
 
 ---
@@ -601,12 +601,12 @@ similar reason, the first component of $\mathbf{\gamma}$ is fixed at 1.
 ## Priors
 
 ### $\sigma, c$ using diffuse gamma prior:
-\[
+$$
 \begin{align*}
   \pi(\sigma) & \sim \Gamma (1/2, 1/2), \\
   \pi(c) & \sim \Gamma(1/2, 1/2).
 \end{align*}
-\]
+$$
 
 ### $\mathbf \beta, \mathbf \gamma$ using **Spike and Slab Priors**
 
@@ -615,14 +615,14 @@ similar reason, the first component of $\mathbf{\gamma}$ is fixed at 1.
 - Improve efficiency
 - Use continuous spike and slab priors on each component of $(\mathbf \beta, \mathbf \gamma)$ (<a href="http://www.jstor.org/stable/2290777">George & McCulloch, 1993</a>)
 
-\[
+$$
 \begin{align*}
   \pi_{\mathbf \beta} (\beta_j) &= \delta_{\beta_j} \phi(\beta_j; 0, s_j^2
   \sigma_{\beta_j}^2) +
   (1- \delta_{\beta_j}) \phi(\beta_j; \beta_j^p, \sigma_{\beta_j}^2),\\
   \delta_{\beta_j} & \sim \mbox{Bernoulli} (\pi_{\beta_j}),
 \end{align*}
-\]
+$$
 
 ---
 
@@ -630,13 +630,13 @@ similar reason, the first component of $\mathbf{\gamma}$ is fixed at 1.
 
 The density function of priors for
 $\beta_j$ can be written as:
-\[
+$$
 \begin{aligned}
   \pi_{\mathbf \beta} (\beta_j) &= \delta_{\beta_j} \phi(\beta_j; 0, s_j^2\sigma_{\beta_j}^2) +
   (1- \delta_{\beta_j}) \phi(\beta_j; \beta_j^p, \sigma_{\beta_j}^2),\\
   \delta_{\beta_j} & \sim \mbox{Bernoulli} (\pi_{\beta_j}),
   \end{aligned}
-\]
+$$
 
 - $\phi(x; \mu, \sigma^2)$ is the density function of normal
 distribution at $x$ with mean $\mu$ and variance
@@ -657,13 +657,13 @@ $\beta_j$ is believed to come from a diffuse prior distribution
 
 ## Choice of Diffuse Priors
 
-\[
+$$
 \begin{aligned}
   \pi_{\mathbf \beta} (\beta_j) &= \delta_{\beta_j} \phi(\beta_j; 0, s_j^2\sigma_{\beta_j}^2) +
   (1- \delta_{\beta_j}) \phi(\beta_j; \beta_j^p, \sigma_{\beta_j}^2),\\
   \delta_{\beta_j} & \sim \mbox{Bernoulli} (\pi_{\beta_j}),
   \end{aligned}
-\]
+$$
 
 
 - We choose $\mathbf \beta^p$, the mean of normal distribution of slab
@@ -683,13 +683,13 @@ where $\hat{\sigma}^2 = \sum_i^n (y_i - \mathbf{x_i\beta}^p)^2/(n - p)$.
 
 ## Choice of $\pi_\beta$, $\pi_\gamma$
 
-\[
+$$
 \begin{aligned}
   \pi_{\mathbf \beta} (\beta_j) &= \delta_{\beta_j} \phi(\beta_j; 0, s_j^2\sigma_{\beta_j}^2) +
   (1- \delta_{\beta_j}) \phi(\beta_j; \beta_j^p, \sigma_{\beta_j}^2),\\
   \delta_{\beta_j} & \sim \mbox{Bernoulli} (\pi_{\beta_j}),
   \end{aligned}
-\]
+$$
 
 - The $\pi_{\beta_j}$ and $\pi_{\gamma_j}$ control the belief that the
 corresponding regressors are needed in the model.
@@ -776,14 +776,14 @@ where $\epsilon_{i} \sim N(0, 1), t_3, 0.5N(-2,1) + 0.5N(2,1), 0.8N(0, 1) + 0.2N
 
 ## PT Priors
 
-\[
+$$
 \begin{align*}
   \pi(\beta_j) & \sim N(\mathbf \beta_j^p, \mathbf V_{jj}) , j = 0, 1,\\
   \pi(\gamma_j) & \sim N(0, 100), j = 1,\\
   \pi(\sigma) & \sim \Gamma (a/2, b/2), \\
   \pi(c) & \sim \Gamma(a/2, b/2),
 \end{align*}
-\]
+$$
 - $\mathbf \beta^p = \mathbf{(X'X)^{-1}X'Y}$ is the least square
 estimator
 - $\mathbf V = \hat{\sigma}^2\mathbf{(X'X)^{-1}}$
@@ -796,7 +796,7 @@ estimator
 
 - Same priors for $\sigma$ and $c$
 - spike-slab priors for $\mathbf \beta$ and $\mathbf \gamma$:
-\[
+$$
 \begin{align*}
   \pi(\beta_j) & \sim \delta_{\beta_j}N(0, s_j\mathbf V_{jj}) +  (1 - \delta_{\beta_j})N(\mathbf \beta_j^p, \mathbf V_{jj})  \\
   \pi(\gamma_j) & \sim \delta_{\gamma_j}N(0, 100s_j) + (1 - \delta_{\gamma_j}) N(0, 100)\\
@@ -804,7 +804,7 @@ estimator
   \delta_{\gamma_j} & \sim \mbox{Bernoulli}(\pi_{\gamma_j}),
   \pi_{\gamma_j} \sim \mbox{Beta}(1, 1).
 \end{align*}
-\]
+$$
 - $s_j = 1/1000$ (<a href="http://www.jstor.org/stable/2290777">George & McCulloch, 1993</a>)
 
 ---
@@ -823,10 +823,10 @@ estimator
 ## Evaluation Methods
 
 - **MSE**
-\[
+$$
   \mbox{MSE}  =  \frac{1}{N}\sum_{i = 1}^N (\hat{\beta}_j(\tau) -
   \beta_j(\tau))^2 ,
-\]
+$$
 	- $N$ is the number of simulations
 	- $\beta_j(\tau)$ is the $j^{th}$ component of the true quantile regression
 	  parameters
@@ -837,9 +837,9 @@ estimator
 
 - **Monte Carlo standard errors (MCSE)** are used to evaluate the
 *significance* of the differences between methods,
-\[
+$$
   \mbox{MCSE} = \hat{\mbox{sd}}(\mbox{Bias}^2)/\sqrt{N},
-\]
+$$
 	- $\hat{\mbox{sd}}$ is the sample standard deviation
 	- $\mbox{Bias} = \hat{\beta}_{j}(\tau) - \beta_{j}(\tau)$.
 
@@ -960,25 +960,25 @@ credible intervals
 
 ![weight-age](assets/img/weight-age-race3.png)
 
----
+<!-- --- -->
 
-| $\tau$ | Term      | PT                 | PTSS               | RQ                 | FBQR               |
-|--------|-----------|--------------------|--------------------|--------------------|--------------------|
-|    10% | Intercept | 2.62(1.11,4.22)    | 2.10(0.65,3.36)    | 2.20(1.39,4.63)    | 1.90(0.04,3.62)    |
-|        | Age       | -0.57(-1.25,-0.03) | -0.57(-1.09,-0.07) | -0.25(-0.73,0.16)  | -0.32(-0.99,0.36)  |
-|        | Race      | 2.70(1.20,4.29)    | 3.32(2.07,4.70)    | 2.40(-0.23,3.92)   | 2.92(0.91,5.06)    |
-|    30% | Intercept | 5.59(4.64,6.70)    | 5.45(4.41,6.36)    | 5.56(4.83,6.52)    | 5.32(3.67,6.80)    |
-|        | Age       | -0.46(-0.91,-0.10) | -0.47(-0.82,-0.19) | -0.66(-1.28,0.05)  | -0.47(-1.02,0.05)  |
-|        | Race      | 3.38(2.22,4.42)    | 3.58(2.56,4.65)    | 3.74(2.04,4.42)    | 3.56(1.99,5.20)    |
-|    50% | Intercept | 7.43(6.46,8.56)    | 7.47(6.24,8.40)    | 7.83(5.42,9.09)    | 7.55(6.07,9.13)    |
-|        | Age       | -0.40(-0.75,-0.08) | -0.42(-0.72,-0.16) | -0.57(-1.04,0.14)  | -0.50(-1.06,0.03)  |
-|        | Race      | 3.81(2.77,4.68)    | 3.74(2.76,4.72)    | 3.53(2.52,5.46)    | 3.89(2.36,5.33)    |
-|    70% | Intercept | 9.79(8.74,11.09)   | 10.12(8.92,11.18)  | 9.70(7.95,12.39)   | 9.84(8.11,11.83)   |
-|        | Age       | -0.31(-0.74,0.06)  | -0.34(-0.74,0.00)  | -0.69(-1.12,0.20)  | -0.57(-1.16,0.04)  |
-|        | Race      | 4.35(3.19,5.39)    | 3.94(2.87,4.99)    | 4.80(2.11,6.61)    | 4.30(2.59,5.75)    |
-|    90% | Intercept | 12.80(11.30,14.62) | 13.53(11.98,15.06) | 12.61(11.48,15.27) | 13.65(11.65,15.86) |
-|        | Age       | -0.20(-0.89,0.38)  | -0.24(-0.86,0.30)  | -0.71(-1.59,-0.05) | -0.55(-1.38,0.42)  |
-|        | Race      | 5.05(3.36,6.61)    | 4.21(2.85,5.51)    | 6.08(2.48,6.85)    | 4.69(2.39,6.86)    |
+<!-- | $\tau$ | Term      | PT                 | PTSS               | RQ                 | FBQR               | -->
+<!-- |--------|-----------|--------------------|--------------------|--------------------|--------------------| -->
+<!-- |    10% | Intercept | 2.62(1.11,4.22)    | 2.10(0.65,3.36)    | 2.20(1.39,4.63)    | 1.90(0.04,3.62)    | -->
+<!-- |        | Age       | -0.57(-1.25,-0.03) | -0.57(-1.09,-0.07) | -0.25(-0.73,0.16)  | -0.32(-0.99,0.36)  | -->
+<!-- |        | Race      | 2.70(1.20,4.29)    | 3.32(2.07,4.70)    | 2.40(-0.23,3.92)   | 2.92(0.91,5.06)    | -->
+<!-- |    30% | Intercept | 5.59(4.64,6.70)    | 5.45(4.41,6.36)    | 5.56(4.83,6.52)    | 5.32(3.67,6.80)    | -->
+<!-- |        | Age       | -0.46(-0.91,-0.10) | -0.47(-0.82,-0.19) | -0.66(-1.28,0.05)  | -0.47(-1.02,0.05)  | -->
+<!-- |        | Race      | 3.38(2.22,4.42)    | 3.58(2.56,4.65)    | 3.74(2.04,4.42)    | 3.56(1.99,5.20)    | -->
+<!-- |    50% | Intercept | 7.43(6.46,8.56)    | 7.47(6.24,8.40)    | 7.83(5.42,9.09)    | 7.55(6.07,9.13)    | -->
+<!-- |        | Age       | -0.40(-0.75,-0.08) | -0.42(-0.72,-0.16) | -0.57(-1.04,0.14)  | -0.50(-1.06,0.03)  | -->
+<!-- |        | Race      | 3.81(2.77,4.68)    | 3.74(2.76,4.72)    | 3.53(2.52,5.46)    | 3.89(2.36,5.33)    | -->
+<!-- |    70% | Intercept | 9.79(8.74,11.09)   | 10.12(8.92,11.18)  | 9.70(7.95,12.39)   | 9.84(8.11,11.83)   | -->
+<!-- |        | Age       | -0.31(-0.74,0.06)  | -0.34(-0.74,0.00)  | -0.69(-1.12,0.20)  | -0.57(-1.16,0.04)  | -->
+<!-- |        | Race      | 4.35(3.19,5.39)    | 3.94(2.87,4.99)    | 4.80(2.11,6.61)    | 4.30(2.59,5.75)    | -->
+<!-- |    90% | Intercept | 12.80(11.30,14.62) | 13.53(11.98,15.06) | 12.61(11.48,15.27) | 13.65(11.65,15.86) | -->
+<!-- |        | Age       | -0.20(-0.89,0.38)  | -0.24(-0.86,0.30)  | -0.71(-1.59,-0.05) | -0.55(-1.38,0.42)  | -->
+<!-- |        | Race      | 5.05(3.36,6.61)    | 4.21(2.85,5.51)    | 6.08(2.48,6.85)    | 4.69(2.39,6.86)    | -->
 
 
 ---
@@ -1149,15 +1149,15 @@ be the full data response vector for subject $i$,
 - We assume $Y_{i1}$ is always observed.
 - We are interested in the $\tau$-th marginal quantile regression coefficients
 $\mathbf \gamma_j = (\gamma_{j0}, \gamma_{j2}, \ldots, \gamma_{jp})^T$,
-\[
+$$
   Pr (Y_{ij} \leq \mathbf x_i^{T} \mathbf \gamma_j ) = \tau, \mbox{ for } j = 1, \ldots, J,
-\]
+$$
 where $\mathbf x_i$ is a $p \times 1$ vector of covariates for subject
 $i$.
 - Let
-\[
+$$
   Pr_k(Y) = Pr (Y | S = k), \quad  Pr_{\geq k} (Y)  = Pr (Y | S \geq k)
-\]
+$$
 be the densities of response $\mathbf Y$ given follow-up time $S=k$ and $S
 \geq k$. And $Pr_k$ be the corresponding probability given $S = k$.
 
@@ -1167,23 +1167,23 @@ be the densities of response $\mathbf Y$ given follow-up time $S=k$ and $S
 
 - Mixture models factor the
 joint distribution of response and missingness as
-\[
+$$
   p (\mathbf y, \mathbf S, |\mathbf x, \mathbf \omega) = p (\mathbf y|\mathbf S, \mathbf x, \mathbf \omega) p (\mathbf S | \mathbf x, \mathbf \omega).
-\]
+$$
 - the full-data response follows the distribution is given by
-\[
+$$
   p (\mathbf y | \mathbf x, \mathbf \omega) = \sum_{S \in \mathcal{S}} p(\mathbf y| \mathbf S, \mathbf x, \mathbf \theta) p (\mathbf S | \mathbf x, \mathbf \phi),
-\]
+$$
 where $\mathcal{S}$ is the sample space for dropout time $S$ and the
 parameter vector $\mathbf \omega$ is partitioned as
 $(\mathbf \theta, \mathbf \phi)$.
 - Furthermore, the conditional distribution of response within patterns
 can be decomposed as
-\[
+$$
   P (Y_{obs}, Y_{mis} | \mathbf S, \mathbf \theta) = P
   (Y_{mis}|Y_{obs}, \mathbf S, \mathbf \theta_E) Pr (Y_{obs} | \mathbf S, \mathbf
   \theta_{y, O}),
-\]
+$$
 
 - $\mathbf \theta_E$:  extrapolation distribution
 - $\mathbf \theta_{y, O}$ : distribution of observed responses
@@ -1194,13 +1194,13 @@ can be decomposed as
 
 - Multivariate normal distributions within pattern
 - The marginal quantile regression models as:
-\[
+$$
   Pr (Y_{ij} \leq \mathbf x_{ij}^T \mathbf \gamma_j ) = \tau,
-\]
+$$
 where $\mathbf \gamma_j$ is the $\tau^{th}$ quantile regression
 coefficients of interest for component $j$.
 
-\[
+$$
   \begin{array}{l}
       \displaystyle p_k(y_{i1}) = N (\Delta_{i1} + \mathbf x_{i1}^T \mathbf \beta_1^{(k)},
       \sigma_1^{(k)}  ), k = 1, \ldots, J,\\
@@ -1215,7 +1215,7 @@ coefficients of interest for component $j$.
       \end{cases}, \mbox{ for } 2 \leq j \leq J,  \\
       \displaystyle S_{ij} = k| \mathbf x_{ij} \sim \textrm{Multinomial}(1, \mathbf \phi),
     \end{array}
-\]
+$$
 
 <!-- - where $\mathbf y_{ij^{-}} = (y_{i1}, \ldots, y_{i(j-1)})^T$ is the -->
 <!-- response history for subject $i$ up to time point $(j-1)$; $\mathbf -->
@@ -1238,12 +1238,12 @@ $\Delta_{ij}$ are functions of
 $\tau, \mathbf x_{ij}, \mathbf \beta, \mathbf h, \mathbf \sigma, \mathbf \gamma_j, \mathbf \phi$
 and are determined by the marginal
 quantile regressions,
-\[
+$$
   \tau = Pr (Y_{ij} \leq \mathbf x_{ij}^T \mathbf \gamma_j ) = \sum_{k=1}^J
   \phi_kPr_k (Y_{ij} \leq \mathbf x_{ij}^T \mathbf \gamma_j ) \mbox{  for  } j = 1,
-\]
+$$
 and
-\[
+$$
 \begin{align}
   \tau &= Pr (Y_{ij} \leq \mathbf x_{ij}^{T} \mathbf \gamma_j ) =
   \sum_{k=1}^J
@@ -1254,7 +1254,7 @@ and
   & \quad \cdots p_k (y_{i2}| y_{i1}) p_k(y_{i1})
   dy_{i(j-1)}\cdots dy_{i1}.  \mbox{  for  } j = 2, \ldots, J .\nonumber
 \end{align}
-\]
+$$
 
 ---
 
@@ -1269,9 +1269,9 @@ the quantile lines would be parallel to each other.
 - The mixture model also allows sensitivity analysis.
 - For identifiability of the observed data distribution, we apply the
 following restraints,
-\[
+$$
  \sum_{k=1}^J \beta_{l1}^{(k)} = 0, l = 1,\ldots, p,
-\]
+$$
 
 ---
 
@@ -1285,9 +1285,9 @@ incomplete patterns, in particular, the extrapolation distribution
 
 - In mixture models , MAR holds (<a href="http://dx.doi.org/10.1111/1467-9574.00075">Molenberghs et al. 1998</a>; <a href="http://dx.doi.org/10.1111/j.1541-0420.2011.01565.x">Wang & Daniels, 2011</a>) if and only if, for each
 $j \geq 2$ and $k < j$:
-\[
+$$
   p_k(y_j|y_1, \ldots, y_{j-1}) = p_{\geq j}(y_j|y_1, \ldots, y_{j-1}).
-\]
+$$
 - When $2 \leq j \leq J$ and $k < j$, $Y_j$ is not observed, thus
 $\mathbf h_j^{(k)}$ and $\sigma_j^{(k)}$,
 $\mathbf \beta_{y,j-1}^{(k)} = (\beta_{y_1,j}^{(k)}, \ldots, \beta_{y_{j-1},j-1}^{(k)} )^T$
@@ -1299,13 +1299,13 @@ can not be identified from the observed data.
 
 *** left
 
-\[
+$$
 \begin{align*}
   \log \sigma_j^{(k)} &= \log \sigma_j^{(\geq j)} +  \delta_{j}^{(k)}, \\
   \mathbf \beta_{y, j-1}^{(k)} &= \mathbf \beta_{y, j-1}^{(\geq j)} +
   \mathbf \eta_{j-1}^{(k)},
 \end{align*}
-\]
+$$
 where $\mathbf \eta_{j-1}^{(k)} = \big( \eta_{y_1,j-1}^{(k)}, \ldots,
 \eta_{y_{j-1}, j-1}^{(k)} \big)$ for $k < j$. Then $\mathbf \xi_s = (
 \mathbf h_j^{(k)}, \mathbf \eta_{j-1}^{(k)}, \delta_j^{(k)})$ is a set
@@ -1319,9 +1319,9 @@ J $.
 *** right
 
 - For Bayesian, put priors on $(\mathbf \xi_s, \mathbf \xi_m)$:
-\[
+$$
   p(\mathbf \xi_s, \mathbf \xi_m) = p(\mathbf \xi_s) p(\mathbf \xi_m),
-\]
+$$
 where $\mathbf \xi_m = \big(\mathbf \gamma_j, \mathbf \beta_{y,
   j-1}^{(\geq j)}, \mathbf \alpha_j^{(\geq j)}, \mathbf \phi \big)$
 
@@ -1349,13 +1349,13 @@ illustrate how to calculate $\Delta_{ij}$ given all the other
 parameters $\mathbf \xi = (\mathbf \xi_m, \xi_s)$.
 
 **$\Delta_{i1}: $** Expand equation :
-\[
+$$
 \begin{align*}
     \tau = \sum_{k = 1}^J \phi_k \Phi \left( \frac{\mathbf x_{i1}^T
         \mathbf \gamma_1 - \Delta_{i1} - \mathbf x_{i1}^T\mathbf
         \beta_1^{(k)}}{ \sigma_1^{(k)} } \right),
   \end{align*}
-\]
+$$
   where $\Phi$ is the standard normal CDF. Because the above equation
   is continuous and monotone in $\Delta_{i1}$, it can be solved by a
   standard numerical root-finding method (e.g. bisection method) with
@@ -1392,7 +1392,7 @@ distribution with mean $\mu$ and standard deviation $\sigma$.
   Given the result in Lemma , to solve above equation, we propose a recursive approach. For the first
   multiple integral, apply lemma once to obtain:
 
-\[
+$$
   \begin{align*}
     Pr_1 (Y_{ij} \leq \mathbf x_{ij}^T \mathbf \gamma_j) & =
     \int\dots\int
@@ -1405,7 +1405,7 @@ distribution with mean $\mu$ and standard deviation $\sigma$.
     \right) dF(Y_{i(j-2)}|S=1, \mathbf x_{ij}, \mathbf Y_{i(j-2)^{-}}) \\
     & \quad \cdots d F (Y_{i1} | S = 1, \mathbf x_{ij}).
   \end{align*}
-\]
+$$
 
   Then, by recursively applying lemma $(j-1)$ times,
   each multiple integral in equation  can be
@@ -1419,7 +1419,7 @@ distribution with mean $\mu$ and standard deviation $\sigma$.
 
 The observed data likelihood for an individual $i$ with follow-up time
 $S_i = k$ is
-\[
+$$
 \begin{align}
 L_i(\mathbf \xi| \mathbf y_i, S_{i} = k) & =
   \phi_kp_k (y_k | y_1, \ldots, y_{k-1})
@@ -1427,7 +1427,7 @@ L_i(\mathbf \xi| \mathbf y_i, S_{i} = k) & =
   & = \phi_k p_{\geq k} (y_k | y_1, \ldots, y_{k-1}) p_{\geq k-1}
   (y_{k-1}|y_1, \ldots, y_{k-2}) \cdots p_{k} (y_1), \nonumber
 \end{align}
-\]
+$$
 - Use derivative-free optimization algorithms by quadratic
 approximation to compute the maximum likelihood estimates
 (<a href="http://CRAN.R-project.org/package=minqa">Bates et al. 2012</a>).
@@ -1455,7 +1455,7 @@ After obtaining the MLE, we use the aboved approach to
  get the fitted $\Delta_{ij}$ for each
 subject. Then the fitted residuals can be obtained by plugging in the
 fitted estimates and $\hat{\Delta}_{ij}$ to obtain,
-\[
+$$
   \hat{\epsilon}_{ij} =
   \begin{cases}
     (y_{ij} - \hat{\Delta}_{ij} - \mathbf{x_{ij}^T
@@ -1464,7 +1464,7 @@ fitted estimates and $\hat{\Delta}_{ij}$ to obtain,
     \hat{\beta}_{y,j-1}^{(\geq j)}})/\hat{\sigma}_j^{(\geq j)},& j >
     1
   \end{cases}.
-\]
+$$
 
 ## Curse of Dimension
 
@@ -1481,7 +1481,7 @@ on pattern.
 For Bayesian inference, we specify priors on the parameters $\mathbf
 \xi$ and use a block Gibbs sampling method to draw samples from the
 posterior distribution. Denote all the parameters to sample as :
-\[
+$$
 \begin{align*}
   \mathbf \xi_m &= \left\{ \mathbf \gamma_j,
     \mathbf \beta_{y,j-1}^{(\geq j)}, \mathbf \alpha_j^{(\geq j)} \right\}
@@ -1490,7 +1490,7 @@ posterior distribution. Denote all the parameters to sample as :
   \right\}
   \mbox{ for } k = 1, \ldots, j-1; 2 \leq j \leq J.
 \end{align*}
-\]
+$$
 Comma separated parameters are marked to sample as a block.  Updates
 of $\mathbf \xi_m$ require a Metropolis-Hasting algorithm, while
 $\mathbf \xi_s$ samples are drawn directly from priors as desired for
@@ -1551,13 +1551,13 @@ missingness mechanism assumptions.
 
 - The three models for the
   full data response $\mathbf Y_i$ were:
-\[
+$$
 \begin{align*}
   Y_{i1} | R = 1 & \sim 2 + x_i +  \epsilon_{i1} , \\
   Y_{i1}| R = 0 & \sim  -2 - x_i +  \epsilon_{i1} , \\
   Y_{i2}| R = 1, Y_{i1}&\sim 1 - x_i - 1/2Y_{i1} + \epsilon_{i2},
 \end{align*}
-\]
+$$
 - $Pr (R = 1) = 0.5$
 - When $R = 0$, $Y_{i2}$ is not observed, so $p(Y_{i2}| R = 0, Y_{i1})$ is not identifiable from
   observed data.
@@ -1577,10 +1577,10 @@ $$Y_{i2}| R = 0, Y_{i1} \sim 3 - x_i - 1/2Y_{i1} + \epsilon_{i2}$$
 - Fit quantile regression for quantiles $\tau =$ 10%, 30%, 50%, 70%, 90%
 - Parameter estimates were evaluated by mean
   squared error (MSE),
-\[
+$$
   \mbox{MSE} (\gamma_{ij}) = \frac{1}{100} \sum_{k = 1}^{100}
   \left( \hat{\gamma}_{ij}^{(k)}  - \gamma_{ij}\right)^2, i = 0, 1
-\]
+$$
 where $\gamma_{j}$ is the true value for quantile regression
 coefficient, $\hat{\gamma}_{j}^{(k)}$ is the maximum likelihood
 estimates in $k$-th simulated dataset ($(\gamma_{01}, \gamma_{11})$
@@ -1588,9 +1588,9 @@ for $Y_{i1}$, $(\gamma_{02}, \gamma_{12})$ for $Y_{i2}$).
 
 Monte Carlo standard error (MCSE) is used to evaluate the significance
 of difference between methods. It is calculated by
-\[
+$$
   \mbox{MCSE} = \hat{\mbox{sd}}(\mbox{Bias}^2)/\sqrt{N},
-\]
+$$
 where $\hat{\mbox{sd}}$ is the sample standard deviation and
 $\mbox{Bias} = \hat{\gamma}_{ij} - \gamma_{ij}$ and $N$ is the number
 of simulations.
@@ -1707,16 +1707,16 @@ We also did a sensitivity analysis based on an assumption of MNAR.
 - Based on previous studies of pattern of weight regain
 after lifestyle treatment (<a href="http://dx.doi.org/10.1001/archinte.161.2.218">Wadden et al. 2001</a>; <a href="">Perri et al. 2008</a>), we
 assume that
-\[
+$$
   E(Y_2 - Y_1| R=0) = 3.6 \mbox{kg},
-\]
+$$
 which corresponds to 0.3kg regain per month after finishing the
 initial 6-month program.
 - We incorporate the sensitivity parameters in
 the distribution of $Y_2|Y_1, R=0$ via the following restriction:
-\[
+$$
   \Delta_{i2} + \mathbf x_{i2}^T \mathbf h_2^{(1)} + E(y_{i1}|R=0)(\beta_{y,1}^{(1)} +\eta_1^{(1)} - 1) = 3.6 \mbox{kg}.
-\]
+$$
 
 ---
 
