@@ -189,7 +189,7 @@ $$
 - Single quantile regression each time
 - Densities have their restrictive mode at the quantile of interest, which is not appropriate when extreme quantiles are being investigated
 - Quantile lines monotonicity constraints
-- Joint inference is poor in borrowing information through single quantile regressions
+- Joint inference is poor since no borrowing information through single quantile regressions
 - Not coherent to pool from every individual quantile regression, because the sampling distribution of $Y$ for $\tau_1$ is usually different from that under quantile $\tau_2$ since they are assuming different error distribution under two different quantile regressions (<a href="">Tokdar & Kadane, 2011</a>)
 
 <!-- --- -->
@@ -1232,8 +1232,8 @@ where $\mathbf \xi_m = \big(\mathbf \gamma_j, \mathbf \beta_{y,   j-1}^{(\geq j)
 
 - MAR with no uncertainty:  $p(\mathbf \xi_s = \mathbf 0) \equiv 1$.
 - MAR with uncertainty:  $\textrm{E}(\mathbf \xi_s) = \mathbf \xi_{s0} = \mathbf 0$ with $\textrm{Var}(\mathbf \xi_s) \neq \mathbf 0$.
--  MNAR with no uncertainty, $\textrm{E}(\mathbf \xi_s) = \delta_{\xi}$, where $\delta_{\xi} \neq \mathbf 0$ and $\textrm{Var}(\mathbf \xi_s) = \mathbf 0$.
-- MNAR with uncertainty,  $\textrm{E}(\mathbf \xi_s) = \delta_{\xi}$, where $\delta_{\xi} \neq \mathbf 0 $ and $\textrm{Var}(\mathbf \xi_s) \neq \mathbf 0$.
+-  MNAR with no uncertainty, $\textrm{E}(\mathbf \xi_s) = \vee_{\xi}$, where $\vee_{\xi} \neq \mathbf 0$ and $\textrm{Var}(\mathbf \xi_s) = \mathbf 0$.
+- MNAR with uncertainty,  $\textrm{E}(\mathbf \xi_s) = \vee_{\xi}$, where $\vee_{\xi} \neq \mathbf 0 $ and $\textrm{Var}(\mathbf \xi_s) \neq \mathbf 0$.
 
 ---
 
@@ -1346,7 +1346,7 @@ $$
   \end{cases}.
 $$
 
-## Curse of Dimension
+## Curse of Dimensionality
 
 Each pattern $S = k$ has its own set of SP $\mathbf \xi_s^{(k)}$. However, to keep the number of SP at a manageable level, we assume $\mathbf \xi_s$ does not depend on pattern.
 
