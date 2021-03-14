@@ -1,0 +1,209 @@
+---
+title: Quantile Regression in the Presence of Monotone Missingness with Sensitivity
+  Analysis
+author: "Minzhao Liu"
+date: "3/10/2021"
+job         : 'Supervisor: Dr. Mike Daniels. Department of Statistics, University of Florida'
+license     : by-nc-sa
+bibliography: qr-introduction.bib 
+output: 
+#  revealjs::revealjs_presentation:
+#    smaller: true
+#    highlight: pygments
+#    theme: black
+#    center: false
+  ioslides_presentation:
+    widescreen: true
+    smaller: true
+  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+```
+
+# Outline
+
+- Introduction and Review
+- Model, Priors, and Computations
+- Simulations Study
+- Real Data Analysis
+- Conclusion 
+
+# Introduction
+
+## Why Quantile Regression
+
+<style>
+.container{
+    display: flex;
+}
+.col{
+    flex: 1;
+}
+</style>
+
+<div class="container">
+<div class="col">
+
+  ![](assets/img/engel.png)
+
+</div>
+
+<div class="col">
+  - Engel data on food expenditure vs household income for a sample of 235 19th century working class Belgian households.
+  - $\tau$: 5%, 10%, 25%, 75%, 90%, 95%
+  - Median regression
+  - Mean regression
+  - Increasing trend from mean regression
+  - More info from QR
+    - Slope change
+    - Skewness
+  - Less sensitive to heterogeneity and outliers
+
+</div>
+
+</div>
+
+## Introduction of Quantile Regression {.build}
+
+### Quantile (unconditional)
+
+$$
+Q_{Y}(\tau) = \inf \{y: F(y) \geq \tau \},
+$$
+
+### Quantile Regression (conditional with covariates)
+
+$$
+Q_{Y}(\tau|\mathbf x) = \mathbf x' \beta(\tau).
+$$
+
+### Quantile Regression vs Mean Regression
+
+>- More information about the relationship of covariates and responses
+>- Slope may vary for different quantiles
+>- Can focus on certain quantiles as estimates of interest
+>- More complete description of the conditional distribution
+
+
+## Traditional Frequentist Methods
+
+- R package `quantreg` 
+- Using simplex for linear programming problems mentioned in [@koenker1982] 
+$$
+\mathbf \beta(\tau) = \arg \min_b \sum_{i=1}^{n} \rho_{\tau}(y_{i} - \mathbf x_{i}' b)
+$$
+* No distributional assumptions
+* Fast using linear programming
+* Asymptotic inference may not be accurate for small sample sizes
+* Easy to generalize:
+  * Random effects
+  * $L_1$ , $L_2$ penalties
+
+## Bayesian Methods 
+
+- [@yu2001]: asymmetric Laplace distribution (ALD) for QR under Bayesian framework
+- [@hanson2002]: mixture of Polya tree prior for median regression on survival time in AFT model
+- [@kottas2009]: semi-parametric QR models using mixtures of DP for the error distribution
+- [@reich2010]: an infinite mixture of two Gaussian densities for error
+
+## Common Issues
+
+- Single quantile regression each time
+- Densities have their restrictive mode at the quantile of interest, which is not appropriate when extreme quantiles are being investigated
+- Quantile lines monotonicity constraints
+- Joint inference is poor since no borrowing information through single quantile regressions
+- Not coherent to pool from every individual quantile regression, because the sampling distribution of $Y$ for $\tau_1$ is usually different from that under quantile $\tau_2$ since they are assuming different error distribution under two different quantile regressions [@tokdar2011]
+
+
+## My Thesis
+
+1. Bayesian Quantile Regression Using a Mixture of Polya Trees Priors
+2. **Quantile Regression in the Presence of Monotone Missingness with Sensitivity Analysis**
+3. Quantile Regression with Monotone Missingness using Finite Mixture of Normals
+4. Bayesian Approach with Dirichlet Process Mixture
+
+
+# Quantile Regression in the Presence of Monotone Missingness with Sensitivity Analysis
+
+## Monotone Missingness
+
+A missing data pattern is monotone if, for each individual, there exists a measurement occasion $j$
+such that and $R_1= ..= R_{j-1} = 1$ and $R_j = R_{j+1} = ... = R_{J} = 0$; that is, all responses are
+observed through time $j-1$, and no responses are observed thereafter. $S$ is called *follow-up*
+time.
+
+SUBJECT | T1       | T2 | T3| T4| S
+--------|----------|----|---|---|---
+Subject 1| $Y_{11}$ | $Y_{12}$ |  | | 2
+Subject 2| $Y_{21}$ | $Y_{22}$ |  $Y_{23}$ | $Y_{24}$ | 4
+
+- Assumption: $Y_{i1}$ is always observed.
+- Interested: $\tau$-th **marginal** quantile regression coefficients $\gamma_j = (\gamma_{j1}, \gamma_{j2}, ..., \gamma_{jp})^T$,
+$$
+\Pr(Y_{ij} \le \mathbf{x}^{T}_{i} \gamma_j) = \tau, \textrm{for } j = 1, ..., J,
+$$
+$$
+p_k(Y) = p(Y|S = k), p_{\ge k}(Y) = p(Y | S \ge k)
+$$
+
+## Pattern Mixture Model
+
+- Mixture models factor the joint distribution of response and missingness as
+$$
+  p (\mathbf y, \mathbf S |\mathbf x, \mathbf \omega) = p (\mathbf y|\mathbf S, \mathbf x, \mathbf \omega) p (\mathbf S | \mathbf x, \mathbf \omega).
+$$
+- The full-data response distribution is given by
+$$
+  p (\mathbf y | \mathbf x, \mathbf \omega) = \sum_{S \in \mathcal{S}} p(\mathbf y| \mathbf S, \mathbf x, \mathbf \theta) p (\mathbf S | \mathbf x, \mathbf \phi),
+$$
+where $\mathcal{S}$ is the sample space for dropout time $S$ and the parameter vector $\mathbf \omega$ is partitioned as $(\mathbf \theta, \mathbf \phi)$.
+- Furthermore, the conditional distribution of response within patterns can be decomposed as
+$$
+  P (Y_{obs}, Y_{mis} | \mathbf S, \mathbf \theta) = P
+  (Y_{mis}|Y_{obs}, \mathbf S, \mathbf \theta_E) P(Y_{obs} | \mathbf S, \mathbf
+  \theta_{y, O}),
+$$
+
+- $\mathbf \theta_E$:  extrapolation distribution
+- $\mathbf \theta_{y, O}$ : distribution of observed responses
+
+## Model Settings
+
+- Multivariate normal distributions within each pattern
+$$
+  \begin{array}{l}
+      \displaystyle Y_{i1}|S_i=k \sim \mbox{N}(\Delta_{i1} +  \mathbf{x_{i}^T\beta_1^{(k)}}, \sigma) , k = 1, \ldots, J,\\
+       \displaystyle        Y_{ij}|\mathbf Y_{ij^{-}}, S_i=k \sim
+      \begin{cases}
+        \mbox{N} (\Delta_{ij} + \mathbf y_{ij^{-}}^T \mathbf \beta_{y,j-1}, \sigma), & k \geq j ;  \\
+        \mbox{N} (\chi(\mathbf x_{i}, \mathbf y_{ij^{-}}), \sigma), & k < j ;  \\
+      \end{cases}, \mbox{ for } 2 \leq j \leq J,  \\
+       S_{i} = k \sim \textrm{Multinomial}(1, \mathbf \phi),
+ \end{array}
+$$
+
+- The marginal quantile regression models:
+$$
+  Pr (Y_{ij} \leq \mathbf x_{ij}^T \mathbf \gamma_j ) = \tau,
+$$
+- $\chi(\mathbf x_i, \mathbf y_{ij^-})$ is the mean of the unobserved data distribution and allows sensitivity analysis by varying assumptions on $\chi$. For computational reasons, we assume that $\chi$ is linear in $y_{ij^{-}}$.
+
+- Here we specify
+$$
+\chi(\mathbf x_i, \mathbf y_{ij^-}) = \Delta_{ij} + \mathbf y_{ij^{-}}^T \mathbf \beta_{y,j-1} + h_0^{(k)}
+$$
+
+
+
+
+
+# References
+
+***
+
+<div id="refs"></div>
+
+
