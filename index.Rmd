@@ -34,6 +34,14 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ## {data-background="assets/img/xmind.png"}
 
+<div class="notes">
+
+1. give introduction and review on , present existing methods, common issues
+2. demonstrate our method, first start with ; then what we propose for the error distribution;
+and how we embed the marginal QR in the settings;     and what's the computation difficulty; and how we deal with MAR and MNAR; then illustrate what simulation we did  ; and how it was applied on real data analysis
+3. finally conclusion/summary will be provided. 
+
+</div>
 
 ## Introduction: Why Quantile Regression
 
@@ -63,16 +71,13 @@ knitr::opts_chunk$set(echo = FALSE)
     - Slope change
     - Skewness
   - Less sensitive to heterogeneity and outliers
+  - More complete description of the conditional distribution
 
 </div>
 
 </div>
 
 <div class="notes">
-This is my *note*.
-
-- It can contain markdown
-- like this list
 </div>
 
 ## Introduction of Quantile Regression 
@@ -90,12 +95,11 @@ Q_{Y}(\tau|\mathbf x) = \mathbf x' \beta(\tau).
 $$
 
 
-### Quantile Regression vs Mean Regression
-
-- More information about the relationship of covariates and responses
-- Slope may vary for different quantiles
-- Can focus on certain quantiles as estimates of interest
-- More complete description of the conditional distribution
+<div class="notes">
+- here's the definitions for tao's quantile 
+- when we do regression, we want to find the best coefficient $\gamma$ so that the linear predictor is responses'  tao's quantile 
+- since we can do various quantile regression on the same data, we may get more complete .. or get a whole picture than a single mean regression
+</div>
 
 
 ## Traditional Frequentist Methods
@@ -114,6 +118,14 @@ $$
   * Random effects
   * $L_1$ , $L_2$ penalties
 
+<div class="notes">
+- Now we came to existing method for QR. the most common way for freq method is the quantreg package as in Koenker 1982
+- it does not assume any distribution assumption and just use smplext to find the estimates minimizing the target function. 
+- it's fast using linear programming
+- but its asymptotic inferce 
+- on the other hand, it's easy to generalize the application, for example, we may add random effects, or add L1, or L2 penalities like LASSO
+</div>
+
 ## Bayesian Methods 
 
 - [@yu2001]: asymmetric Laplace distribution (ALD) for QR under Bayesian framework
@@ -126,16 +138,19 @@ $$
 - Single quantile regression each time
 - Densities have their restrictive mode at the quantile of interest, which is not appropriate when extreme quantiles are being investigated
 - Quantile lines monotonicity constraints
-- Joint inference is poor since no borrowing information through single quantile regressions
+- Joint inference is poor since it does not borrow information through single quantile regressions
 - Not coherent to pool from every individual quantile regression, because the sampling distribution of $Y$ for $\tau_1$ is usually different from that under quantile $\tau_2$ since they are assuming different error distribution under two different quantile regressions [@tokdar2011]
 
+<div class="notes">
+- Asymmetric Laplace distribution = RQ
+- here is the general introduction and summaries. next we will move to our main topic
+</div>
 
 ## My Thesis
 
 1. Bayesian Quantile Regression Using a Mixture of Polya Trees Priors
-2. **Quantile Regression in the Presence of Monotone Missingness with Sensitivity Analysis**
-3. Quantile Regression with Monotone Missingness using Finite Mixture of Normals
-4. Bayesian Approach with Dirichlet Process Mixture
+2. **Quantile Regression in the Presence of Monotone Missingness with Sensitivity Analysis using Finite Mixture of Normals**
+3. Bayesian Approach with Dirichlet Process Mixture
 
 
 ## Monotone Missingness
@@ -159,6 +174,14 @@ $$
 p_k(Y) = p(Y|S = k), p_{\ge k}(Y) = p(Y | S \ge k)
 $$
 
+<div class="notes">
+- concepts/Framework/settings/definition , familiar, but still refresh memories. 
+- relative to intermittent missing data
+- drop out time
+- notations; subscription
+</div>
+
+
 ## Pattern Mixture Model
 
 - Mixture models factor the joint distribution of response and missingness as
@@ -180,32 +203,48 @@ $$
 - $\mathbf \theta_E$:  extrapolation distribution
 - $\mathbf \theta_{y, O}$ : distribution of observed responses
 
-## Model Settings
+<div class="notes">
+- next concept is  (PMM)
+- relative to intermittent missing data
+- drop out time
+- notations; subscription
+</div>
 
-- Multivariate normal distributions within each pattern
+## Our Model Settings
+
+- Sequential finite ($K$) mixture of normal distributions (MN) within each pattern
+- Finite ($K$) mixture of normal distributions (MN) 
+$$
+p(x|\mathbf \theta) = \sum_{i = 1}^K \omega_i \phi_N(x; \mu_i, \sigma_i^2),
+$$
+
+- For simplicity, we may assume a single normal with each pattern just for illustration
 $$
   \begin{array}{l}
-      \displaystyle Y_{i1}|S_i=k \sim \mbox{N}(\Delta_{i1} +  \mathbf{x_{i}^T\beta_1^{(k)}}, \sigma) , k = 1, \ldots, J,\\
+      \displaystyle Y_{i1}|S_i=k \sim \mbox{MN}(\Delta_{i1} +  \mathbf{x_{i}^T\beta_1^{(k)}}, \sigma) , k = 1, \ldots, J,\\
        \displaystyle        Y_{ij}|\mathbf Y_{ij^{-}}, S_i=k \sim
       \begin{cases}
-        \mbox{N} (\Delta_{ij} + \mathbf y_{ij^{-}}^T \mathbf \beta_{y,j-1}, \sigma), & k \geq j ;  \\
-        \mbox{N} (\chi(\mathbf x_{i}, \mathbf y_{ij^{-}}), \sigma), & k < j ;  \\
+        \mbox{MN} (\Delta_{ij} + \mathbf y_{ij^{-}}^T \mathbf \beta_{y,j-1}, \sigma), & k \geq j ;  \\
+        \mbox{MN} (\chi(\mathbf x_{i}, \mathbf y_{ij^{-}}), \sigma), & k < j ;  \\
       \end{cases}, \mbox{ for } 2 \leq j \leq J,  \\
        S_{i} = k \sim \textrm{Multinomial}(1, \mathbf \phi),
  \end{array}
 $$
 
-- In general case, we assume a finite mixture of normals with each pattern
+- $\chi(\mathbf x_i, \mathbf y_{ij^-})$ is the mean of the unobserved data distribution and allows sensitivity analysis by varying assumptions on $\chi$. For computational reasons, we assume that $\chi$ is linear in $y_{ij^{-}}$.
+
+$$
+\chi(\mathbf x_i, \mathbf y_{ij^-}) = \Delta_{ij} + \mathbf y_{ij^{-}}^T \mathbf \beta_{y,j-1} + h_0^{(k)}
+$$
+
+## Our Model Settings | Embed Marginal Quantile Regression Coefficients
+
 - The marginal quantile regression models:
 $$
   Pr (Y_{ij} \leq \mathbf x_{ij}^T \mathbf \gamma_j ) = \tau,
 $$
-- $\chi(\mathbf x_i, \mathbf y_{ij^-})$ is the mean of the unobserved data distribution and allows sensitivity analysis by varying assumptions on $\chi$. For computational reasons, we assume that $\chi$ is linear in $y_{ij^{-}}$.
 
-- Here we specify
-$$
-\chi(\mathbf x_i, \mathbf y_{ij^-}) = \Delta_{ij} + \mathbf y_{ij^{-}}^T \mathbf \beta_{y,j-1} + h_0^{(k)}
-$$
+
 
 
 ## Identifiability/Over-parametrization?
@@ -215,15 +254,15 @@ following restrictions (without loss of generality),
 $$
  \sum_{k=1}^J \beta_{1l}^{(k)} = 0.
 $$
-<!-- - Also in order to not confound the marginal quantile regression parameters, -->
-<!-- we put the following constraint on the parameters $\mathbf\theta$ in the mixture of normal distribution, -->
-<!-- $$ -->
-<!-- \sum_{l= 1}^K \omega_{l}\mu_{l} = 0. -->
-<!-- $$ -->
+- Also in order to not confound the marginal quantile regression parameters,
+we put the following constraint on the parameters $\mathbf\theta$ in the mixture of normal distribution,
+$$
+\sum_{l= 1}^K \omega_{l}\mu_{l} = 0.
+$$
 
 ## $\Delta$
 
-$\Delta_{ij}$ are subject/time specific intercepts determined by the parameters in the model and are determined by marginal quantile regressions $\Delta_{ij} \sim (\tau, \mathbf x_{i},
+$\Delta_{ij}$ are subject/time specific intercepts implicitly determined by the parameters in the model and are determined by marginal quantile regressions $\Delta_{ij} \sim (\tau, \mathbf x_{i},
 \mathbf \beta, \mathbf h, \mathbf \theta, \mathbf \gamma_j, \mathbf \phi)$ , 
 
 $$
@@ -247,7 +286,9 @@ $$
 \end{align}
 $$
 
-## Computation/Setup/Refresh
+
+
+## Idea Recap
 
 <!-- setup -->
 <!-- recall -->
@@ -260,10 +301,14 @@ $$
 - Use the BIC criterion to select the number of components in
 the mixture of normals
 
-## Calculation of $\Delta$ ($j=1$)
+## Computation | Calculation of $\Delta$ ($j=1$)
 
-- $\Delta_{i1}$:
-
+$\Delta_{i1}$:
+if we expand the constraint, 
+$$
+\tau = p(Y_{ij} \leq \mathbf x_{i}^T \mathbf \gamma_j ) = \sum_{k=1}^J
+  \phi_kp_k (Y_{ij} \leq \mathbf x_{i}^T \mathbf \gamma_j ) \mbox{  for  } j = 1,
+$$
 $$
     \tau = \sum_{k = 1}^J \phi_k \left( \sum_{l = 1}^{K} \omega_{l} \Phi \left( \frac{\mathbf x_{i}^T
         \mathbf \gamma_1 - \Delta_{i1} -\mathbf{x_i^T \beta_1^{(k)}} - \mu_{l}}{ \sigma_{l} } \right) \right).
@@ -273,7 +318,22 @@ $$
   standard numerical root-finding method (e.g. bisection method) with
   minimal difficulty.
 
-## Calculation of $\Delta$ ($j>1$) | Lemma 1
+## Computation |  Calculation of $\Delta$ ($j>1$) 
+
+$$
+\begin{align}
+  \tau &= p(Y_{ij} \leq \mathbf x_{i}^{T} \mathbf \gamma_j ) =
+  \sum_{k=1}^J
+  \phi_k p_k (Y_{ij} \leq \mathbf x_{i}^{T} \mathbf \gamma_j ) \\
+  & = \sum_{k=1}^J \phi_k \int\cdots \int p_k (Y_{ij} \leq \mathbf
+  x_{i}^{T} \mathbf \gamma_j | \mathbf y_{ij^{-}}
+  ) p_k (y_{i(j-1)}| \mathbf y_{i(j-1)^{-}})  \nonumber \\
+  & \quad \cdots pr_k (y_{i2}| y_{i1}) pr_k(y_{i1})
+  dy_{i(j-1)}\cdots dy_{i1}.  \mbox{  for  } j = 2, \ldots, J .\nonumber
+\end{align}
+$$
+
+## Computation |  Calculation of $\Delta$ ($j>1$) | Lemma 1
 
 An integral of a normal CDF with mean $b$ and standard deviation
 $a$ over another normal distribution with mean $\mu$ and standard
@@ -296,7 +356,7 @@ where $\Phi(x; \mu, \sigma)$ stands for a CDF of normal
   simplified to single normal CDF. Thus we can easily solve for
   $\Delta_{ij}$ using standard numerical root-finding method as for $j= 1$.
 
-## MLE
+## Computation | MLE
 
 - The observed data likelihood for an individual $i$ with follow-up time
 $S_i = k$ is
@@ -311,7 +371,7 @@ $$
 where $\mathbf y_i = (y_{i1}, \ldots, y_{ik})$.
 
 - To facilitate computation of the $\Delta$'s and the likelihood, we propose the tricky way in the previous slides to obtain analytic forms for the required integrals.
-- However, it could still be computational intensive, thus we call Fortran in R function to compute the main part
+- However, it could still be computational intensive, thus we call Fortran in R function to compute the main part to speed up
 - Use the bootstrap to construct confidence interval and make inferences.
 
 
@@ -324,7 +384,7 @@ $$
 $$
 
 - The finite mixture of normals distribution makes model flexible and accommodates
-heavy tails, skewness, and multi-modality.(Above illustration specifies single normal within each pattern for demonstration purpose)
+heavy tails, skewness, and multi-modality. 
 - The mixture model also allows sensitivity analysis for the missing data, say MNAR.
 
 ## Missing Data Mechanism and Sensitivity Analysis
@@ -336,6 +396,12 @@ for incomplete patterns, in particular, the extrapolation distribution
 $$
 p_k(y_j|y_1, \ldots, y_{j-1}) = p_{\geq j}(y_j|y_1, \ldots, y_{j-1}).
 $$
+
+<div class="notes">
+$$
+S = 1 , P_{S=1}(Y_2 | Y_1) \mbox{ is unknown and } = P_{S=2} ( Y_2 | Y_1)
+$$
+</div>
 
 
 ## Sensitivity Analysis
@@ -355,8 +421,12 @@ $$
 of sensitivity parameters (@dh2008).
 - $\mathbf \xi_s = \mathbf \xi_{s0} = \mathbf 0$, MAR holds.
 - $\mathbf \xi_s$ is fixed at $\mathbf \xi_s \neq \mathbf \xi_{s0}$, MNAR. 
-- We can vary $\mathbf \xi_s$ around $\mathbf 0$ to examine the impact of different MNAR mechanisms
+- We can vary $\mathbf \xi_s$ around $\mathbf 0$ to examine the impact of different MNAR assumptions
 
+<div class="notes">
+- Y components are beyond the observed ones; i.e not observed, 
+
+</div>
 
 ## Simulation | Comparator 
 
@@ -365,9 +435,9 @@ of sensitivity parameters (@dh2008).
   - does not accommodate MAR or MNAR missingness
 - Bottai's algorithm (@bottai2013) [Denote as BZ]
   - no distributional assumption
-  - impute missing outcomes using the estimated conditional quantiles of missing outcomes given observed data
   - assumes MAR missingness, but does not allow MNAR missingness
-
+  - impute missing outcomes using the estimated conditional quantiles of missing outcomes given observed data
+  
 ## Simulation | Settings
 
 - Bivariate responses: $Y_{i1}$ were always observed, while some of $Y_{i2}$ were missing.
@@ -390,7 +460,7 @@ has the lowest MSE for almost all regression coefficients
 
 - large gains over *rq*, especially for each marginal quantile of $Y_2$ under missingness
 - BZ does much better than rq function for missing data because it imputes missing responses under MAR
-- Advantages over BZ for inference on most quantile regressions even when the tails of
+- Advantages over BZ for inference on most quantile regressions especially when the tails of
 the distribution are non-standard (e.g., heavy tails and skewness) since we assume a
 multivariate mixture of normals distribution for each component in the pattern mixture
 model
@@ -472,7 +542,12 @@ response and missingness
 missing data
 - Extended to Bayesian framework with Dirichlet Process mixture model
 
-## References
+## References 
+
+<style>
+slides > slide { overflow: scroll; }
+
+</style>
 
 <div id="refs"></div>
 
