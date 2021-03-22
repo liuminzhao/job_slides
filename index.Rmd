@@ -445,7 +445,7 @@ of sensitivity parameters (@dh2008).
   1. $Y_2$ were missing at random and we used the MAR assumption in our algorithm.
   2. $Y_2$ were missing not at random, we misspecified the MDM for our algorithm and still assumed MAR,
   3. $Y_2$ were missing not at random, we used the correct MNAR MDM,
-- For each scenario, we considered four error distributions: normal, student t distribution with 3 degrees of freedom, Laplace distribution. 
+- For each scenario, we considered three error distributions: normal, student t distribution with 3 degrees of freedom, Laplace distribution. 
 - For each dataset, we fit quantile regression for quantiles $\tau =$ 0.1, 0.3, 0.5, 0.7, 0.9.
 - Comparison Criteria: Mean squared error
 $$
